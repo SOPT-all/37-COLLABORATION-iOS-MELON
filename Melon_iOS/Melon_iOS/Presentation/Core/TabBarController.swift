@@ -116,6 +116,20 @@ private func resizeImage(image: UIImage) -> UIImage {
     UIGraphicsEndImageContext()
     
     return newImage ?? image
+//MARK: - Extensions
+
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        guard let index = viewControllers?.firstIndex(of: viewController) else {
+            return true
+        }
+        
+        switch Tab(rawValue: index) {
+        case .home, .forYou: return true
+        case .search, .drawer, .shortCut: return false
+        case .none: return true
+        }
+    }
 }
 
 
