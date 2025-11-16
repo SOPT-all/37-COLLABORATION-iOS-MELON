@@ -20,7 +20,7 @@ extension UIView {
     
     let gradientLayer = CAGradientLayer()
     gradientLayer.colors = [
-      UIColor(hexCode: "495263").cgColor,
+      UIColor.bluegray.cgColor,
       UIColor.gray500.cgColor,
       UIColor.background.cgColor
     ]
