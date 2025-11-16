@@ -21,7 +21,7 @@ extension UIView {
     
     
     gradientLayer.colors = [
-      UIColor(hexCode: "495263"),
+      UIColor(hexCode: "495263").cgColor,
       UIColor.gray500.cgColor,
       UIColor.background.cgColor
     ]
