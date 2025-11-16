@@ -211,14 +211,14 @@ final class ProgressBar: UIView {
     private func configureIcons() {
         switch style {
         case .normal:
-            backIconView.image = UIImage(named: "ic_back")?.withRenderingMode(.alwaysTemplate)
-            playIconView.image = UIImage(named: "ic_play")?.withRenderingMode(.alwaysTemplate)
-            frontIconView.image = UIImage(named: "ic_front")?.withRenderingMode(.alwaysTemplate)
+            backIconView.image = UIImage(named: "ic_back_32")?.withRenderingMode(.alwaysTemplate)
+            playIconView.image = UIImage(named: "ic_play_32")?.withRenderingMode(.alwaysTemplate)
+            frontIconView.image = UIImage(named: "ic_front_32")?.withRenderingMode(.alwaysTemplate)
             
         case .mixup:
-            backIconView.image = UIImage(named: "ic_big_back")?.withRenderingMode(.alwaysTemplate)
-            playIconView.image = UIImage(named: "ic_big_play")?.withRenderingMode(.alwaysTemplate)
-            frontIconView.image = UIImage(named: "ic_big_front")?.withRenderingMode(.alwaysTemplate)
+            backIconView.image = UIImage(named: "ic_back_48")?.withRenderingMode(.alwaysTemplate)
+            playIconView.image = UIImage(named: "ic_play_64")?.withRenderingMode(.alwaysTemplate)
+            frontIconView.image = UIImage(named: "ic_front_48")?.withRenderingMode(.alwaysTemplate)
         }
     }
 }
