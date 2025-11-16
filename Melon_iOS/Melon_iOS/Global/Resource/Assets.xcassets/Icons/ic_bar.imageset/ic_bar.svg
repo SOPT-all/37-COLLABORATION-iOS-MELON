@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22 21C22 21.5523 20.8807 22 19.5 22C18.1193 22 17 21.5523 17 21V15H22V21Z" fill="#3C894C"/>
+<path d="M8 21C8 21.5523 6.88071 22 5.5 22C4.11929 22 3 21.5523 3 21V11H8V21Z" fill="#56BD4D"/>
+<ellipse cx="19.5" cy="15" rx="2.5" ry="1" fill="#5FCB75"/>
+<path d="M15 21C15 21.5523 13.8807 22 12.5 22C11.1193 22 10 21.5523 10 21V3H15V21Z" fill="#80DF43"/>
+<ellipse cx="12.5" cy="3" rx="2.5" ry="1" fill="#C7F79C"/>
+<ellipse cx="5.5" cy="11" rx="2.5" ry="1" fill="#77EC77"/>
+</svg>
