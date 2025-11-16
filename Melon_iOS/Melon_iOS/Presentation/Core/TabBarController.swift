@@ -68,6 +68,7 @@ final class TabBarController: UITabBarController {
     //MARK: - Private Methods
     
     private func setViewControllers() {
+        let topMargin: CGFloat = 7.0
         self.viewControllers = Tab.allCases.map { tab in
             let vc = tab.viewController
             
@@ -76,6 +77,7 @@ final class TabBarController: UITabBarController {
             
             let tabBarItem = UITabBarItem(title: nil, image: icon, selectedImage: selectedIcon)
             tabBarItem.tag = tab.rawValue
+            tabBarItem.imageInsets = UIEdgeInsets(top: topMargin, left: 0, bottom: -topMargin, right: 0)
             vc.tabBarItem = tabBarItem
             return vc
         }
@@ -96,7 +98,7 @@ final class TabBarController: UITabBarController {
     
     
     private func resizeImage(image: UIImage) -> UIImage {
-        let targetSize = CGSize(width: 24, height: 24)
+        let targetSize = CGSize(width: 48, height: 48)
         let size = image.size
         
         let widthRatio  = targetSize.width  / size.width
