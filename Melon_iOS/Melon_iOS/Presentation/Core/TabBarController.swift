@@ -8,6 +8,49 @@
 import UIKit
 
 final class TabBarController: UITabBarController {
+
+    enum Tab: Int, CaseIterable {
+        case home = 0
+        case forYou
+        case search
+        case drawer
+        case shortCut
+        
+        var title: String {
+            switch self {
+            case .home: return "홈"
+            case .forYou: return "ForYou"
+            case .search: return "탐색"
+            case .drawer: return "음악서랍"
+            case .shortCut: return "바로가기"
+            }
+        }
+        
+        var imageName: UIImage {
+            switch self {
+            case .home: return .btnHomeDefault
+            case .forYou: return .btnForyouDefault
+            case .search: return .btnSearch
+            case .drawer: return .btnDrawer
+            case .shortCut: return .btnShortcut
+            }
+        }
+        
+        var viewController: UIViewController {
+            switch self {
+            case .home:
+                return ViewController()
+            case .forYou:
+                return ViewController()
+            case .search:
+                return ViewController()
+            case .drawer:
+                return ViewController()
+            case .shortCut:
+                return ViewController()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,26 +60,17 @@ final class TabBarController: UITabBarController {
     }
     
     private func setViewControllers() {
-        
-        let homeVC = ViewController()
-        let forYouVC = ViewController()
-        let searchVC = ViewController()
-        let drawerVC = ViewController()
-        let shortCutVC = ViewController()
-        
-        let homeIcon = resizeImage(image: .btnHomeDefault)
-        let forYouIcon = resizeImage(image: .btnForyouDefault)
-        let searchIcon = resizeImage(image: .btnSearch)
-        let drawerIcon = resizeImage(image: .btnDrawer)
-        let shortCutIcon = resizeImage(image: .btnShortcut)
-        
-        homeVC.tabBarItem = UITabBarItem(title: "홈", image: homeIcon, tag: 0)
-        forYouVC.tabBarItem = UITabBarItem(title: "ForYou", image: forYouIcon, tag: 1)
-        searchVC.tabBarItem = UITabBarItem(title: "탐색", image: searchIcon, tag: 2)
-        drawerVC.tabBarItem = UITabBarItem(title: "음악서랍", image: drawerIcon, tag: 3)
-        shortCutVC.tabBarItem = UITabBarItem(title: "바로가기", image: shortCutIcon, tag: 4)
-        
-        self.viewControllers = [homeVC, forYouVC, searchVC, drawerVC, shortCutVC]
+        self.viewControllers = Tab.allCases.map { tab in
+            let vc = tab.viewController
+            let icon = resizeImage(image: tab.imageName)
+            
+            vc.tabBarItem = UITabBarItem(
+                title: tab.title,
+                image: icon,
+                tag: tab.rawValue
+            )
+            return vc
+        }
     }
     
     private func setTabBarAppearance() {
