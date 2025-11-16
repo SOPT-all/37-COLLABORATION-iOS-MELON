@@ -16,6 +16,7 @@ extension UIFont {
         case body_b_14
         case body_m_14
         case body_r_14
+        case caption_m_12
         case caption_r_12
         case caption_m_10
         case caption_sb_8
@@ -35,7 +36,7 @@ extension UIFont.PretendardStyle {
         case .heading_b_20: return 20
         case .body_sb_16: return 16
         case .body_b_14, .body_m_14, .body_r_14: return 14
-        case .caption_r_12: return 12
+        case .caption_m_12, .caption_r_12: return 12
         case .caption_m_10: return 10
         case .caption_sb_8: return 8
         }
@@ -47,7 +48,7 @@ extension UIFont.PretendardStyle {
             return "Pretendard-Bold"
         case .body_sb_16, .caption_sb_8:
             return "Pretendard-SemiBold"
-        case .body_m_14, .caption_m_10:
+        case .body_m_14, .caption_m_12, .caption_m_10:
             return "Pretendard-Medium"
         case .body_r_14, .caption_r_12:
             return "Pretendard-Regular"
