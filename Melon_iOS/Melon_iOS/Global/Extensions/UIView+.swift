@@ -18,17 +18,22 @@ extension UIView {
   // UIViewController : viewDidLayoutSubviews
   func applyBaeminGradient3() {
     let gradientLayer = CAGradientLayer()
-      
+    
+    
     gradientLayer.colors = [
+      UIColor(hexCode: "495263"),
       UIColor.gray500.cgColor,
-      UIColor.background.cgColor,
+      UIColor.background.cgColor
     ]
     
-    gradientLayer.locations = [0.53, 1.0]
+    gradientLayer.locations = [
+      0.0,   // 0%
+      0.53,  // 53%
+      1.0    // 100%
+    ]
     
-    gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-    gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-    
+    gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0) // 상단 중앙
+    gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)   // 하단 중앙
     
     self.layer.addSublayer(gradientLayer)
     gradientLayer.frame = self.bounds
