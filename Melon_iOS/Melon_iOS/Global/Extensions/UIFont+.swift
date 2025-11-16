@@ -21,22 +21,9 @@ extension UIFont {
         case caption_sb_8
     }
     
-    static func pretendard(_ style: PretendardStyle, text: String) -> NSAttributedString {
-        let font = UIFont(name: style.fontName, size: style.size)
+    static func pretendard(_ style: PretendardStyle) -> UIFont {
+        UIFont(name: style.fontName, size: style.size)
         ?? .systemFont(ofSize: style.size)
-        
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.minimumLineHeight = style.lineHeight
-        paragraph.maximumLineHeight = style.lineHeight
-        
-        let attributed = NSMutableAttributedString(string: text)
-        attributed.addAttributes([
-            .font: font,
-            .kern: style.letterSpacing,
-            .paragraphStyle: paragraph
-        ], range: NSMakeRange(0, attributed.length))
-        
-        return attributed
     }
 }
 
@@ -47,9 +34,7 @@ extension UIFont.PretendardStyle {
         case .title_b_24: return 24
         case .heading_b_20: return 20
         case .body_sb_16: return 16
-        case .body_b_14: return 14
-        case .body_m_14: return 14
-        case .body_r_14: return 14
+        case .body_b_14, .body_m_14, .body_r_14: return 14
         case .caption_r_12: return 12
         case .caption_m_10: return 10
         case .caption_sb_8: return 8
@@ -70,11 +55,10 @@ extension UIFont.PretendardStyle {
     }
     
     var letterSpacing: CGFloat {
-        return size * -0.01
+        size * -0.01
     }
     
     var lineHeight: CGFloat {
-        return size * 1.5
+        size * 1.5
     }
 }
-
