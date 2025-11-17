@@ -74,6 +74,8 @@ final class NowPlayingTrackView: UIView {
             musicInfoStackView,
             menuIconView
         )
+        
+        checkboxButton.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
     }
     
     private func setupLayout() {
@@ -101,5 +103,11 @@ final class NowPlayingTrackView: UIView {
             $0.centerY.equalTo(checkboxButton)
             $0.size.equalTo(24)
         }
+    }
+    
+    // MARK: - Actions
+
+    @objc private func didTapCheckbox() {
+        checkboxButton.isSelected.toggle()
     }
 }
