@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Kingfisher
 import SnapKit
 import Then
 
@@ -24,7 +25,7 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     private let albumImageView = UIImageView().then {
         $0.backgroundColor = .gray200
         $0.layer.cornerRadius = 4
-        $0.layer.masksToBounds = true
+        $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
     }
     
@@ -52,13 +53,17 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
     
     override func setUI() {
+        
         musicInfoStackView.addArrangedSubviews(musicTitleLabel, artistNameLabel)
+        
         contentView.addSubviews(
             checkboxButton,
             albumImageView,
             musicInfoStackView,
             menuIconView
         )
+
+        checkboxButton.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
     }
 
     override func setLayout() {
@@ -87,14 +92,29 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
             $0.size.equalTo(24)
         }
     }
+    
+    // MARK: - Actions
+
+    @objc private func didTapCheckbox() {
+        checkboxButton.isSelected.toggle()
+    }
 }
 
 // MARK: - Configure
 
 extension MixUpListViewCell {
-    func configure(title: String, artist: String, image: UIImage?) {
+    func configure(title: String, artist: String, imageUrl: String?) {
         musicTitleLabel.text = title
         artistNameLabel.text = artist
-        albumImageView.image = image
+        
+        if let imageUrl,
+           let url = URL(string: imageUrl) {
+            albumImageView.kf.setImage(
+                with: URL(string: imageUrl),
+                placeholder: UIImage(named: "img_mixup_default")
+            )
+        } else {
+            albumImageView.image = UIImage(named: "img_mixup_default")
+        }
     }
 }
