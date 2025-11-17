@@ -5,4 +5,87 @@
 //  Created by 조영서 on 11/15/25.
 //
 
-// 여기에쓰거라
+import UIKit
+
+import SnapKit
+
+final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
+
+    // MARK: - Properties
+    
+    private let mixUpView = MixUpView()
+    private let service = MockMixUpService()
+    private var music: [MixUpResponseDTO] = []
+
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupCollectionView()
+        loadData()
+    }
+
+    // MARK: - Setup Methods
+    
+    override func setUI() {
+        view.addSubview(mixUpView)
+    }
+
+    override func setLayout() {
+        mixUpView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+
+    private func setupCollectionView() {
+        let cv = mixUpView.mixUpListView.collectionView
+        cv.dataSource = self
+        cv.delegate = self
+        cv.register(
+            MixUpListViewCell.self,
+            forCellWithReuseIdentifier: MixUpListViewCell.reuseIdentifier
+        )
+    }
+
+    // MARK: - API Calls
+    
+    private func loadData() {
+        Task {
+            do {
+                music = try await service.fetchSongs()
+                mixUpView.mixUpListView.collectionView.reloadData()
+            } catch {
+                print("❌ Error fetching songs: \(error)")
+            }
+        }
+    }
+}
+
+// MARK: - Extension
+
+extension MixUpViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return music.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: MixUpListViewCell.reuseIdentifier,
+            for: indexPath
+        ) as? MixUpListViewCell else {
+            return UICollectionViewCell()
+        }
+
+        let item = music[indexPath.item]
+        cell.configure(
+            title: item.title,
+            artist: item.artist,
+            imageUrl: item.imageUrl
+        )
+        return cell
+    }
+}

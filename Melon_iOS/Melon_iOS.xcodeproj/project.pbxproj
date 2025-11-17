@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3A5E47542EC79976007C2E8A /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5E47532EC79976007C2E8A /* Then */; };
 		3A5E47572EC79982007C2E8A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3A5E47562EC79982007C2E8A /* SnapKit */; };
+		3A77CFE42ECB0B800088C454 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3A77CFE32ECB0B800088C454 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A77CFE42ECB0B800088C454 /* Kingfisher in Frameworks */,
 				3A5E47542EC79976007C2E8A /* Then in Frameworks */,
 				3A5E47572EC79982007C2E8A /* SnapKit in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				3A5E47532EC79976007C2E8A /* Then */,
 				3A5E47562EC79982007C2E8A /* SnapKit */,
+				3A77CFE32ECB0B800088C454 /* Kingfisher */,
 			);
 			productName = Melon_iOS;
 			productReference = 3A5E46B02EC7962F007C2E8A /* Melon_iOS.app */;
@@ -119,6 +122,7 @@
 			packageReferences = (
 				3A5E47522EC79976007C2E8A /* XCRemoteSwiftPackageReference "Then" */,
 				3A5E47552EC79982007C2E8A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				3A77CFE22ECB0B800088C454 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3A5E46B12EC7962F007C2E8A /* Products */;
@@ -366,6 +370,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		3A77CFE22ECB0B800088C454 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.6.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -378,6 +390,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3A5E47552EC79982007C2E8A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		3A77CFE32ECB0B800088C454 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A77CFE22ECB0B800088C454 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
