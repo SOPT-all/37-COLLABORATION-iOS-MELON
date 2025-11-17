@@ -14,7 +14,7 @@ final class NowPlayingTrackView: UIView {
     
     // MARK: - UI Components
     
-    private let checkboxButton = UIButton().then {
+    private let checkboxButton = UIButton(type: .custom).then {
         $0.setImage(UIImage(named: "ic_checkbox_default"), for: .normal)
         $0.setImage(UIImage(named: "ic_checkbox_selected"), for: .selected)
         $0.tintColor = .gray200
