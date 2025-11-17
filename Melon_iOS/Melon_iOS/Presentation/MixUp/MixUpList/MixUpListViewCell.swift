@@ -1,5 +1,5 @@
 //
-//  MixupListViewCell.swift
+//  MixUpListViewCell.swift
 //  Melon_iOS
 //
 //  Created by 조영서 on 11/17/25.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class MixupListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
+final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     
     // MARK: - UI Components
     
@@ -91,7 +91,7 @@ final class MixupListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
 
 // MARK: - Configure
 
-extension MixupListViewCell {
+extension MixUpListViewCell {
     func configure(title: String, artist: String, image: UIImage?) {
         musicTitleLabel.text = title
         artistNameLabel.text = artist
