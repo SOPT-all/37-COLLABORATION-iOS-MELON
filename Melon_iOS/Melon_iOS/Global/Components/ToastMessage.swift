@@ -13,10 +13,11 @@ import Then
 final class ToastMessage: UIView {
  
   // MARK: - Properties
-  //변수
+  
   private var action: (() -> Void)?
   
   // MARK: - UI Components
+  
   private lazy var messageLabel = UILabel().then {
     $0.text = "믹스업에 추가되었어요"
     $0.textColor = .white
@@ -31,6 +32,7 @@ final class ToastMessage: UIView {
   }
 
   // MARK: - Lifecycle
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setUI()
@@ -42,12 +44,13 @@ final class ToastMessage: UIView {
   }
 
   // MARK: - Setup Methods
+  
   func setUI() {
     backgroundColor = .neonpink
     layer.cornerRadius = 8
     clipsToBounds = true
     
-    self.addSubviews(messageLabel, actionButton)
+    addSubviews(messageLabel, actionButton)
   }
   
   func setLayout() {
@@ -59,7 +62,7 @@ final class ToastMessage: UIView {
     
     actionButton.snp.makeConstraints {
       $0.centerY.equalToSuperview()
-      $0.trailing.equalToSuperview().offset(-16)
+      $0.trailing.equalToSuperview().inset(16)
       $0.width.equalTo(25)
       $0.height.equalTo(21)
     }
@@ -69,7 +72,7 @@ final class ToastMessage: UIView {
     self.snp.makeConstraints {
       $0.height.equalTo(49)
       $0.horizontalEdges.equalToSuperview().inset(16)
-      $0.bottom.equalToSuperview().offset(-156)
+      $0.bottom.equalToSuperview().inset(78)
     }
     dissmissToastMessage()
   }
@@ -79,11 +82,13 @@ final class ToastMessage: UIView {
   }
 
   // MARK: - Actions
+  
   @objc func actionButtonTapped() {
     action?()
   }
 
   // MARK: - Private Methods
+  
   private func dissmissToastMessage() {
     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
       UIView.animate(withDuration: 0.3, animations: {
