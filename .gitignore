@@ -41,3 +41,5 @@ Hilingual/App/Config/*.xcconfig
 
 ### Tools ###
 iOSInjectionProject/
+
+Melon_iOS/Melon_iOS.xcodeproj/project.pbxproj
