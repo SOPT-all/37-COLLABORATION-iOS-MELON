@@ -16,7 +16,11 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     super.viewDidLoad()
     self.view.backgroundColor = .background
     self.view = compView
+    
     compView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    compView.collectionView.register(
+      NavigationItemCell.self,
+      forCellWithReuseIdentifier: NavigationItemCell.reuseIdentifier())
     
     compView.collectionView.delegate = self
     compView.collectionView.dataSource = self
@@ -70,22 +74,33 @@ extension HomeViewController: UICollectionViewDataSource {
     }
   }
   
+  // 커스텀 셀 등록
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-    
-    // 섹션별 테마 색상으로 배경색 설정
-    if let sectionType = SectionType(rawValue: indexPath.section) {
-        cell.backgroundColor = sectionType.backgroundColor
-    } else {
-        cell.backgroundColor = .lightGray
+          
+    guard let sectionType = SectionType(rawValue: indexPath.section) else {
+      fatalError("Invalid section index")
     }
     
-    return cell
+    // 섹션 타입에 따라 다른 셀을 사용하도록 분기
+    switch sectionType {
+    case .navigation:
+      guard let cell = collectionView.dequeueReusableCell(
+        withReuseIdentifier: NavigationItemCell.reuseIdentifier(),
+        for: indexPath
+      ) as? NavigationItemCell else {
+        fatalError("Cannot dequeue NavigationSectionCell")
+      }
+      return cell
+    default:
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+      cell.backgroundColor = sectionType.backgroundColor
+      return cell
+    }
   }
   
+  // 섹션 타입에 따라 Header와 Footer 등록
   func collectionView(
     _ collectionView: UICollectionView,
     viewForSupplementaryElementOfKind kind: String,
