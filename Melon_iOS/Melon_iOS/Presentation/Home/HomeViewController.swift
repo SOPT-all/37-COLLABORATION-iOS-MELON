@@ -21,6 +21,9 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     compView.collectionView.register(
       NavigationItemCell.self,
       forCellWithReuseIdentifier: NavigationItemCell.reuseIdentifier())
+    compView.collectionView.register(
+      PreferenceItemCell.self,
+      forCellWithReuseIdentifier: PreferenceItemCell.reuseIdentifier())
     
     compView.collectionView.delegate = self
     compView.collectionView.dataSource = self
@@ -67,7 +70,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     switch sectionType {
     case .navigation: return 1
-    case .header: return 1
+    case .preference: return 1
     case .latest: return 10 // API 연동
     case .chart: return 12
     default : return 9
@@ -93,6 +96,15 @@ extension HomeViewController: UICollectionViewDataSource {
         fatalError("Cannot dequeue NavigationSectionCell")
       }
       return cell
+    case .preference:
+      guard let cell = collectionView.dequeueReusableCell(
+        withReuseIdentifier: PreferenceItemCell.reuseIdentifier(),
+        for: indexPath
+      ) as? PreferenceItemCell else {
+        fatalError("Cannot dequeue NavigationSectionCell")
+      }
+      return cell
+
     default:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
       cell.backgroundColor = sectionType.backgroundColor

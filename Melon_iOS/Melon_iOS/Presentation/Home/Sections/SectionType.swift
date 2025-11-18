@@ -8,12 +8,12 @@
 import UIKit
 
 enum SectionType: Int, CaseIterable {
-  case navigation, header, personalized, popular, banner, latest, chart
+  case navigation, preference, personalized, popular, banner, latest, chart
   
   var backgroundColor: UIColor {
     switch self {
     case .navigation: return UIColor.systemRed.withAlphaComponent(0.8)
-    case .header: return UIColor.systemBlue.withAlphaComponent(0.8)
+    case .preference: return UIColor.systemBlue.withAlphaComponent(0.8)
     case .personalized: return UIColor.systemYellow.withAlphaComponent(0.8)
     case .popular: return UIColor.systemGreen.withAlphaComponent(0.8)
     case .banner: return UIColor.systemOrange.withAlphaComponent(0.8)
@@ -25,7 +25,7 @@ enum SectionType: Int, CaseIterable {
   var section: NSCollectionLayoutSection {
     switch self {
     case .navigation: return createNavigationSectionLayout()
-    case .header: return createHeaderSectionLayout()
+    case .preference: return createPreferenceSectionLayout()
     case .personalized: return createPersonalizedSectionLayout()
     case .popular: return createPopularSectionLayout()
     case .banner: return createBannerSectionLayout()
@@ -50,7 +50,7 @@ enum SectionType: Int, CaseIterable {
     return section
   }
   
-  func createHeaderSectionLayout() -> NSCollectionLayoutSection {
+  func createPreferenceSectionLayout() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                           heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -61,7 +61,7 @@ enum SectionType: Int, CaseIterable {
     
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .none
-    section.contentInsets = .zero
+    section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 20, bottom: 0, trailing: 20)
     
     return section
   }
