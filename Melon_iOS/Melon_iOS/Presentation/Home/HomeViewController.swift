@@ -24,6 +24,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     compView.collectionView.cellRegister(EmptyCollectionViewCell.self)
     compView.collectionView.cellRegister(NavigationItemCell.self)
     compView.collectionView.cellRegister(PreferenceItemCell.self)
+    compView.collectionView.cellRegister(PersonalizedItemCell.self)
     
     // Section Header 등록
     compView.collectionView.headerRegister(EmptyReusableView.self)
@@ -43,7 +44,7 @@ extension HomeViewController: UICollectionViewDataSource {
   
   // 섹션 수
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-      return SectionType.allCases.count
+    return SectionType.allCases.count
   }
   
   // 섹션별 아이템 수
@@ -58,6 +59,7 @@ extension HomeViewController: UICollectionViewDataSource {
     switch sectionType {
     case .navigation: return 1
     case .preference: return 1
+    case .personalized: return PersonalizedService.mockData.count
     case .latest: return 10 // API 연동
     case .chart: return 12
     default : return 9
@@ -68,7 +70,7 @@ extension HomeViewController: UICollectionViewDataSource {
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-          
+    
     guard let sectionType = SectionType(rawValue: indexPath.section) else {
       fatalError("Invalid section index")
     }
@@ -79,6 +81,10 @@ extension HomeViewController: UICollectionViewDataSource {
       return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
     case .preference:
       let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
+      return cell
+    case .personalized:
+      let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
+      cell.configure(data: PersonalizedService.mockData[indexPath.row])
       return cell
     default:
       let cell = collectionView.dequeueReusableCell(
