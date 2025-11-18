@@ -10,7 +10,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class LatestSectionHeader: UICollectionReusableView {
+final class LatestSectionHeader: BaseUICollectionReusableView {
+  
+  // MARK: - Custom Type
   
   enum LatestMusicButtonType {
     case all
@@ -20,7 +22,9 @@ final class LatestSectionHeader: UICollectionReusableView {
   
   private var action: ((LatestMusicButtonType) -> Void)?
   
-  let label = UILabel().then {
+  // MARK: - UI Components
+  
+  private let label = UILabel().then {
     $0.font = UIFont.pretendard(.heading_b_20)
     $0.textColor = .white
     $0.text = "최신음악"
@@ -58,13 +62,13 @@ final class LatestSectionHeader: UICollectionReusableView {
     self.action = action
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    addSubview(label)
-    addSubview(allButon)
-    addSubview(domesticButton)
-    addSubview(overseasButton)
-    addSubview(seeAllButton)
+  // MARK: - Setup Methods
+  
+  override func setUI() {
+    addSubviews(label, allButon, domesticButton, overseasButton, seeAllButton)
+  }
+  
+  override func setLayout() {
     label.snp.makeConstraints {
       $0.centerY.leading.equalToSuperview()
     }
@@ -88,10 +92,8 @@ final class LatestSectionHeader: UICollectionReusableView {
       $0.centerY.trailing.equalToSuperview()
     }
   }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  
+  // MARK: - Actions
   
   @objc private func didTapAllButton() {
     allButon.isSelected = true

@@ -12,7 +12,7 @@ import UIKit
 import SnapKit
 import Then
 
-class HomeView: UIView {
+class HomeView: BaseUIView {
   
   private lazy var backgroundView = UIView().then {
     $0.backgroundColor = .background
@@ -25,21 +25,19 @@ class HomeView: UIView {
     return col
   }()
   
-  // MARK: - Lifecycle
+  // MARK: - Setup Methods
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  override func setUI() {
     addSubviews(backgroundView, collectionView)
+  }
+  
+  override func setLayout() {
     backgroundView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
     collectionView.snp.makeConstraints { make in
       make.edges.equalTo(safeAreaLayoutGuide)
     }
-  }
-  
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: - Private Methods

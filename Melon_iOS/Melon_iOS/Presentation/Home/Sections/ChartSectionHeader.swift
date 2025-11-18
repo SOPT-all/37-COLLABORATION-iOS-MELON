@@ -10,17 +10,19 @@ import UIKit
 import SnapKit
 import Then
 
-final class ChartSectionHeader: UICollectionReusableView {
+final class ChartSectionHeader: BaseUICollectionReusableView {
   
   private let titleFrame = UIView()
   
-  let standardTime = UILabel().then {
+  // MARK: - UI Components
+  
+  private let standardTime = UILabel().then {
     $0.font = UIFont.pretendard(.body_b_14)
     $0.textColor = .gray200
     $0.text = "오늘 10시 기준"
   }
   
-  let label = UILabel().then {
+  private let label = UILabel().then {
     $0.font = UIFont.pretendard(.heading_b_20)
     $0.textColor = .white
     $0.text = "멜론차트"
@@ -32,13 +34,16 @@ final class ChartSectionHeader: UICollectionReusableView {
     $0.setTitleColor(.gray200, for: .normal)
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  // MARK: - Setup Methods
+  
+  override func setUI() {
     addSubview(titleFrame)
     titleFrame.addSubview(standardTime)
     titleFrame.addSubview(label)
     titleFrame.addSubview(seeAllButton)
-    
+  }
+  
+  override func setLayout() {
     titleFrame.snp.makeConstraints {
       $0.height.equalTo(53)
       $0.top.horizontalEdges.equalToSuperview()
@@ -58,8 +63,5 @@ final class ChartSectionHeader: UICollectionReusableView {
       $0.centerY.trailing.equalToSuperview()
     }
   }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  
 }

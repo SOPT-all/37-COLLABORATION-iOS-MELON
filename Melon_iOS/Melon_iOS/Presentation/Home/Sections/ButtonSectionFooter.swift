@@ -10,7 +10,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class ButtonSectionFooter: UICollectionReusableView {
+final class ButtonSectionFooter: BaseUICollectionReusableView {
+  
+  // MARK: - UI Components
   
   private lazy var playButton = UIButton().then {
     $0.backgroundColor = .gray500
@@ -32,11 +34,14 @@ final class ButtonSectionFooter: UICollectionReusableView {
     $0.font = UIFont.pretendard(.body_m_14)
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  // MARK: - Setup Methods
+  
+  override func setUI() {
     addSubview(playButton)
     playButton.addSubview(hStack)
-    
+  }
+  
+  override func setLayout() {
     playButton.snp.makeConstraints {
       $0.bottom.horizontalEdges.equalToSuperview()
       $0.height.equalTo(44)
@@ -51,10 +56,6 @@ final class ButtonSectionFooter: UICollectionReusableView {
     playIconImageView.snp.makeConstraints { make in
       make.size.equalTo(24)
     }
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
   func configure(title: String) {

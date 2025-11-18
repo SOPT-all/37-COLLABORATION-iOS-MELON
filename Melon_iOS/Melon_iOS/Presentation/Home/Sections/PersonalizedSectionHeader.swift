@@ -10,9 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-final class PersonalizedSectionHeader: UICollectionReusableView {
+final class PersonalizedSectionHeader: BaseUICollectionReusableView {
   
-  let label = UILabel().then {
+  // MARK: - UI Components
+  
+  private let label = UILabel().then {
     $0.font = UIFont.pretendard(.heading_b_20)
     $0.textColor = .white
     $0.text = "사용자님을 위한 추천"
@@ -24,10 +26,14 @@ final class PersonalizedSectionHeader: UICollectionReusableView {
     $0.setTitleColor(.gray200, for: .normal)
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  // MARK: - Setup Methods
+  
+  override func setUI() {
     addSubview(label)
     addSubview(seeAllButton)
+  }
+  
+  override func setLayout() {
     label.snp.makeConstraints {
       $0.centerY.leading.equalToSuperview()
     }
@@ -35,10 +41,6 @@ final class PersonalizedSectionHeader: UICollectionReusableView {
     seeAllButton.snp.makeConstraints {
       $0.centerY.trailing.equalToSuperview()
     }
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
   }
   
 }

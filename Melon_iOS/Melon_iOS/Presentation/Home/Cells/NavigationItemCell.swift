@@ -12,6 +12,8 @@ import Then
 
 final class NavigationItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
+  // MARK: - UI Components
+  
   private lazy var melonLogo = UIImageView().then {
     $0.image = UIImage.icLogo
   }
@@ -25,7 +27,9 @@ final class NavigationItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
   }
-    
+  
+  // MARK: - Setup Methods
+  
   override func setUI() {
     addSubviews(melonLogo, perkButton, cashButton)
   }
