@@ -10,6 +10,7 @@
 import UIKit
 
 final class HomeViewController: UIViewController, UICollectionViewDelegate {
+  
   let compView = HomeView()
   
   override func viewDidLoad() {
@@ -25,6 +26,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     compView.collectionView.cellRegister(NavigationItemCell.self)
     compView.collectionView.cellRegister(PreferenceItemCell.self)
     compView.collectionView.cellRegister(PersonalizedItemCell.self)
+    compView.collectionView.cellRegister(PopularItemCell.self)
     
     // Section Header 등록
     compView.collectionView.headerRegister(EmptyReusableView.self)
@@ -60,6 +62,7 @@ extension HomeViewController: UICollectionViewDataSource {
     case .navigation: return 1
     case .preference: return 1
     case .personalized: return PersonalizedService.mockData.count
+    case .popular: return PopularSongService.mockData.count
     case .latest: return 10 // API 연동
     case .chart: return 12
     default : return 9
@@ -85,6 +88,18 @@ extension HomeViewController: UICollectionViewDataSource {
     case .personalized:
       let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
       cell.configure(data: PersonalizedService.mockData[indexPath.row])
+      return cell
+    case .popular:
+      let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
+      cell.configure(PopularSongService.mockData[indexPath.row]) { [weak self] in
+        let toast = ToastMessage()
+          self?.compView.addSubview(toast)
+          toast.configure(action: {
+            print("toast message action button tapped")
+          })
+          toast.show()
+      }
+      
       return cell
     default:
       let cell = collectionView.dequeueReusableCell(
@@ -179,6 +194,105 @@ extension HomeViewController: UICollectionViewDataSource {
     fatalError("Missing supplementary view logic for kind: \(kind)")
   }
 
+}
+
+class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
+  
+  // MARK: - Properties
+  private var action: (() -> Void)?
+  
+  // MARK: - UI Components
+  
+  private lazy var imageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFill
+    $0.clipsToBounds = true
+    $0.backgroundColor = .background2
+    $0.layer.cornerRadius = 4
+    $0.image = .imgMixup4
+  }
+  
+  private lazy var infoStackView = UIStackView().then {
+    $0.axis = .vertical
+    $0.spacing = 4
+  }
+  
+  private lazy var sourceLabel = UILabel().then {
+    $0.font = UIFont.pretendard(.caption_r_12)
+    $0.textColor = .gray200
+  }
+  
+  private lazy var titleLabel = UILabel().then {
+    $0.font = UIFont.pretendard(.body_r_14)
+    $0.textColor = .white
+  }
+  
+  private lazy var artistLabel = UILabel().then {
+    $0.font = UIFont.pretendard(.caption_r_12)
+    $0.textColor = .gray200
+  }
+  
+  private lazy var mixUpButton = UIButton().then {
+    $0.setImage(.icMixup36, for: .normal)
+    $0.addTarget(self, action: #selector(mixUpButtonTapped), for: .touchUpInside)
+  }
+  
+  // MARK: - Setup Methods
+  
+  override func setUI() {
+    addSubviews(imageView, infoStackView, mixUpButton)
+    infoStackView.addArrangedSubviews(sourceLabel, titleLabel, artistLabel)
+  }
+  
+  override func setLayout() {
+    imageView.snp.makeConstraints {
+      $0.leading.verticalEdges.equalToSuperview()
+      $0.width.equalTo(imageView.snp.height)
+    }
+    
+    infoStackView.snp.makeConstraints {
+      $0.leading.equalTo(imageView.snp.trailing).offset(12)
+      $0.centerY.equalToSuperview()
+    }
+    
+    mixUpButton.snp.makeConstraints {
+      $0.size.equalTo(36)
+      $0.trailing.equalToSuperview().inset(-12)
+      $0.centerY.equalToSuperview()
+    }
+  }
+  
+  func configure(_ data: PopularSongDTO, action: (() -> Void)? = nil) {
+    sourceLabel.text = data.source
+    titleLabel.text = data.title
+    artistLabel.text = data.artist
+    imageView.image = data.image
+    self.action = action
+  }
+  
+  @objc func mixUpButtonTapped() {
+    action!()
+  }
+  
+}
+
+final class PopularSongService { }
+
+extension PopularSongService {
+  static let mockData: [PopularSongDTO] = [
+    PopularSongDTO(title: "XOXZ", artist: "IVE (아이브)", source: "멜론DJ's Pick", image: .imgHome1),
+    PopularSongDTO(title: "Blue Valentine", artist: "NMIXX", source: "검색 트렌드", image: .imgHome2),
+    PopularSongDTO(title: "FOCUS", artist: "Hearts2Hearts(하츠투하츠)", source: "HOT100 7위", image: .imgHome3),
+    PopularSongDTO(title: "XOXZ", artist: "IVE (아이브)", source: "멜론DJ's Pick", image: .imgHome4),
+    PopularSongDTO(title: "Blue Valentine", artist: "NMIXX", source: "검색 트렌드", image: .imgHome5),
+    PopularSongDTO(title: "FOCUS", artist: "Hearts2Hearts(하츠투하츠)", source: "HOT100 7위", image: .imgHome6),
+  ]
+}
+
+struct PopularSongDTO {
+  let title: String
+  let artist: String
+  let source: String
+  let image: UIImage
 }
 
 #Preview {

@@ -72,7 +72,7 @@ final class ToastMessage: UIView {
     self.snp.makeConstraints {
       $0.height.equalTo(49)
       $0.horizontalEdges.equalToSuperview().inset(16)
-      $0.bottom.equalToSuperview().inset(78)
+      $0.bottom.equalToSuperview().inset(100)
     }
     dissmissToastMessage()
   }

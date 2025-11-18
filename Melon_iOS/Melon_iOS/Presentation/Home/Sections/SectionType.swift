@@ -99,11 +99,11 @@ enum SectionType: Int, CaseIterable {
   
   func createPopularSectionLayout() -> NSCollectionLayoutSection {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                          heightDimension: .fractionalHeight(0.3))
+                                          heightDimension: .absolute(57))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     
     let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(266),
-                                           heightDimension: .absolute(203))
+                                           heightDimension: .absolute(171 + 32))
     let group = NSCollectionLayoutGroup.vertical(
       layoutSize: groupSize,
       repeatingSubitem: item,
@@ -118,7 +118,7 @@ enum SectionType: Int, CaseIterable {
     // Header 지정
     let headerSize = NSCollectionLayoutSize(
         widthDimension: .fractionalWidth(1.0),
-        heightDimension: .estimated(50)
+        heightDimension: .estimated(100)
     )
     
     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
@@ -236,7 +236,7 @@ enum SectionType: Int, CaseIterable {
       
       let section = NSCollectionLayoutSection(group: group)
       section.orthogonalScrollingBehavior = .continuous
-      section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 20, trailing: 10)
+      section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
       section.interGroupSpacing = 10 // 그룹 간 간격
       
       return section
