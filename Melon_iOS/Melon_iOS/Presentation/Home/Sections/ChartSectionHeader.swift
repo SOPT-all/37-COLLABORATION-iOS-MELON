@@ -1,0 +1,64 @@
+//
+//  ChartSectionHeader.swift
+//  Melon_iOS
+//
+//  Created by 이승준 on 11/18/25.
+//
+
+import UIKit
+
+import SnapKit
+import Then
+
+final class ChartSectionHeader: UICollectionReusableView {
+  
+  private let titleFrame = UIView()
+  
+  let standardTime = UILabel().then {
+    $0.font = .systemFont(ofSize: 14, weight: .bold)
+    $0.textColor = .darkGray
+    $0.text = "오늘 10시 기준"
+  }
+  
+  let label = UILabel().then {
+    $0.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.text = "멜론차트"
+  }
+  
+  private lazy var seeAllButton = UIButton().then {
+    $0.setTitle("전체보기", for: .normal)
+    $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+    $0.setTitleColor(.darkGray, for: .normal)
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    addSubview(titleFrame)
+    titleFrame.addSubview(standardTime)
+    titleFrame.addSubview(label)
+    titleFrame.addSubview(seeAllButton)
+    
+    titleFrame.snp.makeConstraints {
+      $0.height.equalTo(53)
+      $0.top.horizontalEdges.equalToSuperview()
+    }
+    
+    standardTime.snp.makeConstraints {
+      $0.leading.equalToSuperview()
+      $0.top.equalToSuperview().offset(10)
+    }
+    
+    label.snp.makeConstraints {
+      $0.leading.equalToSuperview()
+      $0.top.equalTo(standardTime.snp.bottom)
+    }
+    
+    seeAllButton.snp.makeConstraints {
+      $0.centerY.trailing.equalToSuperview()
+    }
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
