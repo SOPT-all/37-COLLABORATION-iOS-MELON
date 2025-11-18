@@ -76,22 +76,10 @@ extension HomeViewController: UICollectionViewDataSource {
     // 섹션 타입에 따라 다른 셀을 사용하도록 분기
     switch sectionType {
     case .navigation:
-      guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: NavigationItemCell.reuseIdentifier,
-        for: indexPath
-      ) as? NavigationItemCell else {
-        fatalError("Cannot dequeue NavigationSectionCell")
-      }
-      return cell
+      return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
     case .preference:
-      guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: PreferenceItemCell.reuseIdentifier,
-        for: indexPath
-      ) as? PreferenceItemCell else {
-        fatalError("Cannot dequeue NavigationSectionCell")
-      }
+      let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
       return cell
-    
     default:
       let cell = collectionView.dequeueReusableCell(
         withReuseIdentifier: EmptyCollectionViewCell.reuseIdentifier,

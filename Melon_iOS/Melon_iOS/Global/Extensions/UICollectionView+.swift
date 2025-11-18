@@ -29,4 +29,17 @@ extension UICollectionView {
     )
   }
   
+  func dequeueReusableCell<T: UICollectionViewCell & ReuseIdentifiable>(
+    _ cellType: T.Type,
+    for indexPath: IndexPath
+  ) -> T {
+    guard let cell = self.dequeueReusableCell(
+        withReuseIdentifier: cellType.reuseIdentifier,
+        for: indexPath
+    ) as? T else {
+      return EmptyCollectionViewCell() as! T
+    }
+    return cell
+  }
+  
 }
