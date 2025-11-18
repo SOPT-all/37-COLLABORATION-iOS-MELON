@@ -6,50 +6,42 @@
 //
 
 // 여기에쓰거라
+
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController, UICollectionViewDelegate {
   let compView = HomeView()
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .background
     self.view = compView
     compView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-
+    
     compView.collectionView.delegate = self
     compView.collectionView.dataSource = self
     
     compView.collectionView.register(
       PersonalizedSectionHeader.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier()
-    )
+      withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier())
     compView.collectionView.register(
       PopularSectionHeader.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: PopularSectionHeader.reuseIdentifier()
-    )
+      withReuseIdentifier: PopularSectionHeader.reuseIdentifier())
     compView.collectionView.register(
       LatestSectionHeader.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: LatestSectionHeader.reuseIdentifier()
-    )
+      withReuseIdentifier: LatestSectionHeader.reuseIdentifier())
     compView.collectionView.register(
       ChartSectionHeader.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
       withReuseIdentifier: ChartSectionHeader.reuseIdentifier())
-    
     compView.collectionView.register(
       ButtonSectionFooter.self,
       forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
       withReuseIdentifier: ButtonSectionFooter.reuseIdentifier())
   }
-  
-  
-}
-
-extension HomeViewController: UICollectionViewDelegate {
   
 }
 
@@ -59,16 +51,16 @@ extension HomeViewController: UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
       return SectionType.allCases.count
   }
-
+  
   // 섹션별 아이템 수
   func collectionView(
     _ collectionView: UICollectionView,
-    numberOfItemsInSection section: Int) -> Int
-  {
+    numberOfItemsInSection section: Int) -> Int {
+    
     guard let sectionType = SectionType(rawValue: section) else {
       return 0
     }
-      
+    
     switch sectionType {
     case .navigation: return 1
     case .header: return 1
@@ -80,8 +72,8 @@ extension HomeViewController: UICollectionViewDataSource {
   
   func collectionView(
     _ collectionView: UICollectionView,
-    cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-  {
+    cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
     
     // 섹션별 테마 색상으로 배경색 설정
@@ -103,7 +95,7 @@ extension HomeViewController: UICollectionViewDataSource {
     guard let sectionType = SectionType(rawValue: indexPath.section) else {
         fatalError("Invalid section index")
     }
-
+    
     switch sectionType {
     case .personalized:
       if kind == UICollectionView.elementKindSectionHeader {
@@ -114,7 +106,6 @@ extension HomeViewController: UICollectionViewDataSource {
         ) as? PersonalizedSectionHeader else {
             fatalError("Cannot dequeue PersonalizedSectionHeader")
         }
-
         return header
       }
     case .popular:
@@ -137,7 +128,7 @@ extension HomeViewController: UICollectionViewDataSource {
         ) as? LatestSectionHeader else {
             fatalError("Cannot dequeue LatestSectionHeader")
         }
-        header.configure(action: { type in
+        header.configure(action: { type in // API 호출 코드 작성
           switch type {
           case .all:
             print("모든 곡이 선택되었습니다.")
@@ -167,6 +158,7 @@ extension HomeViewController: UICollectionViewDataSource {
         ) as? ButtonSectionFooter else {
             fatalError("Cannot dequeue ChartSectionFooter")
         }
+        footer.configure(title: "TOP 100 전체듣기")
         return footer
       }
     default:

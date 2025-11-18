@@ -6,12 +6,17 @@
 //
 
 // 여기에쓰거라
+
 import UIKit
 
 import SnapKit
 import Then
 
 class HomeView: UIView {
+  
+  private lazy var backgroundView = UIView().then {
+    $0.backgroundColor = .background
+  }
   
   lazy var collectionView: UICollectionView = {
     let layout = createLayout()
@@ -24,7 +29,10 @@ class HomeView: UIView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    self.addSubview(collectionView)
+    addSubviews(backgroundView, collectionView)
+    backgroundView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
     collectionView.snp.makeConstraints { make in
       make.edges.equalTo(safeAreaLayoutGuide)
     }

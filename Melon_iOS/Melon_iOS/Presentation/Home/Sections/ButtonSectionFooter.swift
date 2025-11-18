@@ -13,21 +13,52 @@ import Then
 final class ButtonSectionFooter: UICollectionReusableView {
   
   private lazy var playButton = UIButton().then {
-    $0.backgroundColor = .darkGray
+    $0.backgroundColor = .gray500
+    $0.clipsToBounds = true
+    $0.layer.cornerRadius = 4
+  }
+  
+  private lazy var hStack = UIStackView().then {
+    $0.axis = .horizontal
+    $0.spacing = 4
+  }
+  
+  private lazy var playIconImageView = UIImageView().then {
+    $0.image = .icPlay24
+  }
+  
+  private lazy var playTitleLabel = UILabel().then {
+    $0.textColor = .white
+    $0.font = UIFont.pretendard(.body_m_14)
   }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     addSubview(playButton)
+    playButton.addSubview(hStack)
     
     playButton.snp.makeConstraints {
-      $0.centerY.horizontalEdges.equalToSuperview()
+      $0.bottom.horizontalEdges.equalToSuperview()
       $0.height.equalTo(44)
+    }
+    
+    hStack.snp.makeConstraints {
+      $0.height.equalTo(24)
+      $0.center.equalToSuperview()
+    }
+    
+    hStack.addArrangedSubviews(playIconImageView, playTitleLabel)
+    playIconImageView.snp.makeConstraints { make in
+      make.size.equalTo(24)
     }
   }
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  func configure(title: String) {
+    playTitleLabel.text = title
   }
   
 }

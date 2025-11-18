@@ -21,35 +21,37 @@ final class LatestSectionHeader: UICollectionReusableView {
   private var action: ((LatestMusicButtonType) -> Void)?
   
   let label = UILabel().then {
-    $0.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.font = UIFont.pretendard(.heading_b_20)
+    $0.textColor = .white
     $0.text = "최신음악"
   }
   
   private lazy var allButon = UIButton().then {
+    $0.isSelected = true
     $0.setTitle("전체", for: .normal)
-    $0.setTitleColor(UIColor.darkGray, for: .normal)
-    $0.setTitleColor(UIColor.green, for: .selected)
+    $0.setTitleColor(.gray200, for: .normal)
+    $0.setTitleColor(.primary, for: .selected)
     $0.addTarget(self, action: #selector(didTapAllButton), for: .touchUpInside)
   }
   
   private lazy var domesticButton = UIButton().then {
     $0.setTitle("국내", for: .normal)
-    $0.setTitleColor(UIColor.darkGray, for: .normal)
-    $0.setTitleColor(UIColor.green, for: .selected)
+    $0.setTitleColor(.gray200, for: .normal)
+    $0.setTitleColor(.primary, for: .selected)
     $0.addTarget(self, action: #selector(didTapDomesticButton), for: .touchUpInside)
   }
   
   private lazy var overseasButton = UIButton().then {
     $0.setTitle("해외", for: .normal)
-    $0.setTitleColor(UIColor.darkGray, for: .normal)
-    $0.setTitleColor(UIColor.green, for: .selected)
+    $0.setTitleColor(.gray200, for: .normal)
+    $0.setTitleColor(.primary, for: .selected)
     $0.addTarget(self, action: #selector(didTapOverseasButton), for: .touchUpInside)
   }
   
   private lazy var seeAllButton = UIButton().then {
     $0.setTitle("전체보기", for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-    $0.setTitleColor(.darkGray, for: .normal)
+    $0.titleLabel?.font = UIFont.pretendard(.body_m_14)
+    $0.setTitleColor(.gray200, for: .normal)
   }
   
   func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
@@ -92,23 +94,23 @@ final class LatestSectionHeader: UICollectionReusableView {
   }
   
   @objc private func didTapAllButton() {
-    allButon.isSelected.toggle()
+    allButon.isSelected = true
     domesticButton.isSelected = false
     overseasButton.isSelected = false
-    self.action!(.all)
+    action!(.all)
   }
   
   @objc private func didTapDomesticButton() {
-    domesticButton.isSelected.toggle()
     allButon.isSelected = false
+    domesticButton.isSelected = true
     overseasButton.isSelected = false
-    self.action!(.domestic)
+    action!(.domestic)
   }
   
   @objc private func didTapOverseasButton() {
-    overseasButton.isSelected.toggle()
     allButon.isSelected = false
     domesticButton.isSelected = false
-    self.action!(.overseas)
+    overseasButton.isSelected = true
+    action!(.overseas)
   }
 }

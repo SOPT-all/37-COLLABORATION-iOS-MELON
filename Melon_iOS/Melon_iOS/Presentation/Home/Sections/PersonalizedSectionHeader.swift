@@ -13,14 +13,15 @@ import Then
 final class PersonalizedSectionHeader: UICollectionReusableView {
   
   let label = UILabel().then {
-    $0.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.font = UIFont.pretendard(.heading_b_20)
+    $0.textColor = .white
     $0.text = "사용자님을 위한 추천"
   }
   
   private lazy var seeAllButton = UIButton().then {
     $0.setTitle("전체보기", for: .normal)
     $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-    $0.setTitleColor(.darkGray, for: .normal)
+    $0.setTitleColor(.gray200, for: .normal)
   }
   
   override init(frame: CGRect) {

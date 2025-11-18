@@ -13,7 +13,8 @@ import Then
 final class PopularSectionHeader: UICollectionReusableView {
   
   let label = UILabel().then {
-    $0.font = .systemFont(ofSize: 20, weight: .bold)
+    $0.font = UIFont.pretendard(.heading_b_20)
+    $0.textColor = .white
     $0.text = "인기 선곡"
   }
   

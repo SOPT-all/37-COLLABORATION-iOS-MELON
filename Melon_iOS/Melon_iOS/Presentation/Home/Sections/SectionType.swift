@@ -213,7 +213,7 @@ enum SectionType: Int, CaseIterable {
    
     // Footer 지정
     let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                            heightDimension: .estimated(44))
+                                            heightDimension: .estimated(64))
     
     let sectionFooter = NSCollectionLayoutBoundarySupplementaryItem(
       layoutSize: footerSize,
