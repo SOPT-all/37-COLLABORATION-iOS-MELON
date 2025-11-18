@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class LatestSectionHeader: BaseUICollectionReusableView {
+final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
   // MARK: - Custom Type
   

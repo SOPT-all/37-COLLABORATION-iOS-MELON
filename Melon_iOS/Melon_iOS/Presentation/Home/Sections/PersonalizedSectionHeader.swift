@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class PersonalizedSectionHeader: BaseUICollectionReusableView {
+final class PersonalizedSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
   // MARK: - UI Components
   

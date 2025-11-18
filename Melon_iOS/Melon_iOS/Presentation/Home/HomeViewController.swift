@@ -17,37 +17,24 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     self.view.backgroundColor = .background
     self.view = compView
     
-    compView.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-    compView.collectionView.register(
-      NavigationItemCell.self,
-      forCellWithReuseIdentifier: NavigationItemCell.reuseIdentifier())
-    compView.collectionView.register(
-      PreferenceItemCell.self,
-      forCellWithReuseIdentifier: PreferenceItemCell.reuseIdentifier())
-    
     compView.collectionView.delegate = self
     compView.collectionView.dataSource = self
     
-    compView.collectionView.register(
-      PersonalizedSectionHeader.self,
-      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier())
-    compView.collectionView.register(
-      PopularSectionHeader.self,
-      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: PopularSectionHeader.reuseIdentifier())
-    compView.collectionView.register(
-      LatestSectionHeader.self,
-      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: LatestSectionHeader.reuseIdentifier())
-    compView.collectionView.register(
-      ChartSectionHeader.self,
-      forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: ChartSectionHeader.reuseIdentifier())
-    compView.collectionView.register(
-      ButtonSectionFooter.self,
-      forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
-      withReuseIdentifier: ButtonSectionFooter.reuseIdentifier())
+    // Collection Cell 등록
+    compView.collectionView.cellRegister(EmptyCollectionViewCell.self)
+    compView.collectionView.cellRegister(NavigationItemCell.self)
+    compView.collectionView.cellRegister(PreferenceItemCell.self)
+    
+    // Section Header 등록
+    compView.collectionView.headerRegister(EmptyReusableView.self)
+    compView.collectionView.headerRegister(PersonalizedSectionHeader.self)
+    compView.collectionView.headerRegister(PopularSectionHeader.self)
+    compView.collectionView.headerRegister(LatestSectionHeader.self)
+    compView.collectionView.headerRegister(ChartSectionHeader.self)
+    
+    // Section Footer 등록
+    compView.collectionView.footerRegister(ButtonSectionFooter.self)
+    
   }
   
 }
@@ -90,7 +77,7 @@ extension HomeViewController: UICollectionViewDataSource {
     switch sectionType {
     case .navigation:
       guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: NavigationItemCell.reuseIdentifier(),
+        withReuseIdentifier: NavigationItemCell.reuseIdentifier,
         for: indexPath
       ) as? NavigationItemCell else {
         fatalError("Cannot dequeue NavigationSectionCell")
@@ -98,15 +85,18 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .preference:
       guard let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: PreferenceItemCell.reuseIdentifier(),
+        withReuseIdentifier: PreferenceItemCell.reuseIdentifier,
         for: indexPath
       ) as? PreferenceItemCell else {
         fatalError("Cannot dequeue NavigationSectionCell")
       }
       return cell
-
+    
     default:
-      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+      let cell = collectionView.dequeueReusableCell(
+        withReuseIdentifier: EmptyCollectionViewCell.reuseIdentifier,
+        for: indexPath
+      )
       cell.backgroundColor = sectionType.backgroundColor
       return cell
     }
@@ -128,7 +118,7 @@ extension HomeViewController: UICollectionViewDataSource {
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier(),
+            withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier,
             for: indexPath
         ) as? PersonalizedSectionHeader else {
             fatalError("Cannot dequeue PersonalizedSectionHeader")
@@ -139,7 +129,7 @@ extension HomeViewController: UICollectionViewDataSource {
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: PopularSectionHeader.reuseIdentifier(),
+            withReuseIdentifier: PopularSectionHeader.reuseIdentifier,
             for: indexPath
         ) as? PopularSectionHeader else {
             fatalError("Cannot dequeue PopularSectionHeader")
@@ -150,7 +140,7 @@ extension HomeViewController: UICollectionViewDataSource {
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: LatestSectionHeader.reuseIdentifier(),
+            withReuseIdentifier: LatestSectionHeader.reuseIdentifier,
             for: indexPath
         ) as? LatestSectionHeader else {
             fatalError("Cannot dequeue LatestSectionHeader")
@@ -171,7 +161,7 @@ extension HomeViewController: UICollectionViewDataSource {
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: ChartSectionHeader.reuseIdentifier(),
+            withReuseIdentifier: ChartSectionHeader.reuseIdentifier,
             for: indexPath
         ) as? ChartSectionHeader else {
             fatalError("Cannot dequeue ChartSectionHeader")
@@ -180,7 +170,7 @@ extension HomeViewController: UICollectionViewDataSource {
       } else if kind == UICollectionView.elementKindSectionFooter {
         guard let footer = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: ButtonSectionFooter.reuseIdentifier(),
+            withReuseIdentifier: ButtonSectionFooter.reuseIdentifier,
             for: indexPath
         ) as? ButtonSectionFooter else {
             fatalError("Cannot dequeue ChartSectionFooter")
@@ -189,7 +179,7 @@ extension HomeViewController: UICollectionViewDataSource {
         return footer
       }
     default:
-      return UICollectionReusableView()
+      return EmptyReusableView()
     }
     
     fatalError("Missing supplementary view logic for kind: \(kind)")

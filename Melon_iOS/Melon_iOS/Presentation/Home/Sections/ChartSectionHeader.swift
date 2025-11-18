@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ChartSectionHeader: BaseUICollectionReusableView {
+final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
   private let titleFrame = UIView()
   

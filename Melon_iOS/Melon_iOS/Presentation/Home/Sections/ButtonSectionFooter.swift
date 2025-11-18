@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ButtonSectionFooter: BaseUICollectionReusableView {
+final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable {
   
   // MARK: - UI Components
   
