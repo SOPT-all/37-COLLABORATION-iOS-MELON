@@ -1,14 +1,43 @@
-
-
+### macOS ###
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.fseventsd
+.Spotlight-V100
+.Trashes
+.TemporaryItems
+.VolumeIcon.icns
 
-Melon_iOS/Melon_iOS.xcodeproj/project.xcworkspace/xcuserdata/soomin.xcuserdatad/UserInterfaceState.xcuserstate
+### Xcode ###
+xcuserdata/
+DerivedData/
+build/
+*.xcworkspace
 
-Melon_iOS/Melon_iOS.xcodeproj/xcuserdata/soomin.xcuserdatad/xcschemes/xcschememanagement.plist
+# Xcode 자동 생성 파일들
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
-Melon_iOS/Melon_iOS.xcodeproj/project.xcworkspace/xcuserdata/youngseo.xcuserdatad/UserInterfaceState.xcuserstate
+# 디버그 파일
+*.dSYM
+*.dSYM.zip
 
-Melon_iOS/Melon_iOS.xcodeproj/project.xcworkspace/xcuserdata/iseungjun.xcuserdatad/UserInterfaceState.xcuserstate
+### Swift Package Manager ###
+.build/
+.swiftpm/
+# 팀 규칙: Package.resolved는 커밋하지 않음
+Package.resolved
 
+### App Config (로컬 환경 값 제외) ###
+Hilingual/App/Config/*.xcconfig
 
-Melon_iOS/Melon_iOS.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+### Tools ###
+iOSInjectionProject/
