@@ -12,9 +12,8 @@ import Then
 
 final class PreferenceSongView: BaseUIView {
   
-  private lazy var coverImageView = UIImageView().then {
+  private lazy var imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
-    $0.image = .imgPreference
   }
   
   private lazy var playButton = UIButton().then {
@@ -51,13 +50,13 @@ final class PreferenceSongView: BaseUIView {
     clipsToBounds = true
     layer.cornerRadius = 4
     
-    addSubviews(coverImageView, playButton, infoStack)
+    addSubviews(imageView, playButton, infoStack)
     
     infoStack.addArrangedSubviews(titleLabel, songNameLabel, artistNameLabel)
   }
   
   override func setLayout() {
-    coverImageView.snp.makeConstraints {
+    imageView.snp.makeConstraints {
       $0.verticalEdges.leading.equalToSuperview()
       $0.height.equalToSuperview()
     }
@@ -65,11 +64,11 @@ final class PreferenceSongView: BaseUIView {
     playButton.snp.makeConstraints {
       $0.size.equalTo(24)
       $0.top.equalToSuperview().offset(4)
-      $0.trailing.equalTo(coverImageView)
+      $0.trailing.equalTo(imageView)
     }
     
     infoStack.snp.makeConstraints {
-      $0.leading.equalTo(coverImageView.snp.trailing).offset(16)
+      $0.leading.equalTo(imageView.snp.trailing).offset(16)
       $0.centerY.equalToSuperview()
     }
   }
@@ -77,6 +76,14 @@ final class PreferenceSongView: BaseUIView {
   func configure(_ data: HomeDTO) {
     songNameLabel.text = data.title
     artistNameLabel.text = data.artist
+    
+    if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
+      imageView.kf.setImage(
+        with: url,
+        placeholder: .none,
+      )} else {
+        imageView.image = .none
+      }
   }
   
   // MARK: - Actions
