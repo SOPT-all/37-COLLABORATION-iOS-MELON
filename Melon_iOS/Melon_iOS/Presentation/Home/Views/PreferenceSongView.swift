@@ -36,6 +36,7 @@ final class PreferenceSongView: BaseUIView {
   
   private lazy var songNameLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
+    $0.text = "The Day"
     $0.textColor = .white
   }
   
