@@ -38,8 +38,6 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     $0.font = UIFont.pretendard(.caption_m_10)
     $0.textColor = .gray200
     $0.numberOfLines = 1
-    
-    $0.text = "미연 (MIYEON)"
   }
   
   // MARK: - Setup Methods

@@ -29,6 +29,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     compView.collectionView.cellRegister(PopularItemCell.self)
     compView.collectionView.cellRegister(BannerItemCell.self)
     compView.collectionView.cellRegister(LatestSongItemCell.self)
+    compView.collectionView.cellRegister(ChartItemCell.self)
     
     // Section Header 등록
     compView.collectionView.headerRegister(EmptyReusableView.self)
@@ -67,7 +68,7 @@ extension HomeViewController: UICollectionViewDataSource {
     case .popular: return PopularSongService.mockData.count
     case .banner: return BannerService.mockData.count
     case .latest: return LatestSongService.mockData.count
-    case .chart: return 12
+    case .chart: return ChartService.mockData.count
     }
   }
   
@@ -110,12 +111,9 @@ extension HomeViewController: UICollectionViewDataSource {
       let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
       cell.configure(LatestSongService.mockData[indexPath.row])
       return cell
-    default:
-      let cell = collectionView.dequeueReusableCell(
-        withReuseIdentifier: EmptyCollectionViewCell.reuseIdentifier,
-        for: indexPath
-      )
-      cell.backgroundColor = sectionType.backgroundColor
+    case .chart:
+      let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
+      cell.configure(ChartService.mockData[indexPath.row], row: indexPath.row)
       return cell
     }
   }
@@ -128,40 +126,40 @@ extension HomeViewController: UICollectionViewDataSource {
     
     // indexPath의 section을 기반으로 SectionType을 알아낸다.
     guard let sectionType = SectionType(rawValue: indexPath.section) else {
-        fatalError("Invalid section index")
+      fatalError("Invalid section index")
     }
     
     switch sectionType {
     case .personalized:
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier,
-            for: indexPath
+          ofKind: kind,
+          withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier,
+          for: indexPath
         ) as? PersonalizedSectionHeader else {
-            fatalError("Cannot dequeue PersonalizedSectionHeader")
+          fatalError("Cannot dequeue PersonalizedSectionHeader")
         }
         return header
       }
     case .popular:
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: PopularSectionHeader.reuseIdentifier,
-            for: indexPath
+          ofKind: kind,
+          withReuseIdentifier: PopularSectionHeader.reuseIdentifier,
+          for: indexPath
         ) as? PopularSectionHeader else {
-            fatalError("Cannot dequeue PopularSectionHeader")
+          fatalError("Cannot dequeue PopularSectionHeader")
         }
         return header
       }
     case .latest:
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: LatestSectionHeader.reuseIdentifier,
-            for: indexPath
+          ofKind: kind,
+          withReuseIdentifier: LatestSectionHeader.reuseIdentifier,
+          for: indexPath
         ) as? LatestSectionHeader else {
-            fatalError("Cannot dequeue LatestSectionHeader")
+          fatalError("Cannot dequeue LatestSectionHeader")
         }
         header.configure(action: { type in // API 호출 코드 작성
           switch type {
@@ -178,20 +176,20 @@ extension HomeViewController: UICollectionViewDataSource {
     case .chart:
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: ChartSectionHeader.reuseIdentifier,
-            for: indexPath
+          ofKind: kind,
+          withReuseIdentifier: ChartSectionHeader.reuseIdentifier,
+          for: indexPath
         ) as? ChartSectionHeader else {
             fatalError("Cannot dequeue ChartSectionHeader")
         }
         return header
       } else if kind == UICollectionView.elementKindSectionFooter {
         guard let footer = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: ButtonSectionFooter.reuseIdentifier,
-            for: indexPath
+          ofKind: kind,
+          withReuseIdentifier: ButtonSectionFooter.reuseIdentifier,
+          for: indexPath
         ) as? ButtonSectionFooter else {
-            fatalError("Cannot dequeue ChartSectionFooter")
+          fatalError("Cannot dequeue ChartSectionFooter")
         }
         footer.configure(title: "TOP 100 전체듣기")
         return footer
@@ -208,10 +206,6 @@ extension HomeViewController: UICollectionViewDataSource {
 
 
 
-
-
-
 #Preview {
   HomeViewController()
 }
-
