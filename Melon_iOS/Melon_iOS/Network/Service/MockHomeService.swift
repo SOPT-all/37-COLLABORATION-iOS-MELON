@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HomeService {
+final class MockHomeService {
   
   /// VC가 구독하는 데이터
   var latestSongData: [HomeDTO] = []
@@ -30,7 +30,7 @@ final class HomeService {
   
 }
 
-extension HomeService {
+extension MockHomeService {
   
   static let preferenceMockData: HomeDTO = HomeDTO(
     title: "The Day",

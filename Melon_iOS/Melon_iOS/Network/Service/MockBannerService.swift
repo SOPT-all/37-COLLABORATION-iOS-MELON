@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class BannerService {
+final class MockBannerService {
   
 }
 
-extension BannerService {
+extension MockBannerService {
   static let mockData: [BannerDTO] = [
     BannerDTO(
       title: "우즈 CONCERT",
