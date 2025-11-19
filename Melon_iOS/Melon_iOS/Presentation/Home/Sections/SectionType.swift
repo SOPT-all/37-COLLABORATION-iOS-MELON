@@ -78,9 +78,8 @@ enum SectionType: Int, CaseIterable {
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-    section.interGroupSpacing = 10 // 그룹 간 간격
+    section.interGroupSpacing = 10
     
-    // Header 지정
     let headerSize = NSCollectionLayoutSize(
         widthDimension: .fractionalWidth(1.0),
         heightDimension: .estimated(50)
@@ -113,9 +112,8 @@ enum SectionType: Int, CaseIterable {
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-    section.interGroupSpacing = 24 // 그룹 간 간격
+    section.interGroupSpacing = 24
     
-    // Header 지정
     let headerSize = NSCollectionLayoutSize(
         widthDimension: .fractionalWidth(1.0),
         heightDimension: .estimated(100)
@@ -143,7 +141,7 @@ enum SectionType: Int, CaseIterable {
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPagingCentered
     section.contentInsets = NSDirectionalEdgeInsets(top: 48, leading: 20, bottom: 0, trailing: 20)
-    section.interGroupSpacing = 8 // 그룹 간 간격
+    section.interGroupSpacing = 8
     
     return section
   }
@@ -164,9 +162,8 @@ enum SectionType: Int, CaseIterable {
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .continuous
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-    section.interGroupSpacing = 8 // 그룹 간 간격
+    section.interGroupSpacing = 8
     
-    // Header 지정
     let headerSize = NSCollectionLayoutSize(
         widthDimension: .fractionalWidth(1.0),
         heightDimension: .estimated(50 + 48)
@@ -199,9 +196,8 @@ enum SectionType: Int, CaseIterable {
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPaging
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-    section.interGroupSpacing = 27 // 그룹 간 간격
+    section.interGroupSpacing = 27
     
-    // Header 지정
     let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                             heightDimension: .estimated(172))
     
@@ -210,8 +206,7 @@ enum SectionType: Int, CaseIterable {
       elementKind: UICollectionView.elementKindSectionHeader,
       alignment: .top
     )
-   
-    // Footer 지정
+    
     let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                             heightDimension: .estimated(64))
     
@@ -237,7 +232,7 @@ enum SectionType: Int, CaseIterable {
       let section = NSCollectionLayoutSection(group: group)
       section.orthogonalScrollingBehavior = .continuous
       section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
-      section.interGroupSpacing = 10 // 그룹 간 간격
+      section.interGroupSpacing = 10
       
       return section
   }

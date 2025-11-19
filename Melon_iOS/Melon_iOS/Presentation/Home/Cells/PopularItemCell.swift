@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
+final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - Properties
   
@@ -83,6 +83,8 @@ class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     imageView.image = data.image
     self.action = action
   }
+  
+  // MARK: - Actions
   
   @objc func mixUpButtonTapped() {
     action!()

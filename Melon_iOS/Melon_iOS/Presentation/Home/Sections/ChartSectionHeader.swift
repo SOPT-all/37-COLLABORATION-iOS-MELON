@@ -10,12 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
-final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable, UICollectionViewDelegate {
+final class ChartSectionHeader: BaseUICollectionReusableView,
+                                ReuseIdentifiable,
+                                UICollectionViewDelegate {
   
   // MARK: - Properties
   
   private let chartCategories: [String] = ["TOP 100", "HOT 100", "월드뮤직", "한강에서 즐기기 좋은 음악"]
-  
   private let titleFrame = UIView()
   
   // MARK: - UI Components
@@ -105,6 +106,8 @@ final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable,
   }
   
 }
+
+// MARK: - Extensions
 
 extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
   

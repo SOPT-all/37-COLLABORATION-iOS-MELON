@@ -56,6 +56,8 @@ final class ChartCollectionViewCell : BaseUICollectionViewCell, ReuseIdentifiabl
     label.text = text
   }
   
+  // MARK: - Actions
+  
   func selected() {
     backgroundColor = .primary
     capsule.layer.borderColor = UIColor.primary.cgColor
