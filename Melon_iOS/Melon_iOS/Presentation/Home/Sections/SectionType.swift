@@ -169,7 +169,7 @@ enum SectionType: Int, CaseIterable {
     // Header 지정
     let headerSize = NSCollectionLayoutSize(
         widthDimension: .fractionalWidth(1.0),
-        heightDimension: .estimated(50)
+        heightDimension: .estimated(50 + 48)
     )
     
     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
@@ -203,7 +203,7 @@ enum SectionType: Int, CaseIterable {
     
     // Header 지정
     let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                            heightDimension: .estimated(122))
+                                            heightDimension: .estimated(172))
     
     let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
       layoutSize: headerSize,

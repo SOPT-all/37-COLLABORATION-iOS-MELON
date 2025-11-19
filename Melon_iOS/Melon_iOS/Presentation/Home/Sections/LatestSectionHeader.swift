@@ -24,6 +24,9 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
   
   // MARK: - UI Components
   
+  private let divider1 = UIView().then { $0.backgroundColor = .gray400 }
+  private let divider2 = UIView().then { $0.backgroundColor = .gray400 }
+  
   private let label = UILabel().then {
     $0.font = UIFont.pretendard(.heading_b_20)
     $0.textColor = .white
@@ -65,31 +68,47 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
   // MARK: - Setup Methods
   
   override func setUI() {
-    addSubviews(label, allButon, domesticButton, overseasButton, seeAllButton)
+    addSubviews(label, allButon, domesticButton, overseasButton, seeAllButton, divider1, divider2)
   }
   
   override func setLayout() {
     label.snp.makeConstraints {
-      $0.centerY.leading.equalToSuperview()
+      $0.leading.equalToSuperview()
+      $0.bottom.equalToSuperview().inset(12)
     }
     
     allButon.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
+      $0.centerY.equalTo(label)
       $0.leading.equalTo(label.snp.trailing).offset(10)
     }
     
+    divider1.snp.makeConstraints {
+      $0.centerY.equalTo(label)
+      $0.height.equalTo(10)
+      $0.width.equalTo(1)
+      $0.leading.equalTo(allButon.snp.trailing).offset(7)
+    }
+    
     domesticButton.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
-      $0.leading.equalTo(allButon.snp.trailing).offset(10)
+      $0.centerY.equalTo(label)
+      $0.leading.equalTo(divider1.snp.trailing).offset(7)
+    }
+    
+    divider2.snp.makeConstraints {
+      $0.centerY.equalTo(label)
+      $0.height.equalTo(10)
+      $0.width.equalTo(1)
+      $0.leading.equalTo(domesticButton.snp.trailing).offset(7)
     }
     
     overseasButton.snp.makeConstraints {
-      $0.centerY.equalToSuperview()
-      $0.leading.equalTo(domesticButton.snp.trailing).offset(10)
+      $0.centerY.equalTo(label)
+      $0.leading.equalTo(divider2.snp.trailing).offset(7)
     }
     
     seeAllButton.snp.makeConstraints {
-      $0.centerY.trailing.equalToSuperview()
+      $0.centerY.equalTo(label)
+      $0.trailing.equalToSuperview()
     }
   }
   

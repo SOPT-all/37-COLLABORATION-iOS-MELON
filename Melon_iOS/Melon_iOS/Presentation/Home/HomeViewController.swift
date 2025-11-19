@@ -28,6 +28,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     compView.collectionView.cellRegister(PersonalizedItemCell.self)
     compView.collectionView.cellRegister(PopularItemCell.self)
     compView.collectionView.cellRegister(BannerItemCell.self)
+    compView.collectionView.cellRegister(LatestSongItemCell.self)
     
     // Section Header 등록
     compView.collectionView.headerRegister(EmptyReusableView.self)
@@ -65,7 +66,7 @@ extension HomeViewController: UICollectionViewDataSource {
     case .personalized: return PersonalizedService.mockData.count
     case .popular: return PopularSongService.mockData.count
     case .banner: return BannerService.mockData.count
-    case .latest: return 10 // API 연동
+    case .latest: return LatestSongService.mockData.count
     case .chart: return 12
     }
   }
@@ -104,6 +105,10 @@ extension HomeViewController: UICollectionViewDataSource {
     case .banner:
       let cell = collectionView.dequeueReusableCell(BannerItemCell.self, for: indexPath)
       cell.configure(BannerService.mockData[indexPath.row])
+      return cell
+    case .latest:
+      let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
+      cell.configure(LatestSongService.mockData[indexPath.row])
       return cell
     default:
       let cell = collectionView.dequeueReusableCell(
@@ -200,20 +205,13 @@ extension HomeViewController: UICollectionViewDataSource {
 
 }
 
-final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
-  
-  
-  
-  override func setUI() {
-    
-  }
-  
-  override func setLayout() {
-    
-  }
-  
-}
+
+
+
+
+
 
 #Preview {
   HomeViewController()
 }
+

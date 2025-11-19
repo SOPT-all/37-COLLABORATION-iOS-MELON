@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct RecentSongResponseDTO: Decodable {
+struct LatestSongResponseDTO: Decodable {
   let title: String
   let artist: String
   let imageUrl: String?
