@@ -202,10 +202,3 @@ extension HomeViewController: UICollectionViewDataSource {
   }
 
 }
-
-
-
-
-#Preview {
-  HomeViewController()
-}
