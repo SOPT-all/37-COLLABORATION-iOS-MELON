@@ -14,6 +14,7 @@ final class PreferenceSongView: BaseUIView {
   
   private lazy var imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
+    $0.backgroundColor = .bar1
   }
   
   private lazy var playButton = UIButton().then {
@@ -58,7 +59,7 @@ final class PreferenceSongView: BaseUIView {
   override func setLayout() {
     imageView.snp.makeConstraints {
       $0.verticalEdges.leading.equalToSuperview()
-      $0.height.equalToSuperview()
+      $0.width.equalTo(imageView.snp.height)
     }
     
     playButton.snp.makeConstraints {
