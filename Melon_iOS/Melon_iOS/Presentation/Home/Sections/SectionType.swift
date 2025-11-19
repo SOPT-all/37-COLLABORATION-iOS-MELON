@@ -111,7 +111,7 @@ enum SectionType: Int, CaseIterable {
     group.interItemSpacing = .fixed(16)
     
     let section = NSCollectionLayoutSection(group: group)
-    section.orthogonalScrollingBehavior = .continuous
+    section.orthogonalScrollingBehavior = .groupPaging
     section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
     section.interGroupSpacing = 24 // 그룹 간 간격
     
@@ -142,7 +142,7 @@ enum SectionType: Int, CaseIterable {
     
     let section = NSCollectionLayoutSection(group: group)
     section.orthogonalScrollingBehavior = .groupPagingCentered
-    section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+    section.contentInsets = NSDirectionalEdgeInsets(top: 48, leading: 20, bottom: 0, trailing: 20)
     section.interGroupSpacing = 8 // 그룹 간 간격
     
     return section

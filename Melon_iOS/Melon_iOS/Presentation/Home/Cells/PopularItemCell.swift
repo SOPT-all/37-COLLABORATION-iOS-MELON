@@ -13,6 +13,7 @@ import Then
 class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - Properties
+  
   private var action: (() -> Void)?
   
   // MARK: - UI Components
