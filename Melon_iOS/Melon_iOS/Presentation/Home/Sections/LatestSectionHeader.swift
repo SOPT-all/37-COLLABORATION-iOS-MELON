@@ -61,10 +61,6 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
     $0.setTitleColor(.gray200, for: .normal)
   }
   
-  func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
-    self.action = action
-  }
-  
   // MARK: - Setup Methods
   
   override func setUI() {
@@ -110,6 +106,10 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
       $0.centerY.equalTo(label)
       $0.trailing.equalToSuperview()
     }
+  }
+  
+  func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
+    self.action = action
   }
   
   // MARK: - Actions

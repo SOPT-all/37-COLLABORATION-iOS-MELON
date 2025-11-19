@@ -107,7 +107,7 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
   
 }
 
-// MARK: - Extensions
+// MARK: - UICollectionViewDelegateFlowLayout
 
 extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
   
@@ -129,6 +129,8 @@ extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
   }
   
 }
+
+// MARK: - UICollectionViewDataSource
                                 
 extension ChartSectionHeader: UICollectionViewDataSource {
   
