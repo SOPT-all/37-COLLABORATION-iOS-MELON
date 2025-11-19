@@ -33,7 +33,8 @@ final class BasicSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable 
   
   override func setLayout() {
     label.snp.makeConstraints {
-      $0.centerY.leading.equalToSuperview()
+      $0.leading.equalToSuperview()
+      $0.bottom.equalToSuperview().inset(12)
     }
   }
   
