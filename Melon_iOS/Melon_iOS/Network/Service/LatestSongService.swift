@@ -41,7 +41,7 @@ extension LatestSongService {
     LatestSongResponseDTO(
       title: "Reno (Feat. Colde)",
       artist: "미연 (MIYEON)",
-      imageUrl: "https://image.genie.co.kr/Y/IMAGE/IMG_ALBUM/086/878/574/86878574_1761548805678_1_600x600.JPG"),
+      imageUrl: "https://www.chosun.com/resizer/v2/ZDICNHHWZ6OAGZNCJGH3TBU6XY.jpg?auth=7373a524c2b6bec81926515e9315ce2f4d2c6b4ae27f2b268b7b28abb2adb7aa&width=464"),
     LatestSongResponseDTO(
       title: "X",
       artist: "키코 (Kiko5o)",
