@@ -33,8 +33,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     
     // Section Header 등록
     compView.collectionView.headerRegister(EmptyReusableView.self)
-    compView.collectionView.headerRegister(PersonalizedSectionHeader.self)
-    compView.collectionView.headerRegister(PopularSectionHeader.self)
+    compView.collectionView.headerRegister(BasicSectionHeader.self)
     compView.collectionView.headerRegister(LatestSectionHeader.self)
     compView.collectionView.headerRegister(ChartSectionHeader.self)
     
@@ -64,11 +63,11 @@ extension HomeViewController: UICollectionViewDataSource {
     switch sectionType {
     case .navigation: return 1
     case .preference: return 1
-    case .personalized: return PersonalizedService.mockData.count
-    case .popular: return HomeService.popularMockData.count
-    case .banner: return BannerService.mockData.count
-    case .latest: return HomeService.latestMockData.count
-    case .chart: return HomeService.chartMockData.count
+    case .personalized: return MockPersonalizedService.mockData.count
+    case .popular: return MockHomeService.popularMockData.count
+    case .banner: return MockBannerService.mockData.count
+    case .latest: return MockHomeService.latestMockData.count
+    case .chart: return MockHomeService.chartMockData.count
     }
   }
   
@@ -87,15 +86,15 @@ extension HomeViewController: UICollectionViewDataSource {
       return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
     case .preference:
       let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
-      cell.configure(HomeService.preferenceMockData)
+      cell.configure(MockHomeService.preferenceMockData)
       return cell
     case .personalized:
       let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
-      cell.configure(data: PersonalizedService.mockData[indexPath.row])
+      cell.configure(data: MockPersonalizedService.mockData[indexPath.row])
       return cell
     case .popular:
       let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
-      cell.configure(HomeService.popularMockData[indexPath.row]) { [weak self] in
+      cell.configure(MockHomeService.popularMockData[indexPath.row]) { [weak self] in
         let toast = ToastMessage()
           self?.compView.addSubview(toast)
           toast.configure(action: {
@@ -106,15 +105,15 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .banner:
       let cell = collectionView.dequeueReusableCell(BannerItemCell.self, for: indexPath)
-      cell.configure(BannerService.mockData[indexPath.row])
+      cell.configure(MockBannerService.mockData[indexPath.row])
       return cell
     case .latest:
       let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
-      cell.configure(HomeService.latestMockData[indexPath.row])
+      cell.configure(MockHomeService.latestMockData[indexPath.row])
       return cell
     case .chart:
       let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
-      cell.configure(HomeService.chartMockData[indexPath.row], row: indexPath.row)
+      cell.configure(MockHomeService.chartMockData[indexPath.row], row: indexPath.row)
       return cell
     }
   }
@@ -135,22 +134,24 @@ extension HomeViewController: UICollectionViewDataSource {
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
           ofKind: kind,
-          withReuseIdentifier: PersonalizedSectionHeader.reuseIdentifier,
+          withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
           for: indexPath
-        ) as? PersonalizedSectionHeader else {
+        ) as? BasicSectionHeader else {
           fatalError("Cannot dequeue PersonalizedSectionHeader")
         }
+        header.configure(title: "닉네임을 위한 추천")
         return header
       }
     case .popular:
       if kind == UICollectionView.elementKindSectionHeader {
         guard let header = collectionView.dequeueReusableSupplementaryView(
           ofKind: kind,
-          withReuseIdentifier: PopularSectionHeader.reuseIdentifier,
+          withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
           for: indexPath
-        ) as? PopularSectionHeader else {
+        ) as? BasicSectionHeader else {
           fatalError("Cannot dequeue PopularSectionHeader")
         }
+        header.configure(title: "인기 선곡")
         return header
       }
     case .latest:

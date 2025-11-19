@@ -10,14 +10,13 @@ import UIKit
 import SnapKit
 import Then
 
-final class PersonalizedSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
+final class BasicSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
   // MARK: - UI Components
   
   private let label = UILabel().then {
     $0.font = UIFont.pretendard(.heading_b_20)
     $0.textColor = .white
-    $0.text = "사용자님을 위한 추천"
   }
   
   private lazy var seeAllButton = UIButton().then {
@@ -30,16 +29,22 @@ final class PersonalizedSectionHeader: BaseUICollectionReusableView, ReuseIdenti
   
   override func setUI() {
     addSubview(label)
-    addSubview(seeAllButton)
   }
   
   override func setLayout() {
     label.snp.makeConstraints {
       $0.centerY.leading.equalToSuperview()
     }
-    
-    seeAllButton.snp.makeConstraints {
-      $0.centerY.trailing.equalToSuperview()
+  }
+  
+  func configure(title: String, isButtonShowed: Bool = false) {
+    label.text = title
+    if isButtonShowed {
+      addSubview(seeAllButton)
+      
+      seeAllButton.snp.makeConstraints {
+        $0.centerY.trailing.equalToSuperview()
+      }
     }
   }
   
