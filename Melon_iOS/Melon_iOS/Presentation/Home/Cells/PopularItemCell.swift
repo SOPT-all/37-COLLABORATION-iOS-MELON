@@ -31,7 +31,7 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     $0.spacing = 4
   }
   
-  private lazy var sourceLabel = UILabel().then {
+  private lazy var categoryLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.textColor = .gray200
   }
@@ -55,7 +55,7 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   override func setUI() {
     addSubviews(imageView, infoStackView, mixUpButton)
-    infoStackView.addArrangedSubviews(sourceLabel, titleLabel, artistLabel)
+    infoStackView.addArrangedSubviews(categoryLabel, titleLabel, artistLabel)
   }
   
   override func setLayout() {
@@ -76,11 +76,19 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: PopularSongDTO, action: (() -> Void)? = nil) {
-    sourceLabel.text = data.source
+  func configure(_ data: HomeDTO, action: (() -> Void)? = nil) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
-    imageView.image = data.image
+    categoryLabel.text = data.category
+    
+    if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
+      imageView.kf.setImage(
+        with: url,
+        placeholder: .none,
+      )} else {
+        imageView.image = .none
+      }
+    
     self.action = action
   }
   

@@ -68,7 +68,7 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: LatestSongResponseDTO) {
+  func configure(_ data: HomeDTO) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
         

@@ -38,4 +38,8 @@ final class PreferenceItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
+  func configure(_ data: HomeDTO) {
+    preferenceSongView.configure(data)
+  }
+  
 }

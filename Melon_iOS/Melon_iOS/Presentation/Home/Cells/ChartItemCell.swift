@@ -97,11 +97,18 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: ChartDTO, row rank: Int) {
+  func configure(_ data: HomeDTO, row rank: Int) {
     rankLabel.text = "\(rank + 1)"
     titleLabel.text = data.title
     artistLabel.text = data.artist
-    imageView.image = data.image
+    
+    if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
+      imageView.kf.setImage(
+        with: url,
+        placeholder: .none,
+      )} else {
+        imageView.image = .none
+      }
   }
   
   // MARK: - Actions

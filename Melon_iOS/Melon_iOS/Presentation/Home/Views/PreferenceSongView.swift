@@ -36,13 +36,11 @@ final class PreferenceSongView: BaseUIView {
   
   private lazy var songNameLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
-    $0.text = "The Day"
     $0.textColor = .white
   }
   
   private lazy var artistNameLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
-    $0.text = "DAY6(데이식스)"
     $0.textColor = .gray200
   }
   
@@ -74,6 +72,11 @@ final class PreferenceSongView: BaseUIView {
       $0.leading.equalTo(coverImageView.snp.trailing).offset(16)
       $0.centerY.equalToSuperview()
     }
+  }
+  
+  func configure(_ data: HomeDTO) {
+    songNameLabel.text = data.title
+    artistNameLabel.text = data.artist
   }
   
   // MARK: - Actions

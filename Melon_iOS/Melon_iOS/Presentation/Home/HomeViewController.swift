@@ -65,10 +65,10 @@ extension HomeViewController: UICollectionViewDataSource {
     case .navigation: return 1
     case .preference: return 1
     case .personalized: return PersonalizedService.mockData.count
-    case .popular: return PopularSongService.mockData.count
+    case .popular: return HomeService.popularMockData.count
     case .banner: return BannerService.mockData.count
-    case .latest: return LatestSongService.mockData.count
-    case .chart: return ChartService.mockData.count
+    case .latest: return HomeService.latestMockData.count
+    case .chart: return HomeService.chartMockData.count
     }
   }
   
@@ -87,6 +87,7 @@ extension HomeViewController: UICollectionViewDataSource {
       return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
     case .preference:
       let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
+      cell.configure(HomeService.preferenceMockData)
       return cell
     case .personalized:
       let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
@@ -94,7 +95,7 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .popular:
       let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
-      cell.configure(PopularSongService.mockData[indexPath.row]) { [weak self] in
+      cell.configure(HomeService.popularMockData[indexPath.row]) { [weak self] in
         let toast = ToastMessage()
           self?.compView.addSubview(toast)
           toast.configure(action: {
@@ -109,11 +110,11 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .latest:
       let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
-      cell.configure(LatestSongService.mockData[indexPath.row])
+      cell.configure(HomeService.latestMockData[indexPath.row])
       return cell
     case .chart:
       let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
-      cell.configure(ChartService.mockData[indexPath.row], row: indexPath.row)
+      cell.configure(HomeService.chartMockData[indexPath.row], row: indexPath.row)
       return cell
     }
   }
