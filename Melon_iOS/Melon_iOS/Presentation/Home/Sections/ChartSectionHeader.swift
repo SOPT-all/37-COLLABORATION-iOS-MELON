@@ -10,7 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
+final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable, UICollectionViewDelegate {
+  
+  // MARK: - Properties
+  
+  private let chartCategories: [String] = ["TOP 100", "HOT 100", "월드뮤직", "한강에서 즐기기 좋은 음악"]
   
   private let titleFrame = UIView()
   
@@ -38,10 +42,24 @@ final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable 
     $0.setTitleColor(.gray200, for: .normal)
   }
   
+  let collectionView: UICollectionView = {
+    let layout = UICollectionViewFlowLayout()
+    layout.scrollDirection = .horizontal
+    layout.minimumInteritemSpacing = 4
+    layout.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+    
+    let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    collection.backgroundColor = .background
+    collection.showsHorizontalScrollIndicator = false
+    
+    return collection
+  }()
+  
   // MARK: - Setup Methods
   
   override func setUI() {
-    addSubview(titleFrame)
+    setCollectionView()
+    addSubviews(titleFrame, collectionView)
     titleFrame.addSubviews(standardTime, label, chartIcon, seeAllButton)
   }
   
@@ -71,6 +89,62 @@ final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable 
     seeAllButton.snp.makeConstraints {
       $0.centerY.trailing.equalToSuperview()
     }
+    
+    collectionView.snp.makeConstraints {
+      $0.top.equalTo(titleFrame.snp.bottom).offset(10)
+      $0.horizontalEdges.equalToSuperview().inset(-20)
+      $0.height.equalTo(37)
+    }
+  }
+  
+  private func setCollectionView() {
+    collectionView.cellRegister(ChartCollectionViewCell.self)
+    
+    collectionView.delegate = self
+    collectionView.dataSource = self
   }
   
 }
+
+extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
+  
+  // cell 크기 지정
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let categoryName = chartCategories[indexPath.item]
+    
+    let label = UILabel().then {
+      $0.font = UIFont.pretendard(.body_r_14)
+      $0.text = categoryName
+      $0.textColor = .white
+      $0.sizeToFit()
+    }
+    
+    let cellWidth = label.frame.width + ChartCollectionViewCell.horizontalPadding * 2
+    let cellHeight: CGFloat = 37
+    
+    return CGSize(width: cellWidth, height: cellHeight)
+  }
+  
+}
+                                
+extension ChartSectionHeader: UICollectionViewDataSource {
+  
+  func collectionView(
+    _ collectionView: UICollectionView,
+    numberOfItemsInSection section: Int) -> Int {
+    return chartCategories.count
+  }
+
+  func collectionView(
+    _ collectionView: UICollectionView,
+    cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(ChartCollectionViewCell.self, for: indexPath)
+      if indexPath.row == 0 {
+        cell.selected()
+      }
+      cell.configure(with: chartCategories[indexPath.row])
+    return cell
+  }
+  
+}
+
