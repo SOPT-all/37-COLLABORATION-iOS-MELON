@@ -57,7 +57,7 @@ final class ForYouView: BaseUIView {
         contentView.addSubviews(
             forYouLabel,
             cardView,
-            progressBar,
+            progressBar
         )
     }
     
