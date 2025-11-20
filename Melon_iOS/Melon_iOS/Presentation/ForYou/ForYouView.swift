@@ -52,6 +52,7 @@ final class ForYouView: BaseUIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         
+        addSubview(contentView)
         
         contentView.addSubviews(
             forYouLabel,
