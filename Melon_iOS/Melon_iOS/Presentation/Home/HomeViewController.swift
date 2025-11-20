@@ -38,20 +38,16 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     homeView.collectionView.headerRegister(ChartSectionHeader.self)
     
     // Section Footer 등록
-    homeView.collectionView.footerRegister(ButtonSectionFooter.self)
-    
+    homeView.collectionView.footerRegister(ButtonSectionFooter.self) 
   }
-  
 }
 
 extension HomeViewController: UICollectionViewDataSource {
   
-  // 섹션 수
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return SectionType.allCases.count
   }
   
-  // 섹션별 아이템 수
   func collectionView(
     _ collectionView: UICollectionView,
     numberOfItemsInSection section: Int) -> Int {
@@ -71,7 +67,6 @@ extension HomeViewController: UICollectionViewDataSource {
     }
   }
   
-  // 커스텀 셀 등록
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,7 +119,6 @@ extension HomeViewController: UICollectionViewDataSource {
     viewForSupplementaryElementOfKind kind: String,
     at indexPath: IndexPath) -> UICollectionReusableView {
     
-    // indexPath의 section을 기반으로 SectionType을 알아낸다.
     guard let sectionType = SectionType(rawValue: indexPath.section) else {
       fatalError("Invalid section index")
     }

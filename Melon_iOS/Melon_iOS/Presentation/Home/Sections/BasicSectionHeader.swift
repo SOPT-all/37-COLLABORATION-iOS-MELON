@@ -19,12 +19,6 @@ final class BasicSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable 
     $0.textColor = .white
   }
   
-  private lazy var seeAllButton = UIButton().then {
-    $0.setTitle("전체보기", for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
-    $0.setTitleColor(.gray200, for: .normal)
-  }
-  
   // MARK: - Setup Methods
   
   override func setUI() {
@@ -38,15 +32,7 @@ final class BasicSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable 
     }
   }
   
-  func configure(title: String, isButtonShowed: Bool = false) {
+  func configure(title: String) {
     label.text = title
-    if isButtonShowed {
-      addSubview(seeAllButton)
-      
-      seeAllButton.snp.makeConstraints {
-        $0.centerY.trailing.equalToSuperview()
-      }
-    }
   }
-  
 }

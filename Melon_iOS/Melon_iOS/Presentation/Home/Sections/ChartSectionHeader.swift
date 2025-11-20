@@ -39,7 +39,7 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
   
   private lazy var seeAllButton = UIButton().then {
     $0.setTitle("전체보기", for: .normal)
-    $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+    $0.titleLabel?.font = UIFont.pretendard(.body_m_14)
     $0.setTitleColor(.gray200, for: .normal)
   }
   
@@ -111,8 +111,10 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
 
 extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
   
-  // cell 크기 지정
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    sizeForItemAt indexPath: IndexPath) -> CGSize {
     let categoryName = chartCategories[indexPath.item]
     
     let label = UILabel().then {
@@ -127,7 +129,6 @@ extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
     
     return CGSize(width: cellWidth, height: cellHeight)
   }
-  
 }
 
 // MARK: - UICollectionViewDataSource
@@ -150,6 +151,5 @@ extension ChartSectionHeader: UICollectionViewDataSource {
       cell.configure(with: chartCategories[indexPath.row])
     return cell
   }
-  
 }
 

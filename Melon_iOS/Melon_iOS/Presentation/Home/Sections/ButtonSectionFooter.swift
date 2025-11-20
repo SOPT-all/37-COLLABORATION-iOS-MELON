@@ -14,22 +14,22 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
   
   // MARK: - UI Components
   
-  private lazy var playButton = UIButton().then {
+  private let playButton = UIButton().then {
     $0.backgroundColor = .gray500
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 4
   }
   
-  private lazy var hStack = UIStackView().then {
+  private let hStack = UIStackView().then {
     $0.axis = .horizontal
     $0.spacing = 4
   }
   
-  private lazy var playIconImageView = UIImageView().then {
+  private let playIconImageView = UIImageView().then {
     $0.image = .icPlay24
   }
   
-  private lazy var playTitleLabel = UILabel().then {
+  private let playTitleLabel = UILabel().then {
     $0.textColor = .white
     $0.font = UIFont.pretendard(.body_m_14)
   }
@@ -39,6 +39,7 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
   override func setUI() {
     addSubview(playButton)
     playButton.addSubview(hStack)
+    hStack.addArrangedSubviews(playIconImageView, playTitleLabel)
   }
   
   override func setLayout() {
@@ -52,15 +53,13 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
       $0.center.equalToSuperview()
     }
     
-    hStack.addArrangedSubviews(playIconImageView, playTitleLabel)
-    playIconImageView.snp.makeConstraints { make in
-      make.size.equalTo(24)
+    playIconImageView.snp.makeConstraints {
+      $0.size.equalTo(24)
     }
   }
   
   func configure(title: String) {
     playTitleLabel.text = title
   }
-  
 }
 

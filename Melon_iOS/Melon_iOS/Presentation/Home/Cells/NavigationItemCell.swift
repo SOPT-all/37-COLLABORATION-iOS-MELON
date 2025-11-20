@@ -41,17 +41,17 @@ final class NavigationItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
       $0.leading.equalToSuperview().offset(16)
     }
     
-    cashButton.snp.makeConstraints { make in
-      make.size.equalTo(32)
-      make.centerY.equalToSuperview()
-      make.trailing.equalToSuperview().inset(16)
+    cashButton.snp.makeConstraints {
+      $0.size.equalTo(32)
+      $0.centerY.equalToSuperview()
+      $0.trailing.equalToSuperview().inset(16)
     }
     
-    perkButton.snp.makeConstraints { make in
-      make.height.equalTo(20)
-      make.width.equalTo(57)
-      make.centerY.equalToSuperview()
-      make.trailing.equalTo(cashButton.snp.leading).inset(-16)
+    perkButton.snp.makeConstraints {
+      $0.height.equalTo(20)
+      $0.width.equalTo(57)
+      $0.centerY.equalToSuperview()
+      $0.trailing.equalTo(cashButton.snp.leading).inset(-16)
     }
   }
 }

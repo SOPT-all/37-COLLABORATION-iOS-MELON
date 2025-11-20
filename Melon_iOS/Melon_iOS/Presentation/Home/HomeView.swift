@@ -32,11 +32,11 @@ final class HomeView: BaseUIView {
   }
   
   override func setLayout() {
-    backgroundView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+    backgroundView.snp.makeConstraints {
+      $0.edges.equalToSuperview()
     }
-    collectionView.snp.makeConstraints { make in
-      make.edges.equalTo(safeAreaLayoutGuide)
+    collectionView.snp.makeConstraints {
+      $0.edges.equalTo(safeAreaLayoutGuide)
     }
   }
   

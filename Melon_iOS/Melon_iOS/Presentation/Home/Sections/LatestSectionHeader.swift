@@ -1,5 +1,5 @@
 //
-//  Latest.swift
+//  LatestSectionHeader.swift
 //  Melon_iOS
 //
 //  Created by 이승준 on 11/18/25.
@@ -33,29 +33,26 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
     $0.text = "최신음악"
   }
   
-  private lazy var allButon = UIButton().then {
+  private let allButon = UIButton().then {
     $0.isSelected = true
     $0.setTitle("전체", for: .normal)
     $0.setTitleColor(.gray200, for: .normal)
     $0.setTitleColor(.primary, for: .selected)
-    $0.addTarget(self, action: #selector(didTapAllButton), for: .touchUpInside)
   }
   
-  private lazy var domesticButton = UIButton().then {
+  private let domesticButton = UIButton().then {
     $0.setTitle("국내", for: .normal)
     $0.setTitleColor(.gray200, for: .normal)
     $0.setTitleColor(.primary, for: .selected)
-    $0.addTarget(self, action: #selector(didTapDomesticButton), for: .touchUpInside)
   }
   
-  private lazy var overseasButton = UIButton().then {
+  private let overseasButton = UIButton().then {
     $0.setTitle("해외", for: .normal)
     $0.setTitleColor(.gray200, for: .normal)
     $0.setTitleColor(.primary, for: .selected)
-    $0.addTarget(self, action: #selector(didTapOverseasButton), for: .touchUpInside)
   }
   
-  private lazy var seeAllButton = UIButton().then {
+  private let seeAllButton = UIButton().then {
     $0.setTitle("전체보기", for: .normal)
     $0.titleLabel?.font = UIFont.pretendard(.body_m_14)
     $0.setTitleColor(.gray200, for: .normal)
@@ -64,6 +61,10 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
   // MARK: - Setup Methods
   
   override func setUI() {
+    allButon.addTarget(self, action: #selector(didTapAllButton), for: .touchUpInside)
+    domesticButton.addTarget(self, action: #selector(didTapDomesticButton), for: .touchUpInside)
+    overseasButton.addTarget(self, action: #selector(didTapOverseasButton), for: .touchUpInside)
+    
     addSubviews(label, allButon, domesticButton, overseasButton, seeAllButton, divider1, divider2)
   }
   
@@ -108,10 +109,6 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
     }
   }
   
-  func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
-    self.action = action
-  }
-  
   // MARK: - Actions
   
   @objc private func didTapAllButton() {
@@ -133,5 +130,9 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
     domesticButton.isSelected = false
     overseasButton.isSelected = true
     action!(.overseas)
+  }
+  
+  func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
+    self.action = action
   }
 }
