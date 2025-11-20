@@ -10,18 +10,6 @@ import UIKit
 enum SectionType: Int, CaseIterable {
   case navigation, preference, personalized, popular, banner, latest, chart
   
-  var backgroundColor: UIColor {
-    switch self {
-    case .navigation: return UIColor.systemRed.withAlphaComponent(0.8)
-    case .preference: return UIColor.systemBlue.withAlphaComponent(0.8)
-    case .personalized: return UIColor.systemYellow.withAlphaComponent(0.8)
-    case .popular: return UIColor.systemGreen.withAlphaComponent(0.8)
-    case .banner: return UIColor.systemOrange.withAlphaComponent(0.8)
-    case .latest: return UIColor.systemPurple.withAlphaComponent(0.8)
-    case .chart: return UIColor.systemBrown.withAlphaComponent(0.8)
-    }
-  }
-  
   var section: NSCollectionLayoutSection {
     switch self {
     case .navigation: return createNavigationSectionLayout()
@@ -236,6 +224,5 @@ enum SectionType: Int, CaseIterable {
       
       return section
   }
-
 }
 
