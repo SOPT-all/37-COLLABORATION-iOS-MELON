@@ -38,7 +38,6 @@ final class CTAButton: UIButton {
         
         super.init(frame: .zero)
         
-        setLayout(style: style)
         configure(label: label)
         
         addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
