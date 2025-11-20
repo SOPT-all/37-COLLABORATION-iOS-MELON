@@ -29,6 +29,7 @@ final class MallangCardView: BaseUIView {
         label: "추천 바로 듣기",
         font: .pretendard(.body_b_14),
         image: .icMixup32,
+        imageSize: 32,
         imageTextSpacing: 2,
         action: { [weak self] in
             self?.mallangListenButtonAction?()
