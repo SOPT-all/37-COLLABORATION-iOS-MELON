@@ -38,7 +38,7 @@ final class MallangCardView: BaseUIView {
     private lazy var setTasteButton = CTAButton(
         style: .bordered,
         label: "취향 설정하기",
-        font: .pretendard(.body_r_14),
+        font: .pretendard(.body_r_14)
     )
     
     // MARK: - Init
@@ -84,12 +84,14 @@ final class MallangCardView: BaseUIView {
             $0.centerX.equalTo(mallangCardImageView)
             $0.horizontalEdges.equalTo(mallangCardImageView).inset(15)
             $0.bottom.equalTo(mallangCardImageView.snp.bottom).inset(12.5)
+            $0.height.equalTo(42)
         }
         
         setTasteButton.snp.makeConstraints {
             $0.centerX.equalTo(mallangCardImageView)
             $0.horizontalEdges.equalTo(artistMixCardImageView).inset(15)
             $0.bottom.equalTo(artistMixCardImageView.snp.bottom).inset(14.88)
+            $0.height.equalTo(42)
         }
     }
 }
