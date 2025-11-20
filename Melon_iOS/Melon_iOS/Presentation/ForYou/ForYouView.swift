@@ -49,15 +49,12 @@ final class ForYouView: BaseUIView {
     override func setUI() {
         backgroundColor = .background
         
-        addSubview(scrollView)
+        addSubviews(scrollView, progressBar)
         scrollView.addSubview(contentView)
-        
-        addSubview(contentView)
         
         contentView.addSubviews(
             forYouLabel,
-            cardView,
-            progressBar
+            cardView
         )
     }
     
