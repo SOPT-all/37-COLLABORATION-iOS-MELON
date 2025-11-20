@@ -5,4 +5,58 @@
 //  Created by 조영서 on 11/15/25.
 //
 
-// 여기에쓰거라
+import UIKit
+
+import SnapKit
+import Then
+
+final class ForYouViewController: BaseViewController {
+    
+    // MARK: - Properties
+    
+    private let forYouView = ForYouView()
+    
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setAction()
+    }
+    
+    // MARK: - Setup Methods
+    
+    override func setUI() {
+        view.addSubview(forYouView)
+    }
+    
+    override func setLayout() {
+        forYouView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setAction() {
+        forYouView.cardView.mallangListenButtonAction = { [weak self] in
+            let toast = ToastMessage()
+            self?.view.addSubview(toast)
+            toast.configure(action: {
+                print("toast message action button tapped")
+            })
+            toast.show()
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc func showToast() {
+        let toast = ToastMessage()
+        view.addSubview(toast)
+        toast.configure(action: {
+            print("toast message action button tapped")
+        })
+        toast.show()
+    }
+}
