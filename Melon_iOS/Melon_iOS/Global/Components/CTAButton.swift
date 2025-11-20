@@ -47,20 +47,17 @@ final class CTAButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup Methods
+    // MARK: - Actions
     
-    private func setLayout(style: ButtonStyle) {
-        switch style {
-        case .filledBlack:
-            snp.makeConstraints {
-                $0.height.equalTo(44)
-            }
-        case .bordered, .filledWhite:
-            snp.makeConstraints {
-                $0.height.equalTo(42)
-            }
+    @objc func buttonTapped() {
+        action?()
+        
+        if buttonStyle == .filledBlack {
+            isSelected.toggle()
         }
     }
+    
+    // MARK: - Private Methods
     
     private func configure(label: String) {
         var config = UIButton.Configuration.filled()
@@ -89,15 +86,5 @@ final class CTAButton: UIButton {
             config.background.strokeColor = .gray200
         }
         self.configuration = config
-    }
-    
-    // MARK: - Actions
-    
-    @objc func buttonTapped() {
-        action?()
-        
-        if buttonStyle == .filledBlack {
-            isSelected.toggle()
-        }
     }
 }
