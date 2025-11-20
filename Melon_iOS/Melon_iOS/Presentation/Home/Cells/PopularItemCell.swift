@@ -18,7 +18,7 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
     $0.backgroundColor = .background2
@@ -26,34 +26,35 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     $0.image = .imgMixup4
   }
   
-  private lazy var infoStackView = UIStackView().then {
+  private let infoStackView = UIStackView().then {
     $0.axis = .vertical
     $0.spacing = 4
   }
   
-  private lazy var categoryLabel = UILabel().then {
+  private let categoryLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.textColor = .gray200
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .white
   }
   
-  private lazy var artistLabel = UILabel().then {
+  private let artistLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.textColor = .gray200
   }
   
-  private lazy var mixUpButton = UIButton().then {
+  private let mixUpButton = UIButton().then {
     $0.setImage(.icMixup36, for: .normal)
-    $0.addTarget(self, action: #selector(mixUpButtonTapped), for: .touchUpInside)
   }
   
   // MARK: - Setup Methods
   
   override func setUI() {
+    mixUpButton.addTarget(self, action: #selector(mixUpButtonTapped), for: .touchUpInside)
+    
     addSubviews(imageView, infoStackView, mixUpButton)
     infoStackView.addArrangedSubviews(categoryLabel, titleLabel, artistLabel)
   }
@@ -76,6 +77,12 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
+  // MARK: - Actions
+  
+  @objc func mixUpButtonTapped() {
+    action!()
+  }
+  
   func configure(_ data: HomeDTO, action: (() -> Void)? = nil) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
@@ -91,11 +98,4 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     
     self.action = action
   }
-  
-  // MARK: - Actions
-  
-  @objc func mixUpButtonTapped() {
-    action!()
-  }
-  
 }

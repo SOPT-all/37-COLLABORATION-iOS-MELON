@@ -14,15 +14,15 @@ final class NavigationItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var melonLogo = UIImageView().then {
+  private let melonLogo = UIImageView().then {
     $0.image = UIImage.icLogo
   }
   
-  private lazy var perkButton = UIImageView().then {
+  private let perkButton = UIImageView().then {
     $0.image = .icPerk
   }
   
-  private lazy var cashButton = UIImageView().then {
+  private let cashButton = UIImageView().then {
     $0.image = UIImage(named: "ic_cash")
     $0.contentMode = .scaleAspectFit
     $0.clipsToBounds = true
@@ -54,5 +54,4 @@ final class NavigationItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
       make.trailing.equalTo(cashButton.snp.leading).inset(-16)
     }
   }
-  
 }

@@ -14,59 +14,59 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
     $0.backgroundColor = .background2
     $0.layer.cornerRadius = 4
   }
   
-  private lazy var rankStack = UIStackView().then {
+  private let rankStack = UIStackView().then {
     $0.axis = .vertical
     $0.alignment = .center
     $0.spacing = 4
   }
   
-  private lazy var rankLabel = UILabel().then {
+  private let rankLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .white
-    $0.text = "1"
   }
   
-  private lazy var rankChangeLabel = UILabel().then {
+  private let rankChangeLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.textColor = .gray300
     $0.text = "-"
   }
   
-  private lazy var infoStack = UIStackView().then {
+  private let infoStack = UIStackView().then {
     $0.axis = .vertical
     $0.alignment = .leading
     $0.spacing = 4
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .white
     $0.numberOfLines = 2
   }
   
-  private lazy var artistLabel = UILabel().then {
+  private let artistLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.textColor = .gray200
     $0.numberOfLines = 1
   }
   
-  private lazy var playButton = UIButton().then {
+  private let playButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.setImage(.icPlay24, for: .normal)
     $0.setImage(.icPause24, for: .selected)
-    $0.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
   }
   
   // MARK: - Setup Methods
   
   override func setUI() {
+    playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+    
     addSubviews(imageView, playButton, rankStack, infoStack,)
     
     rankStack.addArrangedSubviews(rankLabel, rankChangeLabel)
@@ -97,7 +97,13 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: HomeDTO, row rank: Int) {
+  // MARK: - Actions
+  
+  @objc private func playButtonTapped() {
+    playButton.isSelected.toggle()
+  }
+  
+  func configure(_ data: HomeDTO, row rank: Int = 0) {
     rankLabel.text = "\(rank + 1)"
     titleLabel.text = data.title
     artistLabel.text = data.artist
@@ -110,11 +116,4 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
         imageView.image = .none
       }
   }
-  
-  // MARK: - Actions
-  
-  @objc private func playButtonTapped() {
-    playButton.isSelected.toggle()
-  }
-  
 }

@@ -14,21 +14,20 @@ final class PersonalizedItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
     $0.backgroundColor = .background2
     $0.layer.cornerRadius = 4
   }
   
-  private lazy var playButton = UIButton().then {
+  private let playButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.setImage(.icPlay32, for: .normal)
     $0.setImage(.icPause32, for: .selected)
-    $0.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_m_14)
     $0.textColor = .white
   }
@@ -36,6 +35,8 @@ final class PersonalizedItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   // MARK: - Setup Methods
   
   override func setUI() {
+    playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+    
     addSubviews(imageView, playButton, titleLabel)
   }
   
@@ -56,15 +57,14 @@ final class PersonalizedItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(data: PersonalizedDTO) {
-    titleLabel.text = data.title
-    imageView.image = data.image
-  }
-  
   // MARK: - Actions
   
   @objc private func playButtonTapped() {
     playButton.isSelected.toggle()
   }
   
+  func configure(data: PersonalizedDTO) {
+    titleLabel.text = data.title
+    imageView.image = data.image
+  }
 }

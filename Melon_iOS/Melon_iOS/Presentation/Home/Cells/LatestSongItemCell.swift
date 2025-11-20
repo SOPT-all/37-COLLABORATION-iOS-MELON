@@ -14,27 +14,26 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
     $0.backgroundColor = .background2
     $0.layer.cornerRadius = 4
   }
   
-  private lazy var playButton = UIButton().then {
+  private let playButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.setImage(.icPlay24, for: .normal)
     $0.setImage(.icPause24, for: .selected)
-    $0.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_m_14)
     $0.textColor = .white
     $0.numberOfLines = 2
   }
   
-  private lazy var artistLabel = UILabel().then {
+  private let artistLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_m_10)
     $0.textColor = .gray200
     $0.numberOfLines = 1
@@ -43,6 +42,8 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   // MARK: - Setup Methods
   
   override func setUI() {
+    playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
+    
     addSubviews(imageView, playButton, titleLabel, artistLabel)
   }
   
@@ -68,6 +69,12 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
+  // MARK: - Actions
+  
+  @objc private func playButtonTapped() {
+    playButton.isSelected.toggle()
+  }
+  
   func configure(_ data: HomeDTO) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
@@ -79,11 +86,5 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
       )} else {
         imageView.image = .none
       }
-  }
-  
-  // MARK: - Actions
-  
-  @objc private func playButtonTapped() {
-    playButton.isSelected.toggle()
   }
 }

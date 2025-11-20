@@ -14,56 +14,48 @@ final class BannerItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var cardView = UIView().then {
+  private let cardView = UIView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 4
   }
   
-  private lazy var promotionTitle = UILabel().then {
-    $0.text = ""
+  private let promotionTitle = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .gray200
   }
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.image = .imgBanner1
   }
   
-  private lazy var infoStack = UIStackView().then {
+  private let infoStack = UIStackView().then {
     $0.axis = .vertical
     $0.alignment = .leading
     $0.spacing = 4
   }
   
-  private lazy var capsuleView = UIView().then {
+  private let capsuleView = UIView().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 8
     $0.layer.borderWidth = 1
     $0.layer.borderColor = UIColor.white.cgColor
   }
   
-  private lazy var capsuleLabel = UILabel().then {
-    $0.text = "Melon Ticket"
+  private let capsuleLabel = UILabel().then {
     $0.textColor = .white
-    
     $0.textAlignment = .center
-    
     $0.font = UIFont.pretendard(.caption_m_10)
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.textColor = .white
     $0.font = UIFont.pretendard(.body_m_14)
-    
-    $0.text = "우즈 CONCERT"
   }
   
-  private lazy var subTitleLabel = UILabel().then {
+  private let subTitleLabel = UILabel().then {
     $0.textColor = .white
     $0.font = UIFont.pretendard(.caption_r_12)
-    
-    $0.text = "멜론티켓에서 예매하기"
   }
   
   // MARK: - Setup Methods
@@ -107,7 +99,16 @@ final class BannerItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: BannerDTO) {
+  func configure(
+    _ data: BannerDTO = BannerDTO(
+      title: "우즈 CONCERT",
+      subtitle: "멜론티켓에서 예매하기",
+      promotion: "2025 WOODZ PREVIEW CONCERT",
+      capsuleTitle: "Melon Ticket",
+      image: .imgBanner1,
+      backgroundColor: .bar6
+    )
+  ) {
     titleLabel.text = data.title
     subTitleLabel.text = data.subtitle
     promotionTitle.text = data.promotion
@@ -115,5 +116,4 @@ final class BannerItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     imageView.image = data.image
     cardView.backgroundColor = data.backgroundColor
   }
-  
 }

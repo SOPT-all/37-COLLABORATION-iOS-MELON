@@ -16,16 +16,16 @@ final class ChartCollectionViewCell : BaseUICollectionViewCell, ReuseIdentifiabl
   
   static let horizontalPadding: CGFloat = 20
   
-  // MARK: - Components
+  // MARK: - UI Components
   
-  private lazy var capsule = UIView().then {
+  private let capsule = UIView().then {
     $0.layer.borderColor = UIColor.gray400.cgColor
     $0.layer.borderWidth = 0.5
     $0.layer.cornerRadius = 18.5
     $0.clipsToBounds = true
   }
   
-  private lazy var label = UILabel().then {
+  private let label = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .white
     $0.textAlignment = .center
@@ -43,17 +43,13 @@ final class ChartCollectionViewCell : BaseUICollectionViewCell, ReuseIdentifiabl
     
     capsule.snp.makeConstraints {
       $0.height.equalTo(37)
-      $0.width.greaterThanOrEqualTo(label.snp.width).inset(-ChartCollectionViewCell.horizontalPadding)
+      $0.width.equalTo(label.snp.width).inset(-ChartCollectionViewCell.horizontalPadding)
       $0.centerY.equalToSuperview()
     }
     
     label.snp.makeConstraints {
       $0.center.equalTo(capsule)
     }
-  }
-  
-  func configure(with text: String) {
-    label.text = text
   }
   
   // MARK: - Actions
@@ -68,4 +64,7 @@ final class ChartCollectionViewCell : BaseUICollectionViewCell, ReuseIdentifiabl
     capsule.layer.borderColor = UIColor.gray400.cgColor
   }
   
+  func configure(with text: String) {
+    label.text = text
+  }
 }

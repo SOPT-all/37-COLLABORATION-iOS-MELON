@@ -14,9 +14,9 @@ final class PreferenceItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   
   // MARK: - UI Components
   
-  private lazy var eventBannerView = EventBannerView()
+  private let eventBannerView = EventBannerView()
   
-  private lazy var preferenceSongView = PreferenceSongView()
+  private let preferenceSongView = PreferenceSongView()
   
   // MARK: - Setup Methods
   
@@ -25,7 +25,6 @@ final class PreferenceItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   }
   
   override func setLayout() {
-    
     eventBannerView.snp.makeConstraints {
       $0.top.horizontalEdges.equalToSuperview()
       $0.height.equalTo(48)
@@ -41,5 +40,4 @@ final class PreferenceItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   func configure(_ data: HomeDTO) {
     preferenceSongView.configure(data)
   }
-  
 }
