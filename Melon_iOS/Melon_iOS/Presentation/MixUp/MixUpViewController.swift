@@ -29,6 +29,7 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
     
     override func setUI() {
         view.addSubview(mixUpView)
+        mixUpView.delegate = self
     }
 
     override func setLayout() {
@@ -61,7 +62,7 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
     }
 }
 
-// MARK: - Extension
+// MARK: - Extensions
 
 extension MixUpViewController: UICollectionViewDataSource {
 
@@ -87,5 +88,22 @@ extension MixUpViewController: UICollectionViewDataSource {
             imageUrl: item.imageUrl
         )
         return cell
+    }
+}
+
+extension MixUpViewController: MixUpViewDelegate {
+    func didTapChevronDown() {
+
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.transform = CGAffineTransform(
+                translationX: 0,
+                y: UIScreen.main.bounds.height
+            )
+        }, completion: { _ in
+            let vc = ViewController() // TODO: 홈 VC로 교체
+            self.navigationController?.pushViewController(vc, animated: false)
+            
+            self.view.transform = .identity
+        })
     }
 }
