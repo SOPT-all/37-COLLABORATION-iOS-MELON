@@ -12,29 +12,28 @@ import Then
 
 final class PreferenceSongView: BaseUIView {
   
-  private lazy var imageView = UIImageView().then {
+  private let imageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.backgroundColor = .bar1
   }
   
-  private lazy var playButton = UIButton().then {
+  private let playButton = UIButton().then {
     $0.contentMode = .scaleAspectFit
     $0.setImage(.icPlay24, for: .normal)
     $0.setImage(.icPause32, for: .selected)
-    $0.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
   }
   
-  private lazy var infoStack = UIStackView().then {
+  private let infoStack = UIStackView().then {
     $0.axis = .vertical
   }
   
-  private lazy var titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.caption_r_12)
     $0.text = "내 취향 기반 추천 곡"
     $0.textColor = .white
   }
   
-  private lazy var songNameLabel = UILabel().then {
+  private let songNameLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.text = "The Day"
     $0.textColor = .white
@@ -53,8 +52,9 @@ final class PreferenceSongView: BaseUIView {
     layer.cornerRadius = 4
     
     addSubviews(imageView, playButton, infoStack)
-    
     infoStack.addArrangedSubviews(titleLabel, songNameLabel, artistNameLabel)
+    
+    playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
   }
   
   override func setLayout() {
@@ -75,6 +75,12 @@ final class PreferenceSongView: BaseUIView {
     }
   }
   
+  // MARK: - Actions
+  
+  @objc private func playButtonTapped() {
+    playButton.isSelected.toggle()
+  }
+  
   func configure(_ data: HomeDTO) {
     songNameLabel.text = data.title
     artistNameLabel.text = data.artist
@@ -87,12 +93,5 @@ final class PreferenceSongView: BaseUIView {
         imageView.image = .none
       }
   }
-  
-  // MARK: - Actions
-  
-  @objc private func playButtonTapped() {
-    playButton.isSelected.toggle()
-  }
-  
 }
 
