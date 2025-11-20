@@ -11,34 +11,34 @@ import UIKit
 
 final class HomeViewController: UIViewController, UICollectionViewDelegate {
   
-  let compView = HomeView()
+  let homeView = HomeView()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .background
-    self.view = compView
+    self.view = homeView
     
-    compView.collectionView.delegate = self
-    compView.collectionView.dataSource = self
+    homeView.collectionView.delegate = self
+    homeView.collectionView.dataSource = self
     
     // Collection Cell 등록
-    compView.collectionView.cellRegister(EmptyCollectionViewCell.self)
-    compView.collectionView.cellRegister(NavigationItemCell.self)
-    compView.collectionView.cellRegister(PreferenceItemCell.self)
-    compView.collectionView.cellRegister(PersonalizedItemCell.self)
-    compView.collectionView.cellRegister(PopularItemCell.self)
-    compView.collectionView.cellRegister(BannerItemCell.self)
-    compView.collectionView.cellRegister(LatestSongItemCell.self)
-    compView.collectionView.cellRegister(ChartItemCell.self)
+    homeView.collectionView.cellRegister(EmptyCollectionViewCell.self)
+    homeView.collectionView.cellRegister(NavigationItemCell.self)
+    homeView.collectionView.cellRegister(PreferenceItemCell.self)
+    homeView.collectionView.cellRegister(PersonalizedItemCell.self)
+    homeView.collectionView.cellRegister(PopularItemCell.self)
+    homeView.collectionView.cellRegister(BannerItemCell.self)
+    homeView.collectionView.cellRegister(LatestSongItemCell.self)
+    homeView.collectionView.cellRegister(ChartItemCell.self)
     
     // Section Header 등록
-    compView.collectionView.headerRegister(EmptyReusableView.self)
-    compView.collectionView.headerRegister(BasicSectionHeader.self)
-    compView.collectionView.headerRegister(LatestSectionHeader.self)
-    compView.collectionView.headerRegister(ChartSectionHeader.self)
+    homeView.collectionView.headerRegister(EmptyReusableView.self)
+    homeView.collectionView.headerRegister(BasicSectionHeader.self)
+    homeView.collectionView.headerRegister(LatestSectionHeader.self)
+    homeView.collectionView.headerRegister(ChartSectionHeader.self)
     
     // Section Footer 등록
-    compView.collectionView.footerRegister(ButtonSectionFooter.self)
+    homeView.collectionView.footerRegister(ButtonSectionFooter.self)
     
   }
   
@@ -96,7 +96,7 @@ extension HomeViewController: UICollectionViewDataSource {
       let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
       cell.configure(MockHomeService.popularMockData[indexPath.row]) { [weak self] in
         let toast = ToastMessage()
-          self?.compView.addSubview(toast)
+          self?.homeView.addSubview(toast)
           toast.configure(action: {
             print("toast message action button tapped")
           })
@@ -202,5 +202,4 @@ extension HomeViewController: UICollectionViewDataSource {
     
     fatalError("Missing supplementary view logic for kind: \(kind)")
   }
-
 }
