@@ -23,16 +23,18 @@ final class CTAButton: UIButton {
     private let buttonStyle: ButtonStyle
     private let font: UIFont
     private let image: UIImage?
+    private let imageSize: CGFloat?
     private let imageTextSpacing: CGFloat?
     private var action: (() -> Void)?
     
     // MARK: - Init
     
-    init(style: ButtonStyle, label: String, font: UIFont, image: UIImage? = nil, imageTextSpacing: CGFloat? = nil,
+    init(style: ButtonStyle, label: String, font: UIFont, image: UIImage? = nil, imageSize: CGFloat? = nil, imageTextSpacing: CGFloat? = nil,
          action: (() -> Void)? = nil) {
         self.buttonStyle = style
         self.font = font
         self.image = image
+        self.imageSize = imageSize
         self.imageTextSpacing = imageTextSpacing
         self.action = action
         
@@ -69,6 +71,13 @@ final class CTAButton: UIButton {
         config.imagePadding = imageTextSpacing ?? 0
         config.imagePlacement = .leading
         config.background.cornerRadius = 4
+        
+        if let image = image, let size = imageSize {
+            let resized = image.preparingThumbnail(of: CGSize(width: size, height: size))
+            config.image = resized
+        } else {
+            config.image = image
+        }
         
         switch buttonStyle {
         case .filledWhite:
