@@ -79,6 +79,8 @@ final class MallangCardView: BaseUIView {
         artistMixCardImageView.snp.makeConstraints {
             $0.top.equalTo(mallangCardImageView.snp.bottom).offset(28)
             $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(204)
+            $0.bottom.equalToSuperview() 
         }
         
         mallangListenButton.snp.makeConstraints {
