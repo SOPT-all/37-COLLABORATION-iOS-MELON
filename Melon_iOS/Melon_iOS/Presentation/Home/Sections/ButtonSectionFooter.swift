@@ -14,32 +14,18 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
   
   // MARK: - UI Components
   
-  private let playButton = UIButton().then {
-    $0.backgroundColor = .gray500
-    $0.clipsToBounds = true
-    $0.layer.cornerRadius = 4
-  }
-  
-  private let hStack = UIStackView().then {
-    $0.axis = .horizontal
-    $0.spacing = 4
-  }
-  
-  private let playIconImageView = UIImageView().then {
-    $0.image = .icPlay24
-  }
-  
-  private let playTitleLabel = UILabel().then {
-    $0.textColor = .white
-    $0.font = UIFont.pretendard(.body_m_14)
-  }
+  private let playButton = CTAButton(
+    style: .filledBlack,
+    label: "TOP 100 전체듣기",
+    font: .pretendard(.body_m_14),
+    image: .icPause24,
+    imageSize: 24,
+    imageTextSpacing: 4,)
   
   // MARK: - Setup Methods
   
   override func setUI() {
     addSubview(playButton)
-    playButton.addSubview(hStack)
-    hStack.addArrangedSubviews(playIconImageView, playTitleLabel)
   }
   
   override func setLayout() {
@@ -48,19 +34,10 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
       $0.horizontalEdges.equalToSuperview()
       $0.height.equalTo(44)
     }
-    
-    hStack.snp.makeConstraints {
-      $0.height.equalTo(24)
-      $0.center.equalToSuperview()
-    }
-    
-    playIconImageView.snp.makeConstraints {
-      $0.size.equalTo(24)
-    }
   }
   
   func configure(title: String) {
-    playTitleLabel.text = title
+    playButton.titleLabel?.text = title
   }
 }
 
