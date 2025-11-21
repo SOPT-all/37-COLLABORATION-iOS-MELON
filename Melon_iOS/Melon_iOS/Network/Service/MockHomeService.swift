@@ -1,16 +1,9 @@
 //
-//  HomeService.swift
+//  MockHomeService.swift
 //  Melon_iOS
 //
-//  Created by 이승준 on 11/19/25.
+//  Created by 이승준 on 11/21/25.
 //
-
-import Foundation
-
-final class MockPreferenceService {
-  
-  
-}
 
 final class MockPopularService {}
 
@@ -49,9 +42,7 @@ extension MockPopularService {
   ]
 }
 
-final class MockLatestService {
-  
-}
+final class MockLatestService { }
 
 extension MockLatestService {
   static let mockData: [LatestSongDTO] = [
@@ -90,7 +81,7 @@ extension MockLatestService {
   ]
 }
 
-final class MockChartService {}
+final class MockChartService { }
 
 extension MockChartService {
   static let mockData: [ChartSongDTO] = [
@@ -129,9 +120,7 @@ extension MockChartService {
   ]
 }
 
-final class MockBannerService {
-  
-}
+final class MockBannerService { }
 
 extension MockBannerService {
   static let mockData: [BannerDTO] = [
@@ -154,48 +143,12 @@ extension MockBannerService {
   ]
 }
 
-final class MockMixUpService {
-    func fetchSongs() async throws -> [MixUpResponseDTO] {
-        return Self.mockData
-    }
-}
+final class MockPersonalizedService { }
 
-extension MockMixUpService {
-    static let mockData: [MixUpResponseDTO] = [
-        MixUpResponseDTO(
-            title: "Ditto",
-            artist: "NewJeans",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40824/4082425.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "Love Dive",
-            artist: "IVE",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40737/4073710.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "Seven",
-            artist: "정국",
-            imageUrl: "https://image.bugsm.co.kr/album/images/350/40889/4088913.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "Hype Boy",
-            artist: "NewJeans",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40780/4078016.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "Super Shy",
-            artist: "NewJeans",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40885/4088574.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "I AM",
-            artist: "IVE",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40849/4084947.jpg"
-        ),
-        MixUpResponseDTO(
-            title: "ANTIFRAGILE",
-            artist: "LE SSERAFIM",
-            imageUrl: "https://image.bugsm.co.kr/album/images/500/40807/4080706.jpg"
-        )
-    ]
+extension MockPersonalizedService {
+  static let mockData: [PersonalizedDTO] = [
+    PersonalizedDTO(title: "내가 아끼는 최애곡 모음", image: .imgRecommend1),
+    PersonalizedDTO(title: "요즘 듣던 노래 이어듣기", image: .imgRecommend2),
+    PersonalizedDTO(title: "매일 찾아듣는 음악", image: .imgRecommend3),
+  ]
 }
