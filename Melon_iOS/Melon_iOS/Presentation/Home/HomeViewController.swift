@@ -60,10 +60,10 @@ extension HomeViewController: UICollectionViewDataSource {
     case .navigation: return 1
     case .preference: return 1
     case .personalized: return MockPersonalizedService.mockData.count
-    case .popular: return MockHomeService.popularMockData.count
+    case .popular: return MockPopularService.mockData.count
     case .banner: return MockBannerService.mockData.count
-    case .latest: return MockHomeService.latestMockData.count
-    case .chart: return MockHomeService.chartMockData.count
+    case .latest: return MockLatestService.mockData.count
+    case .chart: return MockChartService.mockData.count
     }
   }
   
@@ -81,7 +81,7 @@ extension HomeViewController: UICollectionViewDataSource {
       return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
     case .preference:
       let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
-      cell.configure(MockHomeService.preferenceMockData)
+      cell.configure()
       return cell
     case .personalized:
       let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
@@ -89,7 +89,7 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .popular:
       let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
-      cell.configure(MockHomeService.popularMockData[indexPath.row]) { [weak self] in
+      cell.configure(MockPopularService.mockData[indexPath.row]) { [weak self] in
         let toast = ToastMessage()
           self?.homeView.addSubview(toast)
           toast.configure(action: {
@@ -104,11 +104,11 @@ extension HomeViewController: UICollectionViewDataSource {
       return cell
     case .latest:
       let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
-      cell.configure(MockHomeService.latestMockData[indexPath.row])
+      cell.configure(MockLatestService.mockData[indexPath.row])
       return cell
     case .chart:
       let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
-      cell.configure(MockHomeService.chartMockData[indexPath.row], row: indexPath.row)
+      cell.configure(MockChartService.mockData[indexPath.row], row: indexPath.row)
       return cell
     }
   }

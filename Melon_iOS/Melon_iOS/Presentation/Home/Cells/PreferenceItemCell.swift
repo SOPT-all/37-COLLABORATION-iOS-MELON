@@ -37,7 +37,7 @@ final class PreferenceItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  func configure(_ data: HomeDTO) {
+  func configure(_ data: PreferencedSongDTO = PreferencedSongDTO(title: "THe Day", artist: "DAY6(데이식스)", imageUrl: "https://image.bugsm.co.kr/album/images/170/5297/529710.jpg")) {
     preferenceSongView.configure(data)
   }
 }

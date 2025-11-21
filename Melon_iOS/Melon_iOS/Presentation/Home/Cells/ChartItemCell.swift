@@ -103,7 +103,7 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     playButton.isSelected.toggle()
   }
   
-  func configure(_ data: HomeDTO, row rank: Int = 0) {
+  func configure(_ data: ChartSongDTO, row rank: Int = 0) {
     rankLabel.text = "\(rank + 1)"
     titleLabel.text = data.title
     artistLabel.text = data.artist

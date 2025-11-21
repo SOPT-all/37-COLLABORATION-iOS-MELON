@@ -14,7 +14,7 @@ import Then
 
 final class HomeView: BaseUIView {
   
-  private lazy var backgroundView = UIView().then {
+  private let backgroundView = UIView().then {
     $0.backgroundColor = .background
   }
   
@@ -55,5 +55,4 @@ final class HomeView: BaseUIView {
     }
     return layout
   }
-  
 }

@@ -81,7 +81,7 @@ final class PreferenceSongView: BaseUIView {
     playButton.isSelected.toggle()
   }
   
-  func configure(_ data: HomeDTO) {
+  func configure(_ data: PreferencedSongDTO) {
     songNameLabel.text = data.title
     artistNameLabel.text = data.artist
     

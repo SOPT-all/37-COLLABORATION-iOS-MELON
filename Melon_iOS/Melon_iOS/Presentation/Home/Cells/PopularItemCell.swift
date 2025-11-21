@@ -83,7 +83,7 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     action!()
   }
   
-  func configure(_ data: HomeDTO, action: (() -> Void)? = nil) {
+  func configure(_ data: PopularSongDTO, action: (() -> Void)? = nil) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
     categoryLabel.text = data.category

@@ -75,7 +75,7 @@ final class LatestSongItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     playButton.isSelected.toggle()
   }
   
-  func configure(_ data: HomeDTO) {
+  func configure(_ data: LatestSongDTO) {
     titleLabel.text = data.title
     artistLabel.text = data.artist
         
