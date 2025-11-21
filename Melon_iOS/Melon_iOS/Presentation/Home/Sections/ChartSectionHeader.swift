@@ -10,8 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class ChartSectionHeader: BaseUICollectionReusableView,
-                                ReuseIdentifiable,
+final class ChartSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable,
                                 UICollectionViewDelegate {
   
   // MARK: - Properties
@@ -43,7 +42,7 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
     $0.setTitleColor(.gray200, for: .normal)
   }
   
-  let collectionView: UICollectionView = {
+  let filterChipCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
     layout.minimumInteritemSpacing = 4
@@ -60,7 +59,7 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
   
   override func setUI() {
     setCollectionView()
-    addSubviews(titleFrame, collectionView)
+    addSubviews(titleFrame, filterChipCollectionView)
     titleFrame.addSubviews(standardTime, label, chartIcon, seeAllButton)
   }
   
@@ -91,7 +90,7 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
       $0.centerY.trailing.equalToSuperview()
     }
     
-    collectionView.snp.makeConstraints {
+    filterChipCollectionView.snp.makeConstraints {
       $0.top.equalTo(titleFrame.snp.bottom).offset(10)
       $0.horizontalEdges.equalToSuperview().inset(-20)
       $0.height.equalTo(37)
@@ -99,12 +98,11 @@ final class ChartSectionHeader: BaseUICollectionReusableView,
   }
   
   private func setCollectionView() {
-    collectionView.cellRegister(ChartCollectionViewCell.self)
+    filterChipCollectionView.cellRegister(HomeChipCell.self)
     
-    collectionView.delegate = self
-    collectionView.dataSource = self
+    filterChipCollectionView.delegate = self
+    filterChipCollectionView.dataSource = self
   }
-  
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -124,7 +122,7 @@ extension ChartSectionHeader: UICollectionViewDelegateFlowLayout {
       $0.sizeToFit()
     }
     
-    let cellWidth = label.frame.width + ChartCollectionViewCell.horizontalPadding * 2
+    let cellWidth = label.frame.width + HomeChipCell.horizontalPadding * 2
     let cellHeight: CGFloat = 37
     
     return CGSize(width: cellWidth, height: cellHeight)
@@ -144,9 +142,9 @@ extension ChartSectionHeader: UICollectionViewDataSource {
   func collectionView(
     _ collectionView: UICollectionView,
     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(ChartCollectionViewCell.self, for: indexPath)
+    let cell = collectionView.dequeueReusableCell(HomeChipCell.self, for: indexPath)
       if indexPath.row == 0 {
-        cell.selected()
+        cell.capsuleButtonTapped()
       }
       cell.configure(with: chartCategories[indexPath.row])
     return cell
