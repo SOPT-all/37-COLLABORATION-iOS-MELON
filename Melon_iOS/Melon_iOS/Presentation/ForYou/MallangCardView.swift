@@ -17,11 +17,11 @@ final class MallangCardView: BaseUIView {
     var mallangListenButtonAction: (() -> Void)?
     
     private let mallangCardImageView = UIImageView().then {
-        $0.image = UIImage(named: "card_1_ios")
+        $0.image = .card1Ios
     }
     
     private let artistMixCardImageView = UIImageView().then {
-        $0.image = UIImage(named: "card_4_ios")
+        $0.image = .card4Ios
     }
     
     private lazy var mallangListenButton = CTAButton(
