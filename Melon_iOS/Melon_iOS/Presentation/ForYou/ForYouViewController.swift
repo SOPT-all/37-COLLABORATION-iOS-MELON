@@ -21,7 +21,7 @@ final class ForYouViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setAction()
+        setMallangListenButtonAction()
     }
     
     // MARK: - Setup Methods
@@ -38,7 +38,7 @@ final class ForYouViewController: BaseViewController {
     
     // MARK: - Private Methods
     
-    private func setAction() {
+    private func setMallangListenButtonAction () {
         forYouView.cardView.mallangListenButtonAction = { [weak self] in
             let toast = ToastMessage()
             self?.view.addSubview(toast)
