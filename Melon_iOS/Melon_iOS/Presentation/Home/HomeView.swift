@@ -14,6 +14,8 @@ import Then
 
 final class HomeView: BaseUIView {
   
+  // MARK: - UI Components
+  
   private let backgroundView = UIView().then {
     $0.backgroundColor = .background
   }

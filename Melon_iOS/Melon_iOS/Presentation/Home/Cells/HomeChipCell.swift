@@ -40,9 +40,6 @@ final class HomeChipCell : BaseUICollectionViewCell, ReuseIdentifiable {
   }
   
   override func setLayout() {
-    layer.cornerRadius = 18.5
-    clipsToBounds = true
-    
     capsuleButton.snp.makeConstraints {
       $0.height.equalTo(37)
       $0.width.equalTo(label.snp.width).inset(-HomeChipCell.horizontalPadding)
@@ -65,12 +62,12 @@ final class HomeChipCell : BaseUICollectionViewCell, ReuseIdentifiable {
   }
   
   func selected() {
-    backgroundColor = .primary
+    capsuleButton.backgroundColor = .primary
     capsuleButton.layer.borderColor = UIColor.primary.cgColor
   }
   
   func deselected() {
-    backgroundColor = .background
+    capsuleButton.backgroundColor = .background
     capsuleButton.layer.borderColor = UIColor.gray400.cgColor
   }
   

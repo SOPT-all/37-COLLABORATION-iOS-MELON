@@ -103,15 +103,14 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     playButton.isSelected.toggle()
   }
   
-  func configure(_ data: ChartSongDTO, row rank: Int = 0) {
+  func configure(_ data: ChartSongDTO, row rank: Int = -1) {
     rankLabel.text = "\(rank + 1)"
     titleLabel.text = data.title
     artistLabel.text = data.artist
     
     if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
       imageView.kf.setImage(
-        with: url,
-        placeholder: .none,
+        with: url
       )} else {
         imageView.image = .none
       }
