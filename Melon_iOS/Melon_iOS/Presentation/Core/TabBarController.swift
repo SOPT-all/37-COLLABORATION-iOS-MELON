@@ -43,7 +43,7 @@ final class TabBarController: UITabBarController {
             case .home:
                 return ViewController()
             case .forYou:
-                return ViewController()
+                return ForYouViewController()
             case .search:
                 return UIViewController()
             case .drawer:
