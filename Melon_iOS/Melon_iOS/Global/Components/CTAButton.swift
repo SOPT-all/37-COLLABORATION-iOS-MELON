@@ -85,7 +85,7 @@ final class CTAButton: UIButton {
             config.baseForegroundColor = .background
             
         case .filledBlack:
-            config.baseBackgroundColor = .background
+            config.baseBackgroundColor = .gray500
             config.baseForegroundColor = .white
             
         case .bordered:
