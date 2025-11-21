@@ -44,7 +44,8 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
   
   override func setLayout() {
     playButton.snp.makeConstraints {
-      $0.bottom.horizontalEdges.equalToSuperview()
+      $0.top.equalToSuperview().offset(20)
+      $0.horizontalEdges.equalToSuperview()
       $0.height.equalTo(44)
     }
     

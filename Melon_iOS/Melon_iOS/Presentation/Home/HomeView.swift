@@ -25,18 +25,27 @@ final class HomeView: BaseUIView {
     return col
   }()
   
+  private let playerView = ProgressBar(style: .normal)
+  
   // MARK: - Setup Methods
   
   override func setUI() {
-    addSubviews(backgroundView, collectionView)
+    addSubviews(backgroundView, collectionView, playerView)
   }
   
   override func setLayout() {
     backgroundView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+    
     collectionView.snp.makeConstraints {
-      $0.edges.equalTo(safeAreaLayoutGuide)
+      $0.top.horizontalEdges.equalTo(safeAreaLayoutGuide)
+      $0.bottom.equalTo(playerView.snp.top)
+    }
+    
+    playerView.snp.makeConstraints {
+      $0.bottom.horizontalEdges.equalTo(safeAreaLayoutGuide)
+      $0.height.equalTo(60)
     }
   }
   
