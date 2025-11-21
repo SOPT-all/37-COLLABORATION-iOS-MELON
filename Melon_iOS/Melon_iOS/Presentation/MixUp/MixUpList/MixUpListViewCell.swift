@@ -98,6 +98,12 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
     }
+    
+    // MARK: - Public Methods
+    
+    func setChecked(_ isSelected: Bool) {
+        checkboxButton.isSelected = isSelected
+    }
 }
 
 // MARK: - Configure

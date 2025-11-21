@@ -12,6 +12,7 @@ import Then
 
 protocol MixUpViewDelegate: AnyObject {
     func didTapChevronDown()
+    func didTapCheckbox(isSelected: Bool)
 }
 
 final class MixUpView: BaseUIView {
@@ -213,6 +214,7 @@ final class MixUpView: BaseUIView {
 
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
+        delegate?.didTapCheckbox(isSelected: checkboxButton.isSelected)
     }
     
     @objc private func chevronTapped() {
