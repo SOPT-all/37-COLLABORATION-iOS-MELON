@@ -92,8 +92,8 @@ extension MixUpViewController: UICollectionViewDataSource {
 }
 
 extension MixUpViewController: MixUpViewDelegate {
-    func didTapChevronDown() {
 
+    func didTapChevronDown() {
         UIView.animate(withDuration: 0.3, animations: {
             self.view.transform = CGAffineTransform(
                 translationX: 0,
@@ -102,8 +102,18 @@ extension MixUpViewController: MixUpViewDelegate {
         }, completion: { _ in
             let vc = ViewController() // TODO: 홈 VC로 교체
             self.navigationController?.pushViewController(vc, animated: false)
-            
             self.view.transform = .identity
         })
+    }
+
+    func didTapCheckbox(isSelected: Bool) {
+        
+        mixUpView.nowPlayingTrackView.setChecked(isSelected)
+        
+        for cell in mixUpView.mixUpListView.collectionView.visibleCells {
+            if let cell = cell as? MixUpListViewCell {
+                cell.setChecked(isSelected)
+            }
+        }
     }
 }
