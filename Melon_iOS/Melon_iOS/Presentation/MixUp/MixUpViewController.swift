@@ -100,7 +100,7 @@ extension MixUpViewController: MixUpViewDelegate {
                 y: UIScreen.main.bounds.height
             )
         }, completion: { _ in
-            let vc = HomeViewController()
+            let vc = TabBarController()
             self.navigationController?.pushViewController(vc, animated: false)
             self.view.transform = .identity
         })
