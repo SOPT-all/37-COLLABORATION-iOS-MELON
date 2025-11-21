@@ -48,15 +48,4 @@ final class ForYouViewController: BaseViewController {
             toast.show()
         }
     }
-    
-    // MARK: - Actions
-    
-    @objc func showToast() {
-        let toast = ToastMessage()
-        view.addSubview(toast)
-        toast.configure(action: {
-            print("toast message action button tapped")
-        })
-        toast.show()
-    }
 }
