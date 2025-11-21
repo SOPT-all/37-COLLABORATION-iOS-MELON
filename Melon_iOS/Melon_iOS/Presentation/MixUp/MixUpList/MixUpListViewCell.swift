@@ -114,7 +114,7 @@ extension MixUpListViewCell {
         artistNameLabel.text = artist
         
         if let imageUrl,
-           let url = URL(string: imageUrl) {
+           let _ = URL(string: imageUrl) {
             albumImageView.kf.setImage(
                 with: URL(string: imageUrl),
                 placeholder: UIImage(named: "img_mixup_default")
