@@ -8,46 +8,67 @@
 import Foundation
 
 final class MockMixUpService {
-    func fetchSongs() async throws -> [MixUpResponseDTO] {
+    func fetchSongs() async throws -> [MixUpDTO] {
         return Self.mockData
     }
 }
 
 extension MockMixUpService {
-    static let mockData: [MixUpResponseDTO] = [
-        MixUpResponseDTO(
+    static let mockData: [MixUpDTO] = [
+        MixUpDTO(
+            id: 1,
             title: "Ditto",
-            artist: "NewJeans",
+            artistName: "NewJeans",
+            playCount: 1200000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40824/4082425.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 2,
             title: "Love Dive",
-            artist: "IVE",
+            artistName: "IVE",
+            playCount: 950000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40737/4073710.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 3,
             title: "Seven",
-            artist: "정국",
+            artistName: "정국",
+            playCount: 1100000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/350/40889/4088913.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 4,
             title: "Hype Boy",
-            artist: "NewJeans",
+            artistName: "NewJeans",
+            playCount: 2000000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40780/4078016.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 5,
             title: "Super Shy",
-            artist: "NewJeans",
+            artistName: "NewJeans",
+            playCount: 1300000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40885/4088574.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 6,
             title: "I AM",
-            artist: "IVE",
+            artistName: "IVE",
+            playCount: 1600000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40849/4084947.jpg"
         ),
-        MixUpResponseDTO(
+        MixUpDTO(
+            id: 7,
             title: "ANTIFRAGILE",
-            artist: "LE SSERAFIM",
+            artistName: "LE SSERAFIM",
+            playCount: 1750000,
+            country: "KR",
             imageUrl: "https://image.bugsm.co.kr/album/images/500/40807/4080706.jpg"
         )
     ]
