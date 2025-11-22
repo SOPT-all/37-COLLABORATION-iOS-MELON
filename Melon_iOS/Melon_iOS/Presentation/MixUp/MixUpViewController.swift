@@ -14,8 +14,8 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
     // MARK: - Properties
     
     private let mixUpView = MixUpView()
-    private let service = MockMixUpService()
-    private var music: [MixUpResponseDTO] = []
+    private let service = MixUpService()
+    private var music: [MixUpDTO] = []
 
     // MARK: - Lifecycle
     
@@ -56,7 +56,7 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
                 music = try await service.fetchSongs()
                 mixUpView.mixUpListView.collectionView.reloadData()
             } catch {
-                print("❌ Error fetching songs: \(error)")
+                print("❌ MixUp API 응답 오류:", error)
             }
         }
     }
@@ -84,7 +84,7 @@ extension MixUpViewController: UICollectionViewDataSource {
         let item = music[indexPath.item]
         cell.configure(
             title: item.title,
-            artist: item.artist,
+            artist: item.artistName,
             imageUrl: item.imageUrl
         )
         return cell
