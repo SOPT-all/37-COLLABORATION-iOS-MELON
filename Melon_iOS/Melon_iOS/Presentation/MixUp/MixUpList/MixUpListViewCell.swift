@@ -50,6 +50,7 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         $0.image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = .gray200
         $0.contentMode = .scaleAspectFit
+        $0.isUserInteractionEnabled = true
     }
     
     override func setUI() {
@@ -64,6 +65,10 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         )
 
         checkboxButton.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
+        
+        menuIconView.addGestureRecognizer(
+            UILongPressGestureRecognizer(target: self, action: #selector(handleDrag(_:)))
+        )
     }
 
     override func setLayout() {
@@ -98,6 +103,52 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
     }
+    
+    @objc private func handleDrag(_ gesture: UILongPressGestureRecognizer) {
+        guard let cv = superview as? UICollectionView else { return }
+        guard let indexPath = cv.indexPath(for: self) else { return }
+
+        switch gesture.state {
+
+        case .began:
+            cv.beginInteractiveMovementForItem(at: indexPath)
+
+            UIView.animate(withDuration: 0.15) {
+                self.transform = CGAffineTransform(scaleX: 1.015, y: 1.015)
+                self.layer.shadowColor = UIColor.black.cgColor
+                self.layer.shadowOpacity = 0.25
+                self.layer.shadowRadius = 8
+                self.layer.shadowOffset = CGSize(width: 0, height: 3)
+            }
+
+        case .changed:
+            let location = gesture.location(in: cv)
+
+            let fixedLocation = CGPoint(x: self.center.x, y: location.y)
+            cv.updateInteractiveMovementTargetPosition(fixedLocation)
+
+        case .ended:
+            cv.endInteractiveMovement()
+
+            UIView.animate(withDuration: 0.15) {
+                self.transform = .identity
+                self.layer.shadowOpacity = 0
+            }
+
+        default:
+            cv.cancelInteractiveMovement()
+            UIView.animate(withDuration: 0.15) {
+                self.transform = .identity
+                self.layer.shadowOpacity = 0
+            }
+        }
+    }
+
+    // MARK: - Public Methods
+    
+    func setChecked(_ isSelected: Bool) {
+        checkboxButton.isSelected = isSelected
+    }
 }
 
 // MARK: - Configure
@@ -108,7 +159,7 @@ extension MixUpListViewCell {
         artistNameLabel.text = artist
         
         if let imageUrl,
-           let url = URL(string: imageUrl) {
+           let _ = URL(string: imageUrl) {
             albumImageView.kf.setImage(
                 with: URL(string: imageUrl),
                 placeholder: UIImage(named: "img_mixup_default")

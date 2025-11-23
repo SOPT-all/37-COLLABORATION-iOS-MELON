@@ -10,8 +10,15 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MixUpViewDelegate: AnyObject {
+    func didTapChevronDown()
+    func didTapCheckbox(isSelected: Bool)
+}
+
 final class MixUpView: BaseUIView {
     
+    weak var delegate: MixUpViewDelegate?
+
     // MARK: - UI Components
 
     private let playlistLabel = UILabel().then {
@@ -126,6 +133,7 @@ final class MixUpView: BaseUIView {
             progressBar
         )
         
+        chevronDownButton.addTarget(self, action: #selector(chevronTapped), for: .touchUpInside)
         checkboxButton.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
     }
     
@@ -206,5 +214,10 @@ final class MixUpView: BaseUIView {
 
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
+        delegate?.didTapCheckbox(isSelected: checkboxButton.isSelected)
+    }
+    
+    @objc private func chevronTapped() {
+        delegate?.didTapChevronDown()
     }
 }

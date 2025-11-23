@@ -14,8 +14,8 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
     // MARK: - Properties
     
     private let mixUpView = MixUpView()
-    private let service = MockMixUpService()
-    private var music: [MixUpResponseDTO] = []
+    private let service = MixUpService()
+    private var music: [MixUpDTO] = []
 
     // MARK: - Lifecycle
     
@@ -29,6 +29,7 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
     
     override func setUI() {
         view.addSubview(mixUpView)
+        mixUpView.delegate = self
     }
 
     override func setLayout() {
@@ -41,6 +42,12 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
         let cv = mixUpView.mixUpListView.collectionView
         cv.dataSource = self
         cv.delegate = self
+
+        cv.dragInteractionEnabled = false
+
+        cv.isUserInteractionEnabled = true
+        cv.isScrollEnabled = true
+
         cv.register(
             MixUpListViewCell.self,
             forCellWithReuseIdentifier: MixUpListViewCell.reuseIdentifier
@@ -55,13 +62,13 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
                 music = try await service.fetchSongs()
                 mixUpView.mixUpListView.collectionView.reloadData()
             } catch {
-                print("❌ Error fetching songs: \(error)")
+                print("❌ MixUp API 응답 오류:", error)
             }
         }
     }
 }
 
-// MARK: - Extension
+// MARK: - Extensions
 
 extension MixUpViewController: UICollectionViewDataSource {
 
@@ -83,9 +90,56 @@ extension MixUpViewController: UICollectionViewDataSource {
         let item = music[indexPath.item]
         cell.configure(
             title: item.title,
-            artist: item.artist,
+            artist: item.artistName,
             imageUrl: item.imageUrl
         )
         return cell
+    }
+}
+
+extension MixUpViewController: MixUpViewDelegate {
+
+    func didTapChevronDown() {
+
+        if let tabBar = UIApplication.shared.windows.first?.rootViewController as? TabBarController {
+            tabBar.selectedIndex = 0
+        }
+
+        let nav = self.navigationController
+        nav?.popViewController(animated: false)
+
+        guard let window = self.view.window else { return }
+        window.addSubview(self.view)
+
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.transform = CGAffineTransform(
+                translationX: 0,
+                y: UIScreen.main.bounds.height
+            )
+        }, completion: { _ in
+            self.view.removeFromSuperview()
+        })
+    }
+
+    func didTapCheckbox(isSelected: Bool) {
+        
+        mixUpView.nowPlayingTrackView.setChecked(isSelected)
+        
+        for cell in mixUpView.mixUpListView.collectionView.visibleCells {
+            if let cell = cell as? MixUpListViewCell {
+                cell.setChecked(isSelected)
+            }
+        }
+    }
+}
+
+extension MixUpViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        moveItemAt sourceIndexPath: IndexPath,
+                        to destinationIndexPath: IndexPath) {
+
+        let moved = music.remove(at: sourceIndexPath.item)
+        music.insert(moved, at: destinationIndexPath.item)
     }
 }

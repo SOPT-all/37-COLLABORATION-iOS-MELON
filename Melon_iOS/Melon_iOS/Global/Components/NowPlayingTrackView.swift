@@ -106,8 +106,14 @@ final class NowPlayingTrackView: UIView {
     }
     
     // MARK: - Actions
-
+    
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
+    }
+
+    // MARK: - Public Methods
+    
+    func setChecked(_ isSelected: Bool) {
+        checkboxButton.isSelected = isSelected
     }
 }
