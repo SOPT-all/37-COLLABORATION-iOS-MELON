@@ -100,15 +100,18 @@ extension MixUpViewController: UICollectionViewDataSource {
 extension MixUpViewController: MixUpViewDelegate {
 
     func didTapChevronDown() {
-        let homeVC = TabBarController()
 
-        navigationController?.pushViewController(homeVC, animated: false)
+        if let tabBar = UIApplication.shared.windows.first?.rootViewController as? TabBarController {
+            tabBar.selectedIndex = 0
+        }
 
-        guard let window = view.window else { return }
-        window.addSubview(view)
-        view.frame = window.bounds
+        let nav = self.navigationController
+        nav?.popViewController(animated: false)
 
-        UIView.animate(withDuration: 0.3, animations: {
+        guard let window = self.view.window else { return }
+        window.addSubview(self.view)
+
+        UIView.animate(withDuration: 0.25, animations: {
             self.view.transform = CGAffineTransform(
                 translationX: 0,
                 y: UIScreen.main.bounds.height
