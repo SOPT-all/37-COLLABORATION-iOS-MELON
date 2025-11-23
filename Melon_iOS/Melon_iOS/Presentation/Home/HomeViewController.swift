@@ -93,7 +93,6 @@ extension HomeViewController: UICollectionViewDataSource {
           toast.configure(action: {
               let mixUp = MixUpViewController()
               self?.navigationController?.pushViewController(mixUp, animated: true)
-              print("hello")
           })
           toast.show()
       }
