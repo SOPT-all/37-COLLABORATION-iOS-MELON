@@ -109,8 +109,17 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         guard let indexPath = cv.indexPath(for: self) else { return }
 
         switch gesture.state {
+
         case .began:
             cv.beginInteractiveMovementForItem(at: indexPath)
+
+            UIView.animate(withDuration: 0.15) {
+                self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
+                self.layer.shadowColor = UIColor.black.cgColor
+                self.layer.shadowOpacity = 0.25
+                self.layer.shadowRadius = 8
+                self.layer.shadowOffset = CGSize(width: 0, height: 3)
+            }
 
         case .changed:
             let location = gesture.location(in: cv)
@@ -121,11 +130,20 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         case .ended:
             cv.endInteractiveMovement()
 
+            UIView.animate(withDuration: 0.15) {
+                self.transform = .identity
+                self.layer.shadowOpacity = 0
+            }
+
         default:
             cv.cancelInteractiveMovement()
+            UIView.animate(withDuration: 0.15) {
+                self.transform = .identity
+                self.layer.shadowOpacity = 0
+            }
         }
     }
-    
+
     // MARK: - Public Methods
     
     func setChecked(_ isSelected: Bool) {
