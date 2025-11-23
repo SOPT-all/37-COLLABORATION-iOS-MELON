@@ -114,7 +114,7 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
             cv.beginInteractiveMovementForItem(at: indexPath)
 
             UIView.animate(withDuration: 0.15) {
-                self.transform = CGAffineTransform(scaleX: 1.03, y: 1.03)
+                self.transform = CGAffineTransform(scaleX: 1.015, y: 1.015)
                 self.layer.shadowColor = UIColor.black.cgColor
                 self.layer.shadowOpacity = 0.25
                 self.layer.shadowRadius = 8
