@@ -111,7 +111,7 @@ extension MixUpViewController: MixUpViewDelegate {
         guard let window = self.view.window else { return }
         window.addSubview(self.view)
 
-        UIView.animate(withDuration: 0.25, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.view.transform = CGAffineTransform(
                 translationX: 0,
                 y: UIScreen.main.bounds.height
