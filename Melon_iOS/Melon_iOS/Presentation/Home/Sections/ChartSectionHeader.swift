@@ -144,10 +144,9 @@ extension ChartSectionHeader: UICollectionViewDataSource {
     cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(HomeChipCell.self, for: indexPath)
       if indexPath.row == 0 {
-        cell.capsuleButtonTapped()
+          cell.selected()
       }
       cell.configure(with: chartCategories[indexPath.row])
     return cell
   }
 }
-
