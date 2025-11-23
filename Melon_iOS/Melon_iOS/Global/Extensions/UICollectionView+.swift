@@ -37,7 +37,7 @@ extension UICollectionView {
         withReuseIdentifier: cellType.reuseIdentifier,
         for: indexPath
     ) as? T else {
-      return EmptyCollectionViewCell() as! T
+        fatalError("No such cell")
     }
     return cell
   }

@@ -22,7 +22,6 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     homeView.collectionView.dataSource = self
     
     // Collection Cell 등록
-    homeView.collectionView.cellRegister(EmptyCollectionViewCell.self)
     homeView.collectionView.cellRegister(NavigationItemCell.self)
     homeView.collectionView.cellRegister(PreferenceItemCell.self)
     homeView.collectionView.cellRegister(PersonalizedItemCell.self)
@@ -32,7 +31,6 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     homeView.collectionView.cellRegister(ChartItemCell.self)
     
     // Section Header 등록
-    homeView.collectionView.headerRegister(EmptyReusableView.self)
     homeView.collectionView.headerRegister(BasicSectionHeader.self)
     homeView.collectionView.headerRegister(LatestSectionHeader.self)
     homeView.collectionView.headerRegister(ChartSectionHeader.self)
@@ -193,7 +191,7 @@ extension HomeViewController: UICollectionViewDataSource {
         return footer
       }
     default:
-      return EmptyReusableView()
+        fatalError("No such Reusable View")
     }
     
     fatalError("Missing supplementary view logic for kind: \(kind)")
