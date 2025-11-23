@@ -42,6 +42,12 @@ final class MixUpViewController: BaseViewController, UICollectionViewDelegate {
         let cv = mixUpView.mixUpListView.collectionView
         cv.dataSource = self
         cv.delegate = self
+
+        cv.dragInteractionEnabled = false
+
+        cv.isUserInteractionEnabled = true
+        cv.isScrollEnabled = true
+
         cv.register(
             MixUpListViewCell.self,
             forCellWithReuseIdentifier: MixUpListViewCell.reuseIdentifier
@@ -115,5 +121,16 @@ extension MixUpViewController: MixUpViewDelegate {
                 cell.setChecked(isSelected)
             }
         }
+    }
+}
+
+extension MixUpViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        moveItemAt sourceIndexPath: IndexPath,
+                        to destinationIndexPath: IndexPath) {
+
+        let moved = music.remove(at: sourceIndexPath.item)
+        music.insert(moved, at: destinationIndexPath.item)
     }
 }

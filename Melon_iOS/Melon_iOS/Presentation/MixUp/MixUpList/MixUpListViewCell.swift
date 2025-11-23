@@ -50,6 +50,7 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         $0.image = UIImage(named: "ic_menu")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = .gray200
         $0.contentMode = .scaleAspectFit
+        $0.isUserInteractionEnabled = true
     }
     
     override func setUI() {
@@ -64,6 +65,10 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         )
 
         checkboxButton.addTarget(self, action: #selector(didTapCheckbox), for: .touchUpInside)
+        
+        menuIconView.addGestureRecognizer(
+            UILongPressGestureRecognizer(target: self, action: #selector(handleDrag(_:)))
+        )
     }
 
     override func setLayout() {
@@ -97,6 +102,28 @@ final class MixUpListViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
 
     @objc private func didTapCheckbox() {
         checkboxButton.isSelected.toggle()
+    }
+    
+    @objc private func handleDrag(_ gesture: UILongPressGestureRecognizer) {
+        guard let cv = superview as? UICollectionView else { return }
+        guard let indexPath = cv.indexPath(for: self) else { return }
+
+        switch gesture.state {
+        case .began:
+            cv.beginInteractiveMovementForItem(at: indexPath)
+
+        case .changed:
+            let location = gesture.location(in: cv)
+
+            let fixedLocation = CGPoint(x: self.center.x, y: location.y)
+            cv.updateInteractiveMovementTargetPosition(fixedLocation)
+
+        case .ended:
+            cv.endInteractiveMovement()
+
+        default:
+            cv.cancelInteractiveMovement()
+        }
     }
     
     // MARK: - Public Methods
