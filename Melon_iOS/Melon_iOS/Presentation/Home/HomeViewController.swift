@@ -93,7 +93,9 @@ extension HomeViewController: UICollectionViewDataSource {
         let toast = ToastMessage()
           self?.homeView.addSubview(toast)
           toast.configure(action: {
-            print("toast message action button tapped")
+              let mixUp = MixUpViewController()
+              self?.navigationController?.pushViewController(mixUp, animated: true)
+              print("hello")
           })
           toast.show()
       }
