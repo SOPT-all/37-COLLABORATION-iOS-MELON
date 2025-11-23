@@ -34,8 +34,6 @@ final class HomeChipCell : BaseUICollectionViewCell, ReuseIdentifiable {
   // MARK: - Setup Methods
   
   override func setUI() {
-    capsuleButton.addTarget(self, action: #selector(capsuleButtonTapped), for: .touchUpInside)
-    
     addSubviews(capsuleButton, label)
   }
   
@@ -51,16 +49,8 @@ final class HomeChipCell : BaseUICollectionViewCell, ReuseIdentifiable {
     }
   }
   
-  // MARK: - Actions
-  @objc func capsuleButtonTapped() {
-    capsuleButton.isSelected.toggle()
-    if capsuleButton.isSelected {
-      selected()
-    } else {
-      deselected()
-    }
-  }
-  
+  // MARK: Public Methods
+    
   func selected() {
     capsuleButton.backgroundColor = .primary
     capsuleButton.layer.borderColor = UIColor.primary.cgColor
