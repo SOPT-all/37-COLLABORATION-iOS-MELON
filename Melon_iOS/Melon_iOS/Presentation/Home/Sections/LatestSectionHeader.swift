@@ -12,15 +12,9 @@ import Then
 
 final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
-  // MARK: - Custom Type
-  
-  enum LatestMusicButtonType {
-    case all
-    case domestic
-    case overseas
-  }
-  
-  private var action: ((LatestMusicButtonType) -> Void)?
+  // MARK: - Properties
+    
+  private var action: ((NewestArea) -> Void)?
   
   // MARK: - UI Components
   
@@ -115,24 +109,24 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
     allButon.isSelected = true
     domesticButton.isSelected = false
     overseasButton.isSelected = false
-    action!(.all)
+      action!(.all)
   }
   
   @objc private func didTapDomesticButton() {
     allButon.isSelected = false
     domesticButton.isSelected = true
     overseasButton.isSelected = false
-    action!(.domestic)
+      action!(.kor)
   }
   
   @objc private func didTapOverseasButton() {
     allButon.isSelected = false
     domesticButton.isSelected = false
     overseasButton.isSelected = true
-    action!(.overseas)
+      action!(.int)
   }
   
-  func configure(action: ((LatestMusicButtonType) -> Void)? = nil) {
+  func configure(action: ((NewestArea) -> Void)? = nil) {
     self.action = action
   }
 }

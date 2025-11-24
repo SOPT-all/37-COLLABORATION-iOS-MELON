@@ -83,10 +83,19 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     action!()
   }
   
-  func configure(_ data: PopularSongDTO, action: (() -> Void)? = nil) {
+    func configure(_ data: PopularSongDTO, indexPath: IndexPath ,action: (() -> Void)? = nil) {
     titleLabel.text = data.title
-    artistLabel.text = data.artist
-    categoryLabel.text = data.category
+    artistLabel.text = data.artistName
+        switch indexPath.row % 3 {
+        case 0:
+            categoryLabel.text = "멜론DJ’s Pick"
+        case 1:
+            categoryLabel.text = "검색 트렌드"
+        case 2:
+            categoryLabel.text = "HOT100 7위"
+        default :
+            return
+        }
     
     if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
       imageView.kf.setImage(

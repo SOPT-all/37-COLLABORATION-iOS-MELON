@@ -106,7 +106,7 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   func configure(_ data: ChartSongDTO, row rank: Int = -1) {
     rankLabel.text = "\(rank + 1)"
     titleLabel.text = data.title
-    artistLabel.text = data.artist
+    artistLabel.text = data.artistName
     
     if let imageUrl = data.imageUrl, let url = URL(string: imageUrl) {
       imageView.kf.setImage(

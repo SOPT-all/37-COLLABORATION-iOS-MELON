@@ -11,72 +11,66 @@ extension MockPopularService {
   static let mockData: [PopularSongDTO] = [
     PopularSongDTO(
       title: "XOXZ",
-      artist: "IVE (아이브)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/41260/4126044.jpg",
-      category: "멜론DJ's Pick"),
+      artistName: "IVE (아이브)",
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/41260/4126044.jpg"),
     PopularSongDTO(
       title: "Blue Valentine",
-      artist: "NMIXX",
-      imageUrl: "https://image.bugsm.co.kr/album/images/130/41299/4129960.jpg?version=20251108012458",
-      category: "검색 트렌드"),
+      artistName: "NMIXX",
+      imageUrl: "https://image.bugsm.co.kr/album/images/130/41299/4129960.jpg?version=20251108012458"),
     PopularSongDTO(
       title: "FOCUS",
-      artist: "Hearts2Hearts(하츠투하츠)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/130/41289/4128980.jpg?version=20251022002830",
-      category: "HOT100 7위"),
+      artistName: "Hearts2Hearts(하츠투하츠)",
+      imageUrl: "https://image.bugsm.co.kr/album/images/130/41289/4128980.jpg?version=20251022002830"),
     PopularSongDTO(
       title: "XOXZ",
-      artist: "IVE (아이브)",
-      imageUrl: "https://image.bugsm.co.kr/artist/images/1000/201589/20158908.jpg?version=335304&d=20251021140549",
-      category: "멜론DJ's Pick"),
+      artistName: "IVE (아이브)",
+      imageUrl: "https://image.bugsm.co.kr/artist/images/1000/201589/20158908.jpg?version=335304&d=20251021140549"),
     PopularSongDTO(
       title: "Blue Valentine",
-      artist: "NMIXX",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/5297/529710.jpg",
-      category: "검색 트렌드"),
+      artistName: "NMIXX",
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/5297/529710.jpg"),
     PopularSongDTO(
       title: "FOCUS",
-      artist: "Hearts2Hearts(하츠투하츠)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg",
-      category: "HOT100 7위"),
+      artistName: "Hearts2Hearts(하츠투하츠)",
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg"),
   ]
 }
 
 final class MockLatestService { }
 
 extension MockLatestService {
-  static let mockData: [LatestSongDTO] = [
-    LatestSongDTO(
+  static let mockData: [NewestSongDTO] = [
+    NewestSongDTO(
       title: "Back to Life",
-      artist: "&TEAM",
+      artistName: "&TEAM",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41316/4131671.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "마지막 약속",
-      artist: "김나영",
+      artistName: "김나영",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41317/4131700.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "Reno (Feat. Colde)",
-      artist: "미연 (MIYEON)",
+      artistName: "미연 (MIYEON)",
       imageUrl: "https://www.chosun.com/resizer/v2/ZDICNHHWZ6OAGZNCJGH3TBU6XY.jpg?auth=7373a524c2b6bec81926515e9315ce2f4d2c6b4ae27f2b268b7b28abb2adb7aa&width=464"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "X",
-      artist: "키코 (Kiko5o)",
+      artistName: "키코 (Kiko5o)",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41317/4131733.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "Omnibus",
-      artist: "장한음",
+      artistName: "장한음",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41317/4131704.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "CAPPUCCINO",
-      artist: "규빈 (GYUBIN)",
+      artistName: "규빈 (GYUBIN)",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41316/4131679.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title:"Milk Choco Quik",
-      artist: "리오 (RIO)",
+      artistName: "리오 (RIO)",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/207634/20763487.jpg"),
-    LatestSongDTO(
+    NewestSongDTO(
       title: "Last Dance",
-      artist: "몽니",
+      artistName: "몽니",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/207647/20764770.jpg"),
   ]
 }
@@ -87,35 +81,35 @@ extension MockChartService {
   static let mockData: [ChartSongDTO] = [
     ChartSongDTO(
       title: "Blue Valentine",
-      artist: "NMIXX",
+      artistName: "NMIXX",
       imageUrl: "https://image.bugsm.co.kr/album/images/130/41299/4129960.jpg?version=20251108012458"),
     ChartSongDTO(
       title: "타임캡슐",
-      artist: "다비치",
+      artistName: "다비치",
       imageUrl: "https://image.bugsm.co.kr/album/images/200/41306/4130608.jpg?version=20251017015619"),
     ChartSongDTO(
       title: "Golden",
-      artist: "HUNTR/X, EJAE, AUDREY NUNA, REI AMI",
+      artistName: "HUNTR/X, EJAE, AUDREY NUNA, REI AMI",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/381763/38176338.jpg?version=20250927005933"),
     ChartSongDTO(
       title: "Good Goodbye",
-      artist: "화사 (HWASA)",
+      artistName: "화사 (HWASA)",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg"),
     ChartSongDTO(
       title: "Drowning",
-      artist: "WOODZ",
+      artistName: "WOODZ",
       imageUrl: "https://image.bugsm.co.kr/album/images/200/40839/4083984.jpg?version=20250315015832"),
     ChartSongDTO(
       title: "뛰어(JUMP)",
-      artist: "BLACKPINK",
+      artistName: "BLACKPINK",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41229/4122947.jpg"),
     ChartSongDTO(
       title: "Good Goodbye",
-      artist: "화사 (HWASA)",
+      artistName: "화사 (HWASA)",
       imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg"),
     ChartSongDTO(
       title: "어제보다 슬픈 오늘",
-      artist: "우디 (Woody)",
+      artistName: "우디 (Woody)",
       imageUrl: "https://image.bugsm.co.kr/album/images/200/41171/4117180.jpg?version=20250710002336"),
   ]
 }
