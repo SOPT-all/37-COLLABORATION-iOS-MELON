@@ -26,7 +26,7 @@ final class HomeService {
         }
     }
     
-    func fetchNewestSongs(area: NewestArea? = nil) async throws -> [NewestSongDTO] {
+    func fetchNewestSongs(area: NewestArea = .all) async throws -> [NewestSongDTO] {
         return try await withCheckedThrowingContinuation { continuation in
             NetworkProvider<HomeAPI>.request(
                 .fetchNewest(area),

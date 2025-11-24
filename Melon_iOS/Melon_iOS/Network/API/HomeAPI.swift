@@ -9,10 +9,11 @@ import Foundation
 import Moya
 
 enum HomeAPI {
-    case fetchPopular, fetchChart, fetchNewest(NewestArea?)
+    case fetchPopular, fetchChart, fetchNewest(NewestArea)
 }
 
 enum NewestArea: String {
+    case all
     case kor = "KOR"
     case int = "INT"
 }
@@ -23,13 +24,10 @@ extension HomeAPI: BaseTargetType {
         switch self {
         case .fetchPopular:
             return "/api/v1/music/popular"
+        case .fetchNewest:
+            return "/api/v1/music/newest"
         case .fetchChart:
-            return "/api/v1/chart/chart"
-        case .fetchNewest(let area):
-            guard let area else {
-                return "/api/v1/music/newest"
-            }
-            return "/api/v1/music/newest?category=\(area.rawValue)"
+            return "/api/v1/music/chart"
         }
     }
 
@@ -38,6 +36,18 @@ extension HomeAPI: BaseTargetType {
     }
 
     var task: Task {
-        return .requestPlain
+        switch self {
+            case .fetchPopular, .fetchChart:
+            return .requestPlain
+        case .fetchNewest(let area):
+            if area == .all {
+                return .requestPlain
+            } else {
+                return .requestParameters(
+                    parameters: ["category": area.rawValue],
+                    encoding: URLEncoding.default // 또는 queryString
+                )
+            }
+        }
     }
 }
