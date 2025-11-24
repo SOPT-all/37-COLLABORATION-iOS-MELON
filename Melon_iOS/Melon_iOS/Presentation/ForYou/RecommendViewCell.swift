@@ -15,17 +15,7 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     
     // MARK: - Properties
     
-    var isSelectedCell: Bool = false {
-        didSet {
-            updateStyle()
-        }
-    }
-    
-    var hasImage: Bool = false {
-        didSet {
-            updateLayout()
-        }
-    }
+    weak var delegate: RecommendViewCellDelegate?
     
     // MARK: - UI Components
     
@@ -33,7 +23,6 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         $0.layer.cornerRadius = 24
         $0.clipsToBounds = true
     }
-    
     
     private let artistImageView = UIImageView().then {
         $0.contentMode = .scaleAspectFit
@@ -50,9 +39,7 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         $0.isUserInteractionEnabled = false
     }
     
-    private lazy var contentStackView = UIStackView(
-        arrangedSubviews: [artistImageView, contentLabel]
-    ).then {
+    private let contentStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 8.0
@@ -68,11 +55,12 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
         )
         
         chipButton.addSubviews(contentStackView)
+        contentStackView.addArrangedSubviews(artistImageView, contentLabel)
         
         chipButton.addTarget(self, action: #selector(chipTapped), for: .touchUpInside)
         
-        updateStyle()
-        updateLayout()
+        updateStyle(isSelected: false)
+        updateLayout(hasImage: false)
     }
     
     override func setLayout() {
@@ -93,7 +81,7 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     // MARK: - Actions
     
     @objc func chipTapped() {
-        isSelectedCell.toggle()
+        delegate?.chipTapped(in: self)
     }
 }
 
@@ -101,8 +89,8 @@ final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
 
 extension RecommendViewCell {
     
-    private func updateStyle() {
-        if isSelectedCell {
+    private func updateStyle(isSelected: Bool) {
+        if isSelected {
             chipButton.backgroundColor = .secondary
             chipButton.layer.borderWidth = 0
             contentLabel.textColor = .white
@@ -114,7 +102,7 @@ extension RecommendViewCell {
         }
     }
     
-    private func updateLayout() {
+    private func updateLayout(hasImage: Bool) {
         artistImageView.isHidden = !hasImage
         let leftSpace: CGFloat
         let rightSpace: CGFloat
@@ -133,8 +121,14 @@ extension RecommendViewCell {
         }
     }
     
-    func configure(content: String, hasImage: Bool) {
+    func configure(content: String, hasImage: Bool, isSelected: Bool) {
         contentLabel.text = content
-        self.hasImage = hasImage
+        
+        updateLayout(hasImage: hasImage)
+        updateStyle(isSelected: isSelected)
     }
+}
+
+protocol RecommendViewCellDelegate: AnyObject {
+    func chipTapped(in cell: RecommendViewCell)
 }
