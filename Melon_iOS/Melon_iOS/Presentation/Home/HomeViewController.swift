@@ -145,11 +145,12 @@ extension HomeViewController: UICollectionViewDataSource {
                 toast.configure(action: {
                     let mixUp = MixUpViewController()
                     
-                    let transition = CATransition()
-                    transition.duration = 0.3
-                    transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                    transition.type = .moveIn
-                    transition.subtype = .fromTop
+                    let transition = CATransition().then {
+                        $0.duration = 0.3
+                        $0.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                        $0.type = .moveIn
+                        $0.subtype = .fromTop
+                    }
                     
                     self?.navigationController?.view.layer.add(transition, forKey: nil)
                     self?.navigationController?.pushViewController(mixUp, animated: false)
