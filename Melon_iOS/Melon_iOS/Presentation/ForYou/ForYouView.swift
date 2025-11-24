@@ -12,7 +12,7 @@ import Then
 
 final class ForYouView: BaseUIView {
     
-    // MARK: - Properties
+    // MARK: - UI Components
     
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
@@ -29,7 +29,9 @@ final class ForYouView: BaseUIView {
     }
     
     let cardView = MallangCardView()
+    let recommendView = RecommendView()
     let progressBar = ProgressBar(style: .normal)
+//    let customSongView = CustomSongView()
     
     // MARK: - Init
     
@@ -54,7 +56,9 @@ final class ForYouView: BaseUIView {
         
         contentView.addSubviews(
             forYouLabel,
-            cardView
+            cardView,
+            recommendView,
+//            customSongView
         )
     }
     
@@ -78,8 +82,20 @@ final class ForYouView: BaseUIView {
         cardView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.top.equalTo(forYouLabel.snp.bottom).offset(8)
-            $0.bottom.equalToSuperview().inset(20)
         }
+        
+        recommendView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(cardView.snp.bottom).offset(28)
+            $0.bottom.equalToSuperview().inset(210)
+        }
+        
+//        customSongView.snp.makeConstraints {
+//            $0.horizontalEdges.equalToSuperview().inset(20)
+//            $0.top.equalTo(recommendView.snp.bottom).offset(28)
+//            $0.height.equalTo(288)
+//            $0.bottom.equalToSuperview().inset(210)
+//        }
         
         progressBar.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
