@@ -10,7 +10,7 @@ import Foundation
 final class HomeService {
     
     func fetchPopularSongs() async throws -> [PopularSongDTO] {
-        return try await withCheckedThrowingContinuation { continuation in
+        return try await withUnsafeThrowingContinuation { continuation in
             NetworkProvider<HomeAPI>.request(
                 .fetchPopular,
                 type: [PopularSongDTO].self
@@ -26,7 +26,7 @@ final class HomeService {
     }
     
     func fetchNewestSongs(area: NewestArea = .all) async throws -> [NewestSongDTO] {
-        return try await withCheckedThrowingContinuation { continuation in
+        return try await withUnsafeThrowingContinuation { continuation in
             NetworkProvider<HomeAPI>.request(
                 .fetchNewest(area),
                 type: [NewestSongDTO].self
@@ -42,7 +42,7 @@ final class HomeService {
     }
     
     func fetchChartSongs() async throws -> [ChartSongDTO] {
-        return try await withCheckedThrowingContinuation { continuation in
+        return try await withUnsafeThrowingContinuation { continuation in
             NetworkProvider<HomeAPI>.request(
                 .fetchChart,
                 type: [ChartSongDTO].self
