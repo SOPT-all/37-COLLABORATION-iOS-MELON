@@ -12,7 +12,7 @@ import Then
 
 final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
   
-  // MARK: - Custom Type
+  // MARK: - Properties
     
   private var action: ((NewestArea) -> Void)?
   

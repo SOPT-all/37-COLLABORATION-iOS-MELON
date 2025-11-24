@@ -45,7 +45,7 @@ extension HomeAPI: BaseTargetType {
             } else {
                 return .requestParameters(
                     parameters: ["category": area.rawValue],
-                    encoding: URLEncoding.default // 또는 queryString
+                    encoding: URLEncoding.default
                 )
             }
         }

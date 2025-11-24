@@ -12,27 +12,27 @@ extension MockPopularService {
     PopularSongDTO(
       title: "XOXZ",
       artistName: "IVE (아이브)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/41260/4126044.jpg",),
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/41260/4126044.jpg"),
     PopularSongDTO(
       title: "Blue Valentine",
       artistName: "NMIXX",
-      imageUrl: "https://image.bugsm.co.kr/album/images/130/41299/4129960.jpg?version=20251108012458",),
+      imageUrl: "https://image.bugsm.co.kr/album/images/130/41299/4129960.jpg?version=20251108012458"),
     PopularSongDTO(
       title: "FOCUS",
       artistName: "Hearts2Hearts(하츠투하츠)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/130/41289/4128980.jpg?version=20251022002830",),
+      imageUrl: "https://image.bugsm.co.kr/album/images/130/41289/4128980.jpg?version=20251022002830"),
     PopularSongDTO(
       title: "XOXZ",
       artistName: "IVE (아이브)",
-      imageUrl: "https://image.bugsm.co.kr/artist/images/1000/201589/20158908.jpg?version=335304&d=20251021140549",),
+      imageUrl: "https://image.bugsm.co.kr/artist/images/1000/201589/20158908.jpg?version=335304&d=20251021140549"),
     PopularSongDTO(
       title: "Blue Valentine",
       artistName: "NMIXX",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/5297/529710.jpg",),
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/5297/529710.jpg"),
     PopularSongDTO(
       title: "FOCUS",
       artistName: "Hearts2Hearts(하츠투하츠)",
-      imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg",),
+      imageUrl: "https://image.bugsm.co.kr/album/images/170/41305/4130508.jpg"),
   ]
 }
 
