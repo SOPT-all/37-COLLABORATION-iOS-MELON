@@ -31,20 +31,7 @@ final class ForYouView: BaseUIView {
     let cardView = MallangCardView()
     let recommendView = RecommendView()
     let progressBar = ProgressBar(style: .normal)
-//    let customSongView = CustomSongView()
-    
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    let customSongView = CustomSongView()
     
     // MARK: - Setup Methods
     
@@ -58,7 +45,7 @@ final class ForYouView: BaseUIView {
             forYouLabel,
             cardView,
             recommendView,
-//            customSongView
+            customSongView
         )
     }
     
@@ -87,15 +74,14 @@ final class ForYouView: BaseUIView {
         recommendView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.top.equalTo(cardView.snp.bottom).offset(28)
-            $0.bottom.equalToSuperview().inset(210)
         }
         
-//        customSongView.snp.makeConstraints {
-//            $0.horizontalEdges.equalToSuperview().inset(20)
-//            $0.top.equalTo(recommendView.snp.bottom).offset(28)
-//            $0.height.equalTo(288)
-//            $0.bottom.equalToSuperview().inset(210)
-//        }
+        customSongView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(recommendView.snp.bottom).offset(28)
+            $0.height.equalTo(288)
+            $0.bottom.equalToSuperview().inset(210)
+        }
         
         progressBar.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
