@@ -42,19 +42,6 @@ final class MallangCardView: BaseUIView {
         font: .pretendard(.body_r_14)
     )
     
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Setup Methods
     
     override func setUI() {
