@@ -12,9 +12,6 @@ import Then
 
 final class RecommendView: BaseUIView {
     
-    // MARK: -  Properties
-    
-    
     // MARK: - UI Components
     
     private let titleLabel = UILabel().then {
@@ -28,10 +25,6 @@ final class RecommendView: BaseUIView {
         $0.axis = .horizontal
         $0.alignment = .center
         $0.spacing = 3.82
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(reloadTapped))
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(tapGesture)
     }
     
     private let reloadLabel = UILabel().then {
@@ -56,22 +49,29 @@ final class RecommendView: BaseUIView {
         $0.textColor = .gray200
     }
     
-    lazy var tasteCollectionView: UICollectionView = self.createCollectionView()
-    lazy var situationCollectionView: UICollectionView = self.createCollectionView()
-    
-    
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let tasteCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.estimatedItemSize = CGSize(width: 100, height: 48)
         
-        setUI()
-        setLayout()
-    }
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
+        cv.register(RecommendViewCell.self, forCellWithReuseIdentifier: RecommendViewCell.reuseIdentifier)
+        
+        return cv
+    }()
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    let situationCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 8
+        layout.estimatedItemSize = CGSize(width: 100, height: 48)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.backgroundColor = .clear
+        cv.register(RecommendViewCell.self, forCellWithReuseIdentifier: RecommendViewCell.reuseIdentifier)
+        
+        return cv
+    }()
     
     // MARK: - Setup Methods
     
@@ -92,6 +92,11 @@ final class RecommendView: BaseUIView {
         layer.borderWidth = 1
         layer.borderColor = UIColor.line.cgColor
         clipsToBounds = true
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.gradient3()
     }
     
     override func setLayout() {
@@ -133,43 +138,5 @@ final class RecommendView: BaseUIView {
             $0.height.equalTo(48)
             $0.bottom.equalToSuperview().inset(18)
         }
-    }
-    
-    @objc private func reloadTapped() {
-        resetSelections()
-    }
-    
-    private func createCollectionView() -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 8
-        layout.scrollDirection = .horizontal
-        layout.estimatedItemSize = CGSize(width: 100, height: 48)
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .clear
-        cv.register(RecommendViewCell.self, forCellWithReuseIdentifier: RecommendViewCell.reuseIdentifier)
-        return cv
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.gradient3()
-    }
-    
-    func resetSelections() {
-        for cell in tasteCollectionView.visibleCells {
-            if let cell = cell as? RecommendViewCell {
-                cell.isSelectedCell = false
-            }
-        }
-
-        for cell in situationCollectionView.visibleCells {
-            if let cell = cell as? RecommendViewCell {
-                cell.isSelectedCell = false
-            }
-        }
-
-        tasteCollectionView.reloadData()
-        situationCollectionView.reloadData()
     }
 }
