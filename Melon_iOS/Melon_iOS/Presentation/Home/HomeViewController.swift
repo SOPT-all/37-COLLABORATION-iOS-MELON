@@ -43,10 +43,7 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
         homeView.collectionView.headerRegister(LatestSectionHeader.self)
         homeView.collectionView.headerRegister(ChartSectionHeader.self)
         homeView.collectionView.footerRegister(ButtonSectionFooter.self)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        
         Task {
             try await fetchData()
         }
