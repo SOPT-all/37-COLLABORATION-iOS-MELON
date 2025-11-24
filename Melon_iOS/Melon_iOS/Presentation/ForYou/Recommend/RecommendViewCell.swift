@@ -11,6 +11,10 @@ import SnapKit
 import Then
 import Kingfisher
 
+protocol RecommendViewCellDelegate: AnyObject {
+    func chipTapped(in cell: RecommendViewCell)
+}
+
 final class RecommendViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     
     // MARK: - Properties
@@ -127,8 +131,4 @@ extension RecommendViewCell {
         updateLayout(hasImage: hasImage)
         updateStyle(isSelected: isSelected)
     }
-}
-
-protocol RecommendViewCellDelegate: AnyObject {
-    func chipTapped(in cell: RecommendViewCell)
 }

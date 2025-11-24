@@ -11,6 +11,10 @@ import SnapKit
 import Then
 import Kingfisher
 
+protocol CustomSongViewCellDelegate: AnyObject {
+    func mixUpButtonTapped(in cell: CustomSongViewCell)
+}
+
 final class CustomSongViewCell: BaseUICollectionViewCell, ReuseIdentifiable {
     
     // MARK: - Properties
@@ -122,8 +126,4 @@ extension CustomSongViewCell {
             albumImageView.image = UIImage(named: "img_mixup_default")
         }
     }
-}
-
-protocol CustomSongViewCellDelegate: AnyObject {
-    func mixUpButtonTapped(in cell: CustomSongViewCell)
 }
