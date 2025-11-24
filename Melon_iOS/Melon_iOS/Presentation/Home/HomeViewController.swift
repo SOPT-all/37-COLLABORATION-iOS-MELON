@@ -87,6 +87,8 @@ final class HomeViewController: UIViewController, UICollectionViewDelegate {
     }
 }
 
+// MARK: - Extension UICollectionViewDataSource
+
 extension HomeViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -116,48 +118,56 @@ extension HomeViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             
-            guard let sectionType = SectionType(rawValue: indexPath.section) else {
-                fatalError("Invalid section index")
-            }
-
-            switch sectionType {
-            case .navigation:
-                return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
-            case .preference:
-                let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
-                cell.configure()
-                return cell
-            case .personalized:
-                let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
-                cell.configure(data: MockPersonalizedService.mockData[indexPath.row])
-                return cell
-            case .popular:
-                let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
-                cell.configure(popularSongList[indexPath.row], indexPath: indexPath)
-                { [weak self] in
-                    let toast = ToastMessage()
-                    self?.homeView.addSubview(toast)
-                    toast.configure(action: {
-                        let mixUp = MixUpViewController()
-                        self?.navigationController?.pushViewController(mixUp, animated: true)
-                    })
-                    toast.show()
-                }
-                return cell
-            case .banner:
-                let cell = collectionView.dequeueReusableCell(BannerItemCell.self, for: indexPath)
-                cell.configure(MockBannerService.mockData[indexPath.row])
-                return cell
-            case .latest:
-                let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
-                cell.configure(newestSongList[indexPath.row])
-                return cell
-            case .chart:
-                let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
-                cell.configure(chartSongList[indexPath.row], row: indexPath.row)
-                return cell
-            }
+        guard let sectionType = SectionType(rawValue: indexPath.section) else {
+            fatalError("Invalid section index")
         }
+
+        switch sectionType {
+        case .navigation:
+            return collectionView.dequeueReusableCell(NavigationItemCell.self, for: indexPath)
+        case .preference:
+            let cell = collectionView.dequeueReusableCell(PreferenceItemCell.self, for: indexPath)
+            cell.configure()
+            return cell
+        case .personalized:
+            let cell = collectionView.dequeueReusableCell(PersonalizedItemCell.self, for: indexPath)
+            cell.configure(data: MockPersonalizedService.mockData[indexPath.row])
+            return cell
+        case .popular:
+            let cell = collectionView.dequeueReusableCell(PopularItemCell.self, for: indexPath)
+            cell.configure(popularSongList[indexPath.row], indexPath: indexPath)
+            { [weak self] in
+                let toast = ToastMessage()
+                self?.homeView.addSubview(toast)
+                toast.configure(action: {
+                    let mixUp = MixUpViewController()
+                    
+                    let transition = CATransition()
+                    transition.duration = 0.3
+                    transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                    transition.type = .moveIn
+                    transition.subtype = .fromTop
+                    
+                    self?.navigationController?.view.layer.add(transition, forKey: nil)
+                    self?.navigationController?.pushViewController(mixUp, animated: false)
+                })
+                toast.show()
+            }
+            return cell
+        case .banner:
+            let cell = collectionView.dequeueReusableCell(BannerItemCell.self, for: indexPath)
+            cell.configure(MockBannerService.mockData[indexPath.row])
+            return cell
+        case .latest:
+            let cell = collectionView.dequeueReusableCell(LatestSongItemCell.self, for: indexPath)
+            cell.configure(newestSongList[indexPath.row])
+            return cell
+        case .chart:
+            let cell = collectionView.dequeueReusableCell(ChartItemCell.self, for: indexPath)
+            cell.configure(chartSongList[indexPath.row], row: indexPath.row)
+            return cell
+        }
+    }
     
     // 섹션 타입에 따라 Header와 Footer 등록
     func collectionView(
@@ -165,81 +175,81 @@ extension HomeViewController: UICollectionViewDataSource {
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath) -> UICollectionReusableView {
             
-            guard let sectionType = SectionType(rawValue: indexPath.section) else {
-                fatalError("Invalid section index")
-            }
-            
-            switch sectionType {
-            case .personalized:
-                if kind == UICollectionView.elementKindSectionHeader {
-                    guard let header = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
-                        for: indexPath
-                    ) as? BasicSectionHeader else {
-                        fatalError("Cannot dequeue PersonalizedSectionHeader")
-                    }
-                    header.configure(title: "닉네임을 위한 추천")
-                    return header
-                }
-            case .popular:
-                if kind == UICollectionView.elementKindSectionHeader {
-                    guard let header = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
-                        for: indexPath
-                    ) as? BasicSectionHeader else {
-                        fatalError("Cannot dequeue PopularSectionHeader")
-                    }
-                    header.configure(title: "인기 선곡")
-                    return header
-                }
-            case .latest:
-                if kind == UICollectionView.elementKindSectionHeader {
-                    guard let header = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: LatestSectionHeader.reuseIdentifier,
-                        for: indexPath
-                    ) as? LatestSectionHeader else {
-                        fatalError("Cannot dequeue LatestSectionHeader")
-                    }
-                    header.configure(action: { type in // API 호출 코드 작성
-                        Task {
-                            do {
-                                self.newestSongList = try await self.service.fetchNewestSongs(area: type)
-                                collectionView.reloadData()
-                            } catch {
-                                print("❌ Newest \(type.rawValue) API 응답 오류:", error)
-                            }
-                        }
-                    })
-                    return header
-                }
-            case .chart:
-                if kind == UICollectionView.elementKindSectionHeader {
-                    guard let header = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: ChartSectionHeader.reuseIdentifier,
-                        for: indexPath
-                    ) as? ChartSectionHeader else {
-                        fatalError("Cannot dequeue ChartSectionHeader")
-                    }
-                    return header
-                } else if kind == UICollectionView.elementKindSectionFooter {
-                    guard let footer = collectionView.dequeueReusableSupplementaryView(
-                        ofKind: kind,
-                        withReuseIdentifier: ButtonSectionFooter.reuseIdentifier,
-                        for: indexPath
-                    ) as? ButtonSectionFooter else {
-                        fatalError("Cannot dequeue ChartSectionFooter")
-                    }
-                    footer.configure(title: "TOP 100 전체듣기")
-                    return footer
-                }
-            default:
-                fatalError("No such Reusable View")
-            }
-            
-            fatalError("Missing supplementary view logic for kind: \(kind)")
+        guard let sectionType = SectionType(rawValue: indexPath.section) else {
+            fatalError("Invalid section index")
         }
+        
+        switch sectionType {
+        case .personalized:
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
+                    for: indexPath
+                ) as? BasicSectionHeader else {
+                    fatalError("Cannot dequeue PersonalizedSectionHeader")
+                }
+                header.configure(title: "닉네임을 위한 추천")
+                return header
+            }
+        case .popular:
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: BasicSectionHeader.reuseIdentifier,
+                    for: indexPath
+                ) as? BasicSectionHeader else {
+                    fatalError("Cannot dequeue PopularSectionHeader")
+                }
+                header.configure(title: "인기 선곡")
+                return header
+            }
+        case .latest:
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: LatestSectionHeader.reuseIdentifier,
+                    for: indexPath
+                ) as? LatestSectionHeader else {
+                    fatalError("Cannot dequeue LatestSectionHeader")
+                }
+                header.configure(action: { type in // API 호출 코드 작성
+                    Task {
+                        do {
+                            self.newestSongList = try await self.service.fetchNewestSongs(area: type)
+                            collectionView.reloadData()
+                        } catch {
+                            print("❌ Newest \(type.rawValue) API 응답 오류:", error)
+                        }
+                    }
+                })
+                return header
+            }
+        case .chart:
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: ChartSectionHeader.reuseIdentifier,
+                    for: indexPath
+                ) as? ChartSectionHeader else {
+                    fatalError("Cannot dequeue ChartSectionHeader")
+                }
+                return header
+            } else if kind == UICollectionView.elementKindSectionFooter {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: ButtonSectionFooter.reuseIdentifier,
+                    for: indexPath
+                ) as? ButtonSectionFooter else {
+                    fatalError("Cannot dequeue ChartSectionFooter")
+                }
+                footer.configure(title: "TOP 100 전체듣기")
+                return footer
+            }
+        default:
+            fatalError("No such Reusable View")
+        }
+        
+        fatalError("Missing supplementary view logic for kind: \(kind)")
+    }
 }
