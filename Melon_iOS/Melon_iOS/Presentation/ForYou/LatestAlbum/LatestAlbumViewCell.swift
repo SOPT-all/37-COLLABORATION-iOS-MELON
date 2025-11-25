@@ -4,6 +4,7 @@
 //
 //  Created by mandoo on 11/25/25.
 //
+
 import UIKit
 
 import SnapKit
@@ -93,7 +94,7 @@ final class LatestAlbumViewCell: BaseUITableViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extension
 
 extension LatestAlbumViewCell {
     func configure(title: String, artistName: String, imageUrl: String?, isTitleTrack: Bool) {
