@@ -22,14 +22,14 @@ struct AlbumTrackDTO: Decodable {
     let artistName: String
     let playCount: Int
     let country: String
-    let imgUrl: String?
+    let imageUrl: String?
 }
 
-struct LatestAlbumDTO: Decodable {
+struct AlbumDTO: Decodable {
     let id: Int
     let title: String
-    let imgUrl: String?
+    let imageUrl: String?
     let artistName: String
-    let coverImgUrl: String?
-    let albumTracks: [AlbumTrackDTO]
+    let coverImageUrl: String?
+    let musicList: [AlbumTrackDTO]
 }
