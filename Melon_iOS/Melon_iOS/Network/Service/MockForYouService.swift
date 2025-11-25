@@ -39,23 +39,23 @@ extension MockCustomSongService {
 }
 
 private let mockAlbumTrack: [AlbumTrackDTO] = [
-    AlbumTrackDTO(id: 101, title: "HOME.", artistName: "Armani White", playCount: 50000, country: "USA", imgUrl: "img_fan_2"),
-    AlbumTrackDTO(id: 102, title: "GHOST.", artistName: "Armani White", playCount: 65000, country: "USA", imgUrl: "img_fan_2"),
-    AlbumTrackDTO(id: 103, title: "CUT THE LIGHTS.", artistName: "Armani White", playCount: 72000, country: "USA", imgUrl: "img_fan_2"),
-    AlbumTrackDTO(id: 104, title: "BIGGER PERSON.", artistName: "Armani White", playCount: 72000, country: "USA", imgUrl: "img_fan_2")
+    AlbumTrackDTO(id: 101, title: "HOME.", artistName: "Armani White", playCount: 50000, country: "USA", imageUrl: "img_fan_2"),
+    AlbumTrackDTO(id: 102, title: "GHOST.", artistName: "Armani White", playCount: 65000, country: "USA", imageUrl: "img_fan_2"),
+    AlbumTrackDTO(id: 103, title: "CUT THE LIGHTS.", artistName: "Armani White", playCount: 72000, country: "USA", imageUrl: "img_fan_2"),
+    AlbumTrackDTO(id: 104, title: "BIGGER PERSON.", artistName: "Armani White", playCount: 72000, country: "USA", imageUrl: "img_fan_2")
 ]
 
 final class MockLatestAlbumService {}
 
 extension MockLatestAlbumService {
-    static let mockData: [LatestAlbumDTO] = [
-        LatestAlbumDTO(
+    static let mockData: [AlbumDTO] = [
+        AlbumDTO(
             id: 201,
             title: "THERE’S A GHOST IN MY HOUSE.",
-            imgUrl: "img_fan_1",
+            imageUrl: "img_fan_1",
             artistName: "Various Artists",
-            coverImgUrl: "Img_album_background",
-            albumTracks: mockAlbumTrack
+            coverImageUrl: "Img_album_background",
+            musicList: mockAlbumTrack
         )
     ]
 }
