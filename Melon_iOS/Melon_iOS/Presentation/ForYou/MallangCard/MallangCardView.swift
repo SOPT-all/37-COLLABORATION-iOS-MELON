@@ -10,11 +10,17 @@ import UIKit
 import SnapKit
 import Then
 
+protocol MallangCardViewDelegate: AnyObject {
+    func listenButtonTapped()
+}
+
 final class MallangCardView: BaseUIView {
     
     // MARK: - Properties
     
-    var mallangListenButtonAction: (() -> Void)?
+    weak var delegate: MallangCardViewDelegate?
+    
+    // MARK: - UI Components
     
     private let mallangCardImageView = UIImageView().then {
         $0.image = .card1Ios
@@ -32,7 +38,7 @@ final class MallangCardView: BaseUIView {
         imageSize: 32,
         imageTextSpacing: 2,
         action: { [weak self] in
-            self?.mallangListenButtonAction?()
+            self?.delegate?.listenButtonTapped()
         }
     )
     
@@ -41,19 +47,6 @@ final class MallangCardView: BaseUIView {
         label: "취향 설정하기",
         font: .pretendard(.body_r_14)
     )
-    
-    // MARK: - Init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUI()
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Setup Methods
     
@@ -80,7 +73,7 @@ final class MallangCardView: BaseUIView {
             $0.top.equalTo(mallangCardImageView.snp.bottom).offset(28)
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(204)
-            $0.bottom.equalToSuperview() 
+            $0.bottom.equalToSuperview()
         }
         
         mallangListenButton.snp.makeConstraints {
