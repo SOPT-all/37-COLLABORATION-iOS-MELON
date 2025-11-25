@@ -21,11 +21,8 @@ final class CustomSongView: BaseUIView {
         $0.textAlignment = .center
     }
     
-    let pageControl = UIPageControl().then {
-        $0.numberOfPages = 4
-        $0.currentPage = 0
-        $0.pageIndicatorTintColor = UIColor.white.withAlphaComponent(0.5)
-        $0.currentPageIndicatorTintColor = .white
+    private let pageControl = UIImageView().then {
+        $0.image = .icLoading
     }
     
     let collectionView: UICollectionView = {
@@ -40,9 +37,7 @@ final class CustomSongView: BaseUIView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
         cv.register(CustomSongViewCell.self, forCellWithReuseIdentifier: CustomSongViewCell.reuseIdentifier)
-        cv.isPagingEnabled = true
         cv.showsHorizontalScrollIndicator = false
-        cv.alwaysBounceHorizontal = true
         return cv
     }()
     
@@ -70,9 +65,9 @@ final class CustomSongView: BaseUIView {
         }
         
         pageControl.snp.makeConstraints {
-            $0.trailing.equalToSuperview()
+            $0.size.equalTo(35)
+            $0.trailing.equalToSuperview().inset(12)
             $0.centerY.equalTo(titleLabel)
-            $0.height.equalTo(3)
         }
         
         collectionView.snp.makeConstraints {
@@ -81,11 +76,5 @@ final class CustomSongView: BaseUIView {
             $0.height.equalTo(212)
             $0.bottom.equalToSuperview().inset(9.5)
         }
-    }
-    
-    //MARK: - Private Methods
-    
-    func updatIndicator(currentPage: Int) {
-        pageControl.currentPage = currentPage
     }
 }

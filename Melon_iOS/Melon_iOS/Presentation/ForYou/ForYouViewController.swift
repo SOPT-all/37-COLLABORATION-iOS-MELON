@@ -33,8 +33,6 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
         setLatestAlbumView()
         
         loadData()
-        
-        forYouView.customSongView.pageControl.currentPage = 0
     }
     
     // MARK: - Setup Methods
@@ -201,18 +199,6 @@ extension ForYouViewController: UICollectionViewDataSource {
                 isSelected: item.isSelected
             )
             return cell
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if scrollView == forYouView.customSongView.collectionView {
-            
-            let pageWidth = UIScreen.main.bounds.width - 64.0
-            let contentOffsetX = scrollView.contentOffset.x
-            
-            let currentPage = Int(round(contentOffsetX / pageWidth))
-            
-            forYouView.customSongView.pageControl.currentPage = currentPage
         }
     }
 }
