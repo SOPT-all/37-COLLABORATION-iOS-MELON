@@ -15,13 +15,14 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
     // MARK: - Properties
     
     private let forYouView = ForYouView()
+    private let service = ForYouService()
     
     var basedTasteItems = RecommendationItem.basedTaste
     var basedSituationItems = RecommendationItem.basedSituation
-    let customSongItems = MockCustomSongService.mockData
     
-    private let albumData = MockLatestAlbumService.mockData.first
-    private let albumTracks = MockLatestAlbumService.mockData.first?.albumTracks ?? []
+    var customSongs: [CustomSongDTO] = []
+    var latestAlbum: AlbumDTO?
+    var albumTracks: [AlbumTrackDTO] = []
     
     // MARK: - Lifecycle
     
@@ -30,6 +31,8 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
         
         setDelegateAndDataSource()
         setLatestAlbumView()
+        
+        loadData()
         
         forYouView.customSongView.pageControl.currentPage = 0
     }
@@ -64,12 +67,37 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     private func setLatestAlbumView() {
-        if let data = albumData {
+        if let data = latestAlbum {
             forYouView.latestAlbumView.configure(
                 title: data.title,
-                coverUrl: data.coverImgUrl,
-                albumUrl: data.imgUrl
+                coverUrl: data.coverImageUrl,
+                albumUrl: data.imageUrl
             )
+        }
+    }
+    
+    // MARK: - API Calls
+    
+    private func loadData() {
+        Task {
+            do {
+                let fetchCustomSongs = try await service.fetchCustomSongs()
+                self.customSongs = fetchCustomSongs
+                self.forYouView.customSongView.collectionView.reloadData()
+            } catch {
+                print("❌ Custom Songs API 응답 오류:", error)
+            }
+            
+            do {
+                let fetchAlbum = try await service.fetchAlbumSongs(albumId: 1)
+                self.latestAlbum = fetchAlbum
+                self.albumTracks = fetchAlbum.musicList
+                self.setLatestAlbumView()
+                self.forYouView.latestAlbumView.tableView.reloadData()
+                
+            } catch {
+                print("❌ Album Songs API 응답 오류:", error)
+            }
         }
     }
     
@@ -101,7 +129,7 @@ extension ForYouViewController: MallangCardViewDelegate {
 extension ForYouViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == forYouView.customSongView.collectionView {
-            return customSongItems.count / 3
+            return customSongs.count / 3
         }
         return 1
     }
@@ -135,7 +163,7 @@ extension ForYouViewController: UICollectionViewDataSource {
             cell.delegate = self
             
             let index = indexPath.section * 3 + indexPath.item
-            let item = customSongItems[index]
+            let item = customSongs[index]
             
             cell.configure(
                 title: item.title,
@@ -233,7 +261,7 @@ extension ForYouViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(
             title: track.title,
             artistName: track.artistName,
-            imageUrl: track.imgUrl,
+            imageUrl: track.imageUrl,
             isTitleTrack: isTitleTrack
         )
         return cell
