@@ -128,6 +128,8 @@ final class LatestAlbumView: BaseUIView {
     }
 }
 
+// MARK: - Extension
+
 extension LatestAlbumView {
     func configure(title: String, coverUrl: String?, albumUrl: String?) {
         albumNameLabel.text = title

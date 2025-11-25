@@ -4,13 +4,14 @@
 //
 //  Created by mandoo on 11/25/25.
 //
+
 import UIKit
 
 import SnapKit
 import Then
 import Kingfisher
 
-final class LatestAlbumViewCell: UITableViewCell {
+final class LatestAlbumViewCell: BaseUITableViewCell {
     
     // MARK: - Properties
     
@@ -50,22 +51,9 @@ final class LatestAlbumViewCell: UITableViewCell {
         $0.textAlignment = .center
     }
     
-    // MARK: - Init
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setUI()
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - Setup Methods
     
-    private func setUI() {
+    override func setUI() {
         contentView.addSubviews(songImageView, titleChipView, songLabel, artistLabel)
         titleChipView.addSubview(titleChipLabel)
         
@@ -74,7 +62,7 @@ final class LatestAlbumViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    private func setLayout() {
+    override func setLayout() {
         
         songImageView.snp.makeConstraints {
             $0.leading.equalToSuperview()
@@ -106,7 +94,7 @@ final class LatestAlbumViewCell: UITableViewCell {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extension
 
 extension LatestAlbumViewCell {
     func configure(title: String, artistName: String, imageUrl: String?, isTitleTrack: Bool) {
