@@ -11,28 +11,28 @@ import SnapKit
 import Then
 
 final class BasicSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable {
-  
-  // MARK: - UI Components
-  
-  private let label = UILabel().then {
-    $0.font = UIFont.pretendard(.heading_b_20)
-    $0.textColor = .white
-  }
-  
-  // MARK: - Setup Methods
-  
-  override func setUI() {
-    addSubview(label)
-  }
-  
-  override func setLayout() {
-    label.snp.makeConstraints {
-      $0.leading.equalToSuperview()
-      $0.bottom.equalToSuperview().inset(12)
+    
+    // MARK: - UI Components
+    
+    private let label = UILabel().then {
+        $0.font = UIFont.pretendard(.heading_b_20)
+        $0.textColor = .white
     }
-  }
-  
-  func configure(title: String) {
-    label.text = title
-  }
+    
+    // MARK: - Setup Methods
+    
+    override func setUI() {
+        addSubview(label)
+    }
+    
+    override func setLayout() {
+        label.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(12)
+        }
+    }
+    
+    func configure(title: String) {
+        label.text = title
+    }
 }
