@@ -18,15 +18,19 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
     
     var basedTasteItems = RecommendationItem.basedTaste
     var basedSituationItems = RecommendationItem.basedSituation
-    let customSongItems = CustomSongDTO.mockData
+    let customSongItems = MockCustomSongService.mockData
+    
+    private let albumData = MockLatestAlbumService.mockData.first
+    private let albumTracks = MockLatestAlbumService.mockData.first?.albumTracks ?? []
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
-        setMallangListenButtonAction()
+        setDelegateAndDataSource()
+        setLatestAlbumView()
+        
         forYouView.customSongView.pageControl.currentPage = 0
     }
     
@@ -42,37 +46,59 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
         }
     }
     
-    private func setupCollectionView() {
+    private func setDelegateAndDataSource() {
         let rv = forYouView.recommendView
         let cv = forYouView.customSongView.collectionView
+        let tv = forYouView.latestAlbumView.tableView
         
-        rv.tasteCollectionView.delegate = self
-        rv.tasteCollectionView.dataSource = self
-        rv.situationCollectionView.delegate = self
-        rv.situationCollectionView.dataSource = self
+        [rv.tasteCollectionView, rv.situationCollectionView, cv].forEach { collectionView in
+            collectionView.delegate = self
+            collectionView.dataSource = self
+        }
         
-        cv.delegate = self
-        cv.dataSource = self
+        tv.dataSource = self
+        tv.delegate = self
+        
+        forYouView.latestAlbumView.delegate = self
+        forYouView.cardView.delegate = self
+    }
+    
+    private func setLatestAlbumView() {
+        if let data = albumData {
+            forYouView.latestAlbumView.configure(
+                title: data.title,
+                coverUrl: data.coverImgUrl,
+                albumUrl: data.imgUrl
+            )
+        }
     }
     
     // MARK: - Private Methods
     
-    private func setMallangListenButtonAction () {
-        forYouView.cardView.mallangListenButtonAction = { [weak self] in
-            let toast = ToastMessage()
-            self?.view.addSubview(toast)
-            toast.configure(action: {
-                
-            })
-            toast.show()
-        }
+    private func presentToast() {
+        let toast = ToastMessage()
+        self.view.addSubview(toast)
+        
+        toast.configure(action: { [weak self] in
+            guard let self = self else { return }
+            
+            let mixUpVC = MixUpViewController()
+            self.navigationController?.pushViewController(mixUpVC, animated: true)
+            toast.removeFromSuperview()
+        })
+        toast.show()
     }
 }
 
 // MARK: - Extension
 
+extension ForYouViewController: MallangCardViewDelegate {
+    func listenButtonTapped() {
+        presentToast()
+    }
+}
+
 extension ForYouViewController: UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         if collectionView == forYouView.customSongView.collectionView {
             return customSongItems.count / 3
@@ -113,7 +139,7 @@ extension ForYouViewController: UICollectionViewDataSource {
             
             cell.configure(
                 title: item.title,
-                artist: item.artist,
+                artist: item.artistName,
                 imageUrl: item.imageUrl,
                 itemIndex: indexPath.item
             )
@@ -184,13 +210,43 @@ extension ForYouViewController: RecommendViewCellDelegate {
 
 extension ForYouViewController: CustomSongViewCellDelegate {
     func mixUpButtonTapped(in cell: CustomSongViewCell) {
+        presentToast()
+    }
+}
+
+extension ForYouViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return albumTracks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: LatestAlbumViewCell.identifier,
+            for: indexPath
+        ) as? LatestAlbumViewCell else {
+            return UITableViewCell()
+        }
         
-        let toast = ToastMessage()
-        self.view.addSubview(toast)
-        toast.configure(action: {
-            
-        })
-        toast.show()
+        let track = albumTracks[indexPath.row]
+        let isTitleTrack = (indexPath.row == 0)
+        
+        cell.configure(
+            title: track.title,
+            artistName: track.artistName,
+            imageUrl: track.imgUrl,
+            isTitleTrack: isTitleTrack
+        )
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 41
+    }
+}
+
+extension ForYouViewController: LatestAlbumViewDelegate {
+    func mixUpButtonTapped() {
+        presentToast()
     }
 }
 

@@ -8,25 +8,28 @@
 import Foundation
 
 struct CustomSongDTO: Decodable {
+    let id: Int
     let title: String
-    let artist: String
+    let artistName: String
+    let playCount: Int
+    let country: String
     let imageUrl: String?
-    
-    static let mockData: [CustomSongDTO] = [
-        CustomSongDTO(title: "Blue Valentine", artist: "NMIXX", imageUrl: nil),
-        CustomSongDTO(title: "XOXZ", artist: "IVE", imageUrl: nil),
-        CustomSongDTO(title: "Show Must Go On", artist: "Bryan Chase,pH-1", imageUrl: nil),
-        
-        CustomSongDTO(title: "Super Shy", artist: "NewJeans", imageUrl: nil),
-        CustomSongDTO(title: "I AM", artist: "IVE", imageUrl: nil),
-        CustomSongDTO(title: "Spicy", artist: "aespa", imageUrl: nil),
-        
-        CustomSongDTO(title: "ETA", artist: "NewJeans", imageUrl: nil),
-        CustomSongDTO(title: "Love Lee", artist: "AKMU (악뮤)", imageUrl: nil),
-        CustomSongDTO(title: "Seven (feat. Latto)", artist: "정국", imageUrl: nil),
-        
-        CustomSongDTO(title: "Hype Boy", artist: "NewJeans", imageUrl: nil),
-        CustomSongDTO(title: "Fast Forward", artist: "전소미", imageUrl: nil),
-        CustomSongDTO(title: "Smoke (Prod. Dynamic Duo, Padi)", artist: "다이나믹 듀오", imageUrl: nil)
-    ]
+}
+
+struct AlbumTrackDTO: Decodable {
+    let id: Int
+    let title: String
+    let artistName: String
+    let playCount: Int
+    let country: String
+    let imgUrl: String?
+}
+
+struct LatestAlbumDTO: Decodable {
+    let id: Int
+    let title: String
+    let imgUrl: String?
+    let artistName: String
+    let coverImgUrl: String?
+    let albumTracks: [AlbumTrackDTO]
 }
