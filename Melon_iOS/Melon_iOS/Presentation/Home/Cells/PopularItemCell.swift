@@ -68,6 +68,7 @@ final class PopularItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
     infoStackView.snp.makeConstraints {
       $0.leading.equalTo(imageView.snp.trailing).offset(12)
       $0.centerY.equalToSuperview()
+      $0.trailing.equalTo(mixUpButton.snp.leading).inset(-25)
     }
     
     mixUpButton.snp.makeConstraints {

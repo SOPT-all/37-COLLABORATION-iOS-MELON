@@ -47,7 +47,7 @@ final class ChartItemCell: BaseUICollectionViewCell, ReuseIdentifiable {
   private let titleLabel = UILabel().then {
     $0.font = UIFont.pretendard(.body_r_14)
     $0.textColor = .white
-    $0.numberOfLines = 2
+    $0.numberOfLines = 1
   }
   
   private let artistLabel = UILabel().then {
