@@ -11,57 +11,57 @@ import SnapKit
 import Then
 
 final class HomeChipCell : BaseUICollectionViewCell, ReuseIdentifiable {
-  
-  // MARK: - Properties
-  
-  static let horizontalPadding: CGFloat = 20
-  
-  // MARK: - UI Components
-  
-  private let capsuleButton = UIButton().then {
-    $0.layer.borderColor = UIColor.gray400.cgColor
-    $0.layer.borderWidth = 0.5
-    $0.layer.cornerRadius = 18.5
-    $0.clipsToBounds = true
-  }
-  
-  private let label = UILabel().then {
-    $0.font = UIFont.pretendard(.body_r_14)
-    $0.textColor = .white
-    $0.textAlignment = .center
-  }
-  
-  // MARK: - Setup Methods
-  
-  override func setUI() {
-    addSubviews(capsuleButton, label)
-  }
-  
-  override func setLayout() {
-    capsuleButton.snp.makeConstraints {
-      $0.height.equalTo(37)
-      $0.width.equalTo(label.snp.width).inset(-HomeChipCell.horizontalPadding)
-      $0.centerY.equalToSuperview()
+    
+    // MARK: - Properties
+    
+    static let horizontalPadding: CGFloat = 20
+    
+    // MARK: - UI Components
+    
+    private let capsuleButton = UIButton().then {
+        $0.layer.borderColor = UIColor.gray400.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.layer.cornerRadius = 18.5
+        $0.clipsToBounds = true
     }
     
-    label.snp.makeConstraints {
-      $0.center.equalTo(capsuleButton)
+    private let label = UILabel().then {
+        $0.font = UIFont.pretendard(.body_r_14)
+        $0.textColor = .white
+        $0.textAlignment = .center
     }
-  }
-  
-  // MARK: Public Methods
     
-  func selected() {
-    capsuleButton.backgroundColor = .primary
-    capsuleButton.layer.borderColor = UIColor.primary.cgColor
-  }
-  
-  func deselected() {
-    capsuleButton.backgroundColor = .background
-    capsuleButton.layer.borderColor = UIColor.gray400.cgColor
-  }
-  
-  func configure(with text: String) {
-    label.text = text
-  }
+    // MARK: - Setup Methods
+    
+    override func setUI() {
+        addSubviews(capsuleButton, label)
+    }
+    
+    override func setLayout() {
+        capsuleButton.snp.makeConstraints {
+            $0.height.equalTo(37)
+            $0.width.equalTo(label.snp.width).inset(-HomeChipCell.horizontalPadding)
+            $0.centerY.equalToSuperview()
+        }
+        
+        label.snp.makeConstraints {
+            $0.center.equalTo(capsuleButton)
+        }
+    }
+    
+    // MARK: Public Methods
+    
+    func selected() {
+        capsuleButton.backgroundColor = .primary
+        capsuleButton.layer.borderColor = UIColor.primary.cgColor
+    }
+    
+    func deselected() {
+        capsuleButton.backgroundColor = .background
+        capsuleButton.layer.borderColor = UIColor.gray400.cgColor
+    }
+    
+    func configure(with text: String) {
+        label.text = text
+    }
 }
