@@ -32,6 +32,7 @@ final class ForYouView: BaseUIView {
     let recommendView = RecommendView()
     let progressBar = ProgressBar(style: .normal)
     let customSongView = CustomSongView()
+    let latestAlbumView = LatestAlbumView()
     
     // MARK: - Setup Methods
     
@@ -45,7 +46,8 @@ final class ForYouView: BaseUIView {
             forYouLabel,
             cardView,
             recommendView,
-            customSongView
+            customSongView,
+            latestAlbumView
         )
     }
     
@@ -80,7 +82,13 @@ final class ForYouView: BaseUIView {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.top.equalTo(recommendView.snp.bottom).offset(28)
             $0.height.equalTo(288)
-            $0.bottom.equalToSuperview().inset(210)
+        }
+        
+        latestAlbumView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(customSongView.snp.bottom).offset(28)
+            $0.height.equalTo(440)
+            $0.bottom.equalToSuperview().inset(100)
         }
         
         progressBar.snp.makeConstraints {
