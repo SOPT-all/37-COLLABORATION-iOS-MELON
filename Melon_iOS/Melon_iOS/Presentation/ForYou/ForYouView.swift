@@ -32,6 +32,13 @@ final class ForYouView: BaseUIView {
     let recommendView = RecommendView()
     let progressBar = ProgressBar(style: .normal)
     let customSongView = CustomSongView()
+    
+    private let latestAlbumLabel = UILabel().then {
+        $0.font = .pretendard(.caption_r_12)
+        $0.text = "팬맺은 아티스트의 최신앨범"
+        $0.textColor = .gray200
+    }
+    
     let latestAlbumView = LatestAlbumView()
     
     // MARK: - Setup Methods
@@ -47,6 +54,7 @@ final class ForYouView: BaseUIView {
             cardView,
             recommendView,
             customSongView,
+            latestAlbumLabel,
             latestAlbumView
         )
     }
@@ -84,9 +92,15 @@ final class ForYouView: BaseUIView {
             $0.height.equalTo(288)
         }
         
-        latestAlbumView.snp.makeConstraints {
+        latestAlbumLabel.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.top.equalTo(customSongView.snp.bottom).offset(28)
+            $0.height.equalTo(18)
+        }
+        
+        latestAlbumView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.top.equalTo(latestAlbumLabel.snp.bottom).offset(8)
             $0.height.equalTo(440)
             $0.bottom.equalToSuperview().inset(100)
         }
