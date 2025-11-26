@@ -69,17 +69,23 @@ final class TabBarController: UITabBarController {
     
     private func setViewControllers() {
         let topMargin: CGFloat = 7.0
+            
         self.viewControllers = Tab.allCases.map { tab in
-            let vc = tab.viewController
+            let rootVC = tab.viewController
+            let nav = UINavigationController(rootViewController: rootVC)
+            nav.isNavigationBarHidden = true
             
             let icon = resizeImage(image: tab.imageName).withRenderingMode(.alwaysOriginal)
             let selectedIcon = resizeImage(image: tab.selectedImageName).withRenderingMode(.alwaysOriginal)
             
-            let tabBarItem = UITabBarItem(title: nil, image: icon, selectedImage: selectedIcon)
-            tabBarItem.tag = tab.rawValue
-            tabBarItem.imageInsets = UIEdgeInsets(top: topMargin, left: 0, bottom: -topMargin, right: 0)
-            vc.tabBarItem = tabBarItem
-            return vc
+            nav.tabBarItem = UITabBarItem(title: nil,
+                                          image: icon,
+                                          selectedImage: selectedIcon)
+            nav.tabBarItem.tag = tab.rawValue
+            nav.tabBarItem.imageInsets = UIEdgeInsets(top: topMargin, left: 0,
+                                                      bottom: -topMargin, right: 0)
+            
+            return nav
         }
     }
     
@@ -131,5 +137,3 @@ extension TabBarController: UITabBarControllerDelegate {
         }
     }
 }
-
-
