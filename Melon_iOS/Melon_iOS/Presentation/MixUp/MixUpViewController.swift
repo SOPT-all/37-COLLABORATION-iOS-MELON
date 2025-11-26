@@ -101,7 +101,8 @@ extension MixUpViewController: MixUpViewDelegate {
 
     func didTapChevronDown() {
 
-        if let tabBar = UIApplication.shared.windows.first?.rootViewController as? TabBarController {
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let tabBar = scene.windows.first?.rootViewController as? TabBarController {
             tabBar.selectedIndex = 0
         }
 
