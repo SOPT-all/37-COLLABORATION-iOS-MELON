@@ -11,7 +11,7 @@
 
 | **Home** | **MixUp** | **ForYou** | 
 | :---: | :---: | :---: | 
-| <img src="https://github.com/user-attachments/assets/97a27c26-9f7b-43fa-88a5-415b763888ac" width="300" alt="멜론 앱 UI 스크린샷 1"> | <img src="https://github.com/user-attachments/assets/5838a1e5-3896-4e98-a118-664555b17904" width="300" alt="멜론 앱 UI 스크린샷 2"> | <img src="https://github.com/user-attachments/assets/4e79959f-ef24-44c4-8d06-273d1df4c72d" width="300" alt="멜론 앱 UI 스크린샷 3"> | 
+| <img src="https://github.com/user-attachments/assets/97a27c26-9f7b-43fa-88a5-415b763888ac" width="250" alt="멜론 앱 UI 스크린샷 1"> | <img src="https://github.com/user-attachments/assets/5838a1e5-3896-4e98-a118-664555b17904" width="250" alt="멜론 앱 UI 스크린샷 2"> | <img src="https://github.com/user-attachments/assets/4e79959f-ef24-44c4-8d06-273d1df4c72d" width="250" alt="멜론 앱 UI 스크린샷 3"> | 
 
 ## 🛠️ Library & Stack
 
@@ -81,5 +81,3 @@ feat/#1-loginUI
 │   ├── 📁 Home
 │   └── 📁 MixUp
 ```
-
-## ☄️ Trouble Shooting
