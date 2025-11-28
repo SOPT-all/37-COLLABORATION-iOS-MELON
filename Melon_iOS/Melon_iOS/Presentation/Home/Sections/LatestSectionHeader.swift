@@ -32,18 +32,21 @@ final class LatestSectionHeader: BaseUICollectionReusableView, ReuseIdentifiable
         $0.setTitle("전체", for: .normal)
         $0.setTitleColor(.gray200, for: .normal)
         $0.setTitleColor(.primary, for: .selected)
+        $0.titleLabel?.font = .pretendard(.body_sb_16)
     }
     
     private let domesticButton = UIButton().then {
         $0.setTitle("국내", for: .normal)
         $0.setTitleColor(.gray200, for: .normal)
         $0.setTitleColor(.primary, for: .selected)
+        $0.titleLabel?.font = .pretendard(.body_m_14)
     }
     
     private let overseasButton = UIButton().then {
         $0.setTitle("해외", for: .normal)
         $0.setTitleColor(.gray200, for: .normal)
         $0.setTitleColor(.primary, for: .selected)
+        $0.titleLabel?.font = .pretendard(.body_m_14)
     }
     
     private let seeAllButton = UIButton().then {

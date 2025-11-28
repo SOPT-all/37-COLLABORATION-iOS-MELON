@@ -18,7 +18,7 @@ final class ButtonSectionFooter: BaseUICollectionReusableView, ReuseIdentifiable
         style: .filledBlack,
         label: "TOP 100 전체듣기",
         font: .pretendard(.body_m_14),
-        image: .icPause24,
+        image: .icPlay24,
         imageSize: 24,
         imageTextSpacing: 4,)
     
