@@ -107,9 +107,17 @@ final class ForYouViewController: BaseViewController, UICollectionViewDelegate {
         
         toast.configure(action: { [weak self] in
             guard let self = self else { return }
-            
             let mixUpVC = MixUpViewController()
-            self.navigationController?.pushViewController(mixUpVC, animated: true)
+            
+            let transition = CATransition().then {
+                $0.duration = 0.3
+                $0.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                $0.type = .moveIn
+                $0.subtype = .fromTop
+            }
+            self.navigationController?.view.layer.add(transition, forKey: nil)
+            self.navigationController?.pushViewController(mixUpVC, animated: false)
+            
             toast.removeFromSuperview()
         })
         toast.show()
