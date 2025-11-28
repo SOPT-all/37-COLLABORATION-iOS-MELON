@@ -14,6 +14,10 @@ final class ForYouView: BaseUIView {
     
     // MARK: - UI Components
     
+    private let statusBarBgView = UIView().then {
+        $0.backgroundColor = .background
+    }
+    
     private let scrollView = UIScrollView().then {
         $0.showsVerticalScrollIndicator = false
         $0.alwaysBounceVertical = true
@@ -46,7 +50,7 @@ final class ForYouView: BaseUIView {
     override func setUI() {
         backgroundColor = .background
         
-        addSubviews(scrollView, progressBar)
+        addSubviews(scrollView, statusBarBgView, progressBar)
         scrollView.addSubview(contentView)
         
         contentView.addSubviews(
@@ -60,6 +64,12 @@ final class ForYouView: BaseUIView {
     }
     
     override func setLayout() {
+        
+        statusBarBgView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(safeAreaLayoutGuide.snp.top)
+        }
         
         scrollView.snp.makeConstraints {
             $0.edges.equalToSuperview()
